@@ -43,7 +43,7 @@ Use the [Documentation](https://kurocado-studio.github.io/dev-ops/document.html)
   jobs:
     document:
       needs: lint
-      uses: kurocado-studio/dev-ops/.github/workflows/workflow.document.yml@main
+      uses: kurocado-studio/platform/.github/workflows/workflow.document.yml@main
       secrets:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
