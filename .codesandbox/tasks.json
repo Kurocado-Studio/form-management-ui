@@ -1,0 +1,62 @@
+{
+  "$schema": "https://codesandbox.io/schemas/tasks.json",
+  "setupTasks": [
+    {
+      "command": "pnpm install",
+      "name": "Install Dependencies"
+    },
+    {
+      "name": "Typecheck",
+      "command": "pnpm typecheck"
+    }
+  ],
+  "tasks": {
+    "Build": {
+      "name": "Build",
+      "command": "pnpm build",
+      "runAtStart": true
+    },
+    "Commitlint": {
+      "name": "Commitlint",
+      "command": "pnpm exec commitlint --edit .git/COMMIT_EDITMSG"
+    },
+    "Dev": {
+      "name": "Dev",
+      "command": "pnpm dev",
+      "runAtStart": true
+    },
+    "Eslint Fix": {
+      "name": "Eslint Fix",
+      "command": "pnpm eslint-fix"
+    },
+    "Lint": {
+      "name": "Lint",
+      "command": "pnpm lint"
+    },
+    "Prettier Check": {
+      "name": "Prettier Check",
+      "command": "pnpm prettier-check"
+    },
+    "Prettier Fix": {
+      "name": "Prettier Fix",
+      "command": "pnpm prettier-fix"
+    },
+    "Start": {
+      "name": "Start",
+      "command": "pnpm start"
+    },
+    "Test": {
+      "name": "Test",
+      "command": "pnpm test",
+      "runAtStart": true
+    },
+    "Typecheck": {
+      "name": "Typecheck",
+      "command": "pnpm typecheck"
+    },
+    "Semantic Release": {
+      "name": "Semantic Release",
+      "command": "pnpm semantic-release"
+    }
+  }
+}

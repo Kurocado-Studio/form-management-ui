@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": [
+    "@kurocado-studio/qa/web/tsconfig.qa",
+    "@kurocado-studio/styleguide/remix/tsconfig"
+  ],
+  "compilerOptions": {
+    "types": ["@types/react", "vitest/globals", "@testing-library/jest-dom"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "rootDir": ".",
+    "baseUrl": ".",
+    "jsx": "react"
+  },
+  "include": [
+    "src",
+    "setup.remix.ts",
+    "tailwind.config.ts",
+    "test",
+    "vite.config.ts",
+    "vitest.config.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

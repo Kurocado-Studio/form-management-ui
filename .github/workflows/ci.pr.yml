@@ -1,0 +1,20 @@
+name: CI/CD Pull Request Pipeline
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    uses: kurocado-studio/dev-ops/.github/workflows/workflow.lint.yml@main
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    needs: lint
+    uses: kurocado-studio/dev-ops/.github/workflows/workflow.test.yml@main
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
