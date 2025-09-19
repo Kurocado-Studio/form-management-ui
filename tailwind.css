@@ -1,6 +1,21 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@source "./node_modules/@kurocado-studio/ui-research-and-development";
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@plugin 'tailwindcss-animate';
 
-@custom-variant dark (&:where(.dark, .dark *));
+@config "./tailwind.config.ts";
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-display: 'Mona-Sans wide', sans-serif;
+  --font-sans: 'Mona-Sans', sans-serif;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}

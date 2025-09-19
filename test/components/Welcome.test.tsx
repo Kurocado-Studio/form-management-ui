@@ -1,12 +1,12 @@
 import { ReactTestingLibrary, renderComponent } from '@kurocado-studio/qa';
 import React from 'react';
 
-import { Welcome } from 'src/components/Welcome';
+import { Demo } from 'src/components/Demo';
 
 const { screen } = ReactTestingLibrary;
 
-describe('Welcome component', () => {
-  beforeEach(() => renderComponent(<Welcome />));
+describe('Demo component', () => {
+  beforeEach(() => renderComponent(<Demo />));
 
   test('renders welcome component properly', () => {
     expect(

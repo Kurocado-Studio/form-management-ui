@@ -17,7 +17,7 @@
     "./stories/**/*",
     "setup.web.ts",
     "src",
-    "tailwind.config.js",
+    "tailwind.config",
     "test",
     "vite.config.ts",
     "vitest.config.ts"
