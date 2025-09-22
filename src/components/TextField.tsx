@@ -1,4 +1,8 @@
 // components/TextField.tsx
+import {
+  Input,
+  Label,
+} from '@kurocado-studio/ui-react-research-and-development';
 import React from 'react';
 
 import { useAriaTextField } from '../lib';
@@ -8,12 +12,15 @@ export function TextField(properties: {
   label?: string;
   description?: string;
 }) {
-  // const { inputProps } = useConformTextField(properties);
-  const { inputProps } = useAriaTextField(properties);
+  const { labelProps, inputProps, descriptionProps, errorMessageProps } =
+    useAriaTextField(properties);
 
   return (
     <>
-      <input className={'w-full h-10 bg-red-100'} {...inputProps} />
+      <Label {...labelProps} />
+      <Input {...inputProps} />
+      <p className={'block w-full'} {...descriptionProps} />
+      <span className={'block w-full'} {...errorMessageProps} />
     </>
   );
 }

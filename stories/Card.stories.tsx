@@ -1,7 +1,7 @@
 import {
   Card,
   type CardProps,
-} from '@kurocado-studio/ui-react-research-and-development/react';
+} from '@kurocado-studio/ui-react-research-and-development';
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 

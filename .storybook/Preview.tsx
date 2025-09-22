@@ -1,5 +1,5 @@
 /* eslint import/no-default-export: 0 */
-import { ThemeProvider } from '@kurocado-studio/ui-react-research-and-development/react';
+import { ThemeProvider } from '@kurocado-studio/ui-react-research-and-development';
 import designTokens from '@kurocado-studio/ui-react-research-and-development/tokens.json';
 import '@kurocado-studio/ui-react-research-and-development/typography.css';
 import { themes } from '@storybook/theming';

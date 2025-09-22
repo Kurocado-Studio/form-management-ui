@@ -1,21 +1,19 @@
 import { FormProvider, useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 import React from 'react';
-import { z } from 'zod';
+import { type ZodObject, type ZodRawShape, z } from 'zod';
+import {twMerge} from "tailwind-merge";
 
 export type HtmlFormProperties = {
   children: React.ReactNode;
+  schema: ZodObject<ZodRawShape>;
   className?: string;
 } & Parameters<typeof useForm>[0];
-
-const schema = z.object({
-  MY_INPUT: z.string().email('Incorrect email format'),
-  MY_INPUT_TWO: z.enum(['General', 'Bugs', 'Collab']),
-});
 
 export function HtmlForm({
   children,
   className,
+    schema,
   ...useFormOptions
 }: HtmlFormProperties): React.ReactNode {
   const [htmlFormProperties] = useForm({
@@ -25,6 +23,7 @@ export function HtmlForm({
 
       const { payload, status, error } = validationResults;
 
+      console.log({ validationResults });
       if (status === 'success') {
         //triggers 'props.handle success(payload)'
         return validationResults;
@@ -44,7 +43,7 @@ export function HtmlForm({
           htmlFormProperties.onSubmit(event);
         }}
         id={htmlFormProperties.id}
-        className={className}
+        className={twMerge('contents', className)}
       >
         {children}
       </form>

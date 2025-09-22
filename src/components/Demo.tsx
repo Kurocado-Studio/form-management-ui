@@ -1,4 +1,3 @@
-import { useField } from '@conform-to/react';
 import { useAxios } from '@kurocado-studio/axios-client-react';
 import {
   Avatar,
@@ -10,6 +9,7 @@ import {
 } from '@kurocado-studio/ui-react-research-and-development';
 import * as React from 'react';
 import { twMerge } from 'tailwind-merge';
+import { z } from 'zod';
 
 import { CONTAINER_MAX_WIDTH } from '../config/constants';
 import { axiosHtmlFormsService } from '../config/htmlFormsServiceInstance';
@@ -25,6 +25,12 @@ const gridLayout: GridProps = {
     base: '12',
   },
 };
+
+const schema = z.object({
+  MY_INPUT: z.string().email('Incorrect email format'),
+  MY_INPUT_THREE: z.string(),
+  MY_INPUT_TWO: z.enum(['General', 'Bugs', 'Collab']),
+});
 
 export function Demo(): React.ReactNode {
   const { size } = useWindowSize();
@@ -61,7 +67,6 @@ export function Demo(): React.ReactNode {
     questionToBeEdited: Record<string, unknown>,
     shouldTriggerPanel: boolean,
   ): void => {
-    console.log(questionToBeEdited);
     setFormToEdit(undefined);
     setQuestionToEdit(questionToBeEdited);
 
@@ -70,10 +75,10 @@ export function Demo(): React.ReactNode {
     }
   };
 
-  const handleSetFormToEdit = (): void => {
+  const handleSetFormToEdit = React.useCallback((): void => {
     setQuestionToEdit(undefined);
     setFormToEdit(data);
-  };
+  }, [data]);
 
   React.useEffect(() => {
     const shouldGetData = [
@@ -85,7 +90,25 @@ export function Demo(): React.ReactNode {
     if (shouldGetData) {
       handler({ url: '/forms/demo', method: 'GET' }).then();
     }
-  }, [data, handler, error, isLoading]);
+
+    if (
+      [
+        data !== undefined,
+        formToEdit === undefined,
+        questionToEdit === undefined,
+      ].every(Boolean)
+    ) {
+      handleSetFormToEdit();
+    }
+  }, [
+    data,
+    handler,
+    questionToEdit,
+    error,
+    formToEdit,
+    isLoading,
+    handleSetFormToEdit,
+  ]);
 
   return (
     <main className='bg-gray-100 flex flex-col h-screen'>
@@ -124,55 +147,33 @@ export function Demo(): React.ReactNode {
               <h1>{data?.title}</h1>
               <h1>{data?.description}</h1>
             </header>
-            {data?.sections.map((section: IFormSection) => {
-              return section.questions.map(
-                ({ question, id, ...rest }: IQuestion) => {
-                  return (
-                    <QuestionControls
-                      question={{ question, id, ...rest }}
-                      setQuestionToEdit={handleSetQuestionToEdit}
-                      className='z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'
-                      key={id}
-                    >
-                      <HtmlForm
-                        id='my-form'
-                        onValidate={(context: {
-                          form: HTMLFormElement;
-                          submitter:
-                            | HTMLInputElement
-                            | HTMLButtonElement
-                            | null;
-                          formData: FormData;
-                        }) => {
-                          return console.log(context.formData);
-                        }}
+            <HtmlForm id='my-form' schema={schema}>
+              {data?.sections.map((section: IFormSection) => {
+                return section.questions.map(
+                  ({ question, id, ...rest }: IQuestion) => {
+                    return (
+                      <QuestionControls
+                        question={{ question, id, ...rest }}
+                        setQuestionToEdit={handleSetQuestionToEdit}
+                        className='z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'
+                        key={id}
                       >
-                        <TextField
-                          name='MY_INPUT'
-                          label='Email'
-                          description="We'll never share it."
-                        />
-                        <TextField
-                          name='MY_INPUT_TWO'
-                          label='Email'
-                          description="We'll never share it."
-                        />
+                        <TextField name='MY_INPUT' label='Email' />
+                        <TextField name='MY_INPUT_TWO' label='Some Email' />
                         <button type='submit'>Submit</button>
-                      </HtmlForm>
-                    </QuestionControls>
-                  );
-                },
-              );
-            })}
-            <div
-              className={
-                'z-10 bg-amber-200 w-screen h-screen absolute left-0 bottom-0 right-0 top-0'
-              }
-              role='button'
-              onClick={() => {
-                handleSetFormToEdit(data);
-              }}
-            ></div>
+                      </QuestionControls>
+                    );
+                  },
+                );
+              })}
+              <div
+                className={
+                  'z-10 w-screen h-screen absolute left-0 bottom-0 right-0 top-0'
+                }
+                role='button'
+                onClick={handleSetFormToEdit}
+              ></div>
+            </HtmlForm>
           </Grid>
         </div>
         <aside className='hidden xl:block  md:w-full md:col-span-4'>
