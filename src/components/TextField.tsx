@@ -11,7 +11,7 @@ export function TextField(properties: {
   name: string;
   label?: string;
   description?: string;
-}) {
+}): React.ReactNode {
   const { labelProps, inputProps, descriptionProps, errorMessageProps } =
     useAriaTextField(properties);
 

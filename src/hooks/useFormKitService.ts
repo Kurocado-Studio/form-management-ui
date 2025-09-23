@@ -1,8 +1,8 @@
 import { get, set } from 'lodash-es';
 import * as React from 'react';
 
-import { QuestionNode } from '../lib';
-import { TextFieldQuestionCreatorDto } from '../types';
+import type { QuestionNode } from '../lib';
+import type { TextFieldQuestionCreatorDto } from '../types';
 import { useCreateQuestion } from './api/useCreateQuestion';
 import { useGetFormById } from './api/useGetFormById';
 

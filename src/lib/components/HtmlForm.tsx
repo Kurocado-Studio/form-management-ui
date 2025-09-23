@@ -20,10 +20,7 @@ export function HtmlForm({
     ...useFormOptions,
     onValidate({ formData }) {
       const validationResults = parseWithZod(formData, { schema });
-
       const { status } = validationResults;
-
-      console.log({ validationResults });
       if (status === 'success') {
         return validationResults;
       }

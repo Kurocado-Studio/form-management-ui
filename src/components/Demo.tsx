@@ -132,7 +132,7 @@ export function Demo(): React.ReactNode {
         {...gridLayout}
         className={twMerge('p-1 flex-1', CONTAINER_MAX_WIDTH)}
       >
-        <aside className='hidden xl:block  md:w-full md:col-span-2'>
+        <aside className='hidden xl:block z-20 md:w-full md:col-span-2'>
           <Card className={'h-full'}>
             <Card.Body>
               <QuestionTypeCreator
@@ -145,43 +145,44 @@ export function Demo(): React.ReactNode {
         </aside>
         <div className='w-full overflow-y-auto col-span-12 lg:col-span-6'>
           <Grid {...gridLayout} className={'relative subgrid'}>
-            <header className='z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'>
+            <header className='relative mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'>
               <h1>{formBeingEdited?.title}</h1>
               <h1>{formBeingEdited?.description}</h1>
             </header>
             <HtmlForm id='my-form' schema={schema}>
-              {formBeingEdited?.sections.map(
-                (section: Record<string, unknown>) => {
-                  return section.questions.map(
-                    ({ question, id, ...rest }: Record<string, unknown>) => {
-                      return (
-                        <QuestionControls
-                          id={id}
-                          question={{ question, id, ...rest }}
-                          setQuestionToEdit={handleSetQuestionToEdit}
-                          className={twMerge(
-                            'z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3',
-                            id === questionBeingEdited?.['id'] &&
-                              'outline-none ring-2 ring-purple-600',
-                          )}
-                          key={id}
-                        >
-                          <TextField name='MY_INPUT' label='Email' />
-                          <TextField name='MY_INPUT_TWO' label='Some Email' />
-                        </QuestionControls>
-                      );
-                    },
+              {sectionBeingEdited?.questions.map(
+                ({ question, id, ...rest }: Record<string, unknown>) => {
+                  return (
+                    <QuestionControls
+                      id={id}
+                      question={{ question, id, ...rest }}
+                      setQuestionToEdit={handleSetQuestionToEdit}
+                      className={twMerge(
+                        'z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3',
+                        id === questionBeingEdited?.['id'] &&
+                          'outline-none ring-2 ring-purple-600',
+                      )}
+                      key={id}
+                    >
+                      <TextField
+                        name={id as string}
+                        label={question as string}
+                      />
+                    </QuestionControls>
                   );
                 },
               )}
-              <div
-                className={
-                  'z-10 w-screen h-screen absolute left-0 bottom-0 right-0 top-0'
-                }
-                role='button'
-                onClick={() => setCurrentView(CurrentViewEnum.FORM)}
-              />
             </HtmlForm>
+            <div
+              className={
+                'z-10 w-screen h-screen absolute left-0 bottom-0 right-0 top-0'
+              }
+              role='button'
+              onClick={() => {
+                setQuestionToEdit(undefined);
+                setCurrentView(CurrentViewEnum.FORM);
+              }}
+            />
           </Grid>
         </div>
         <aside className='hidden xl:block  md:w-full md:col-span-4'>
