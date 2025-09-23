@@ -2,6 +2,27 @@ import type { FieldName, FormId } from '@conform-to/react';
 import type { LabelHTMLAttributes, ReactNode } from 'react';
 import type React from 'react';
 
+
+export type FormNode = Record<string, unknown>
+export type SectionNode = Record<string, unknown>
+export type QuestionNode = Record<string, unknown>
+
+export type QuestionDto = {
+  hidden: true;
+  hint: 'string';
+  name: 'string';
+  question: 'string';
+  required: true;
+  tooltip: 'string';
+};
+
+export type VariantDto = {
+  variantPayload: Record<string, unknown>;
+  variantType: string;
+};
+
+export type TextFieldVariantDto = Record<string, unknown>;
+
 export interface AdditionalAriaTextFieldProperties {
   htmlFor: string;
   required?: boolean;

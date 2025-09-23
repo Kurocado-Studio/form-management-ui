@@ -18,8 +18,8 @@ importers:
         specifier: ^1.9.0
         version: 1.9.0(zod@3.23.0)
       '@kurocado-studio/axios-client-react':
-        specifier: 1.0.1-develop.3
-        version: 1.0.1-develop.3(typescript@5.9.2)
+        specifier: 1.0.1-develop.4
+        version: 1.0.1-develop.4(typescript@5.9.2)
       '@kurocado-studio/html-forms':
         specifier: 1.0.1-develop.1
         version: 1.0.1-develop.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1124,8 +1124,8 @@ packages:
   '@jspm/core@2.1.0':
     resolution: {integrity: sha512-3sRl+pkyFY/kLmHl0cgHiFp2xEqErA8N3ECjMs7serSUBmoJ70lBa0PG5t0IM6WJgdZNyyI0R8YFfi5wM8+mzg==}
 
-  '@kurocado-studio/axios-client-react@1.0.1-develop.3':
-    resolution: {integrity: sha512-QVbQcolYv2x8h8cuj4YZrMCP0tzB5HJUk1+Ix9vlJ5m03Ivoc66T/S7B8x84LHb4TVtVxXjsCA5DO3OHmbaagQ==}
+  '@kurocado-studio/axios-client-react@1.0.1-develop.4':
+    resolution: {integrity: sha512-B31J367yh3tvVU2QTvMAwTi9ZJQyhYYUXhoSCsebghyoiM6tE2u+oxAO1dJXD8Y4cSYdhDWhe1EEIZ2EZtQbuw==}
 
   '@kurocado-studio/html-forms@1.0.0':
     resolution: {integrity: sha512-gDOT43sblcpGunK56cQ4dqRDZYFlSp7tFgBw5Oozq+vwgReoqReK31biNAdwfwaXzfD2/hi8vrPJLsHRPk4gjA==}
@@ -3371,6 +3371,9 @@ packages:
 
   axios@1.12.1:
     resolution: {integrity: sha512-Kn4kbSXpkFHCGE6rBFNwIv0GQs4AvDT80jlveJDKFxjbTYMUeB4QtsdPCv6H8Cm19Je7IU6VFtRl2zWZI0rudQ==}
+
+  axios@1.12.2:
+    resolution: {integrity: sha512-vMJzPewAlRyOgxV2dU0Cuz2O8zzzx9VYtbJOaBgXFeLc4IV/Eg50n4LowmehOOR61S8ZMpc2K5Sa7g6A4jfkUw==}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -8765,15 +8768,15 @@ snapshots:
 
   '@jspm/core@2.1.0': {}
 
-  '@kurocado-studio/axios-client-react@1.0.1-develop.3(typescript@5.9.2)':
+  '@kurocado-studio/axios-client-react@1.0.1-develop.4(typescript@5.9.2)':
     dependencies:
-      axios: 1.12.1
+      axios: 1.12.2
       lodash-es: 4.17.21
       postcss: 8.5.6
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
-      tailwindcss: 4.1.11
-      tailwindcss-animate: 1.0.7(tailwindcss@4.1.11)
+      tailwindcss: 4.1.13
+      tailwindcss-animate: 1.0.7(tailwindcss@4.1.13)
       vue: 3.5.21(typescript@5.9.2)
     transitivePeerDependencies:
       - debug
@@ -12208,6 +12211,14 @@ snapshots:
   axe-core@4.10.3: {}
 
   axios@1.12.1:
+    dependencies:
+      follow-redirects: 1.15.11
+      form-data: 4.0.4
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
+  axios@1.12.2:
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.4
@@ -16363,6 +16374,10 @@ snapshots:
   tailwindcss-animate@1.0.7(tailwindcss@4.1.11):
     dependencies:
       tailwindcss: 4.1.11
+
+  tailwindcss-animate@1.0.7(tailwindcss@4.1.13):
+    dependencies:
+      tailwindcss: 4.1.13
 
   tailwindcss@4.1.11: {}
 

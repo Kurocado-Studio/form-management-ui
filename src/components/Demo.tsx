@@ -1,4 +1,3 @@
-import { useAxios } from '@kurocado-studio/axios-client-react';
 import {
   Avatar,
   Button,
@@ -12,8 +11,7 @@ import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 
 import { CONTAINER_MAX_WIDTH } from '../config/constants';
-import { axiosHtmlFormsService } from '../config/htmlFormsServiceInstance';
-import { useWindowSize } from '../hooks/useWindowSize';
+import { useFormKitService } from '../hooks/useFormKitService';
 import { HtmlForm } from '../lib';
 import { QuestionControls } from './QuestionControls';
 import { QuestionTypeCreator } from './QuestionTypeCreator';
@@ -32,10 +30,26 @@ const schema = z.object({
   MY_INPUT_TWO: z.enum(['General', 'Bugs', 'Collab']),
 });
 
-export function Demo(): React.ReactNode {
-  const { size } = useWindowSize();
+enum CurrentViewEnum {
+  QUESTION = 'QUESTION',
+  SECTION = 'SECTION',
+  FORM = 'FORM',
+}
 
-  const shouldTriggerMobilePanel = size.innerWidth < 1370;
+export function Demo(): React.ReactNode {
+  const {
+    isApiInProgress,
+    sectionBeingEdited,
+    questionBeingEdited,
+    formBeingEdited,
+    setQuestionToEdit,
+    getFormById,
+    composeTextFieldQuestion,
+  } = useFormKitService();
+
+  const [currentView, setCurrentView] = React.useState<CurrentViewEnum>(
+    CurrentViewEnum.FORM,
+  );
 
   const [isConfigPanelOpen, setIsConfigPanelOpen] =
     React.useState<boolean>(false);
@@ -51,64 +65,25 @@ export function Demo(): React.ReactNode {
   const [isQuestionEditorOpen, setIsQuestionEditorOpen] =
     React.useState<boolean>(false);
 
-  const [questionToEdit, setQuestionToEdit] = React.useState<
-    Record<string, unknown> | undefined
-  >(undefined);
-
-  const [formToEdit, setFormToEdit] = React.useState<
-    Record<string, unknown> | undefined
-  >(undefined);
-
-  const [{ data, isLoading, error }, handler] = useAxios({
-    axiosInstance: axiosHtmlFormsService,
-  });
-
   const handleSetQuestionToEdit = (
     questionToBeEdited: Record<string, unknown>,
     shouldTriggerPanel: boolean,
   ): void => {
-    setFormToEdit(undefined);
     setQuestionToEdit(questionToBeEdited);
-
     if (shouldTriggerPanel) {
-      setIsQuestionSelectorPanelOpen(shouldTriggerPanel);
+      setIsQuestionSelectorPanelOpen(true);
+    } else {
+      setCurrentView(CurrentViewEnum.QUESTION);
     }
   };
 
-  const handleSetFormToEdit = React.useCallback((): void => {
-    setQuestionToEdit(undefined);
-    setFormToEdit(data);
-  }, [data]);
-
   React.useEffect(() => {
-    const shouldGetData = [
-      !isLoading,
-      data === undefined,
-      error === undefined,
-    ].every((isTrue) => isTrue);
-
-    if (shouldGetData) {
-      handler({ url: '/forms/demo', method: 'GET' }).then();
+    if (formBeingEdited === undefined && !isApiInProgress) {
+      getFormById('demo').then(() => {
+        setCurrentView(CurrentViewEnum.FORM);
+      });
     }
-
-    if (
-      [
-        data !== undefined,
-        formToEdit === undefined,
-        questionToEdit === undefined,
-      ].every(Boolean)
-    ) {
-      handleSetFormToEdit();
-    }
-  }, [
-    data,
-    handler,
-    questionToEdit,
-    error,
-    formToEdit,
-    isLoading,
-    handleSetFormToEdit,
-  ]);
+  }, [formBeingEdited, getFormById, isApiInProgress]);
 
   return (
     <main className='bg-gray-100 flex flex-col h-screen'>
@@ -137,50 +112,71 @@ export function Demo(): React.ReactNode {
         <aside className='hidden xl:block  md:w-full md:col-span-2'>
           <Card className={'h-full'}>
             <Card.Body>
-              <QuestionTypeCreator />
+              <QuestionTypeCreator
+                formBeingEdited={formBeingEdited}
+                sectionBeingEdited={sectionBeingEdited}
+              />
             </Card.Body>
           </Card>
         </aside>
         <div className='w-full overflow-y-auto col-span-12 lg:col-span-6'>
           <Grid {...gridLayout} className={'relative subgrid'}>
             <header className='z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'>
-              <h1>{data?.title}</h1>
-              <h1>{data?.description}</h1>
+              <h1>{formBeingEdited?.title}</h1>
+              <h1>{formBeingEdited?.description}</h1>
             </header>
             <HtmlForm id='my-form' schema={schema}>
-              {data?.sections.map((section: IFormSection) => {
-                return section.questions.map(
-                  ({ question, id, ...rest }: IQuestion) => {
-                    return (
-                      <QuestionControls
-                        question={{ question, id, ...rest }}
-                        setQuestionToEdit={handleSetQuestionToEdit}
-                        className='z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'
-                        key={id}
-                      >
-                        <TextField name='MY_INPUT' label='Email' />
-                        <TextField name='MY_INPUT_TWO' label='Some Email' />
-                        <button type='submit'>Submit</button>
-                      </QuestionControls>
-                    );
-                  },
-                );
-              })}
+              {formBeingEdited?.sections.map(
+                (section: Record<string, unknown>) => {
+                  return section.questions.map(
+                    ({ question, id, ...rest }: Record<string, unknown>) => {
+                      return (
+                        <QuestionControls
+                          question={{ question, id, ...rest }}
+                          setQuestionToEdit={handleSetQuestionToEdit}
+                          className='z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'
+                          key={id}
+                        >
+                          <TextField name='MY_INPUT' label='Email' />
+                          <TextField name='MY_INPUT_TWO' label='Some Email' />
+                          <button type='submit'>Submit</button>
+                        </QuestionControls>
+                      );
+                    },
+                  );
+                },
+              )}
               <div
                 className={
                   'z-10 w-screen h-screen absolute left-0 bottom-0 right-0 top-0'
                 }
                 role='button'
-                onClick={handleSetFormToEdit}
-              ></div>
+                onClick={() => setCurrentView(CurrentViewEnum.FORM)}
+              />
             </HtmlForm>
           </Grid>
         </div>
         <aside className='hidden xl:block  md:w-full md:col-span-4'>
           <Card className={'h-full'}>
             <Card.Body>
-              <pre>{JSON.stringify(questionToEdit, null, 2)}</pre>
-              <pre>{JSON.stringify(formToEdit, null, 2)}</pre>
+              {currentView === CurrentViewEnum.FORM && (
+                <>
+                  <p>formBeingEdited</p>
+                  <pre>{JSON.stringify(formBeingEdited, null, 2)}</pre>
+                </>
+              )}
+              {currentView === CurrentViewEnum.SECTION && (
+                <>
+                  <p>sectionBeingEdited</p>
+                  <pre>{JSON.stringify(sectionBeingEdited, null, 2)}</pre>
+                </>
+              )}
+              {currentView === CurrentViewEnum.QUESTION && (
+                <>
+                  <p>questionBeingEdited</p>
+                  <pre>{JSON.stringify(questionBeingEdited, null, 2)}</pre>
+                </>
+              )}
             </Card.Body>
           </Card>
         </aside>
@@ -195,7 +191,10 @@ export function Demo(): React.ReactNode {
         triggerPanel={() => setIsQuestionSelectorPanelOpen((isOpen) => !isOpen)}
         isOpen={isQuestionSelectorPanelOpen}
       >
-        <QuestionTypeCreator />
+        <QuestionTypeCreator
+          formBeingEdited={formBeingEdited}
+          sectionBeingEdited={sectionBeingEdited}
+        />
       </Panel>
       <Panel
         triggerPanel={() => setIsPreviewConfigPanelOpen((isOpen) => !isOpen)}

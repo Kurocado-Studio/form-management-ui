@@ -35,14 +35,19 @@
     "ui:sync:dev": "pnpm clean && pnpm ui:local:sync && pnpm use:build-local-html-package && pnpm use:sync-local-html-package && pnpm i && pnpm dev"
   },
   "lint-staged": {
-    "*": ["pnpm run prettier-fix"],
-    "**/*.{ts,tsx}": ["pnpm run eslint-fix", "pnpm run lint"]
+    "*": [
+      "pnpm run prettier-fix"
+    ],
+    "**/*.{ts,tsx}": [
+      "pnpm run eslint-fix",
+      "pnpm run lint"
+    ]
   },
   "dependencies": {
     "@conform-to/dom": "^1.10.1",
     "@conform-to/react": "^1.10.1",
     "@conform-to/zod": "^1.9.0",
-    "@kurocado-studio/axios-client-react": "1.0.1-develop.3",
+    "@kurocado-studio/axios-client-react": "1.0.1-develop.4",
     "@kurocado-studio/html-forms": "1.0.1-develop.1",
     "@kurocado-studio/react-ui-kit": "^1.0.0",
     "@kurocado-studio/ui-react-research-and-development": "1.0.0-develop.5",
@@ -106,6 +111,8 @@
     "node": ">=20"
   },
   "eslintConfig": {
-    "extends": ["plugin:storybook/recommended"]
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
   }
 }
