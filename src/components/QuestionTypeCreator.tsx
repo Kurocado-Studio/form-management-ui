@@ -1,4 +1,5 @@
 import { Button } from '@kurocado-studio/ui-react-research-and-development';
+import { get } from 'lodash-es';
 import React from 'react';
 
 import type { FormNode, SectionNode } from '../lib';
@@ -23,6 +24,11 @@ export function QuestionTypeCreator(properties: {
     variant: 'secondary',
   };
 
+  const numberOfQuestions = get(sectionBeingEdited, ['questions', 'length'], 0);
+
+  const question = `Untitled Question ${numberOfQuestions}`;
+  const name = `question${numberOfQuestions}`;
+
   return (
     <div className='flex flex-col space-y-2'>
       <Button
@@ -34,14 +40,14 @@ export function QuestionTypeCreator(properties: {
             section: sectionBeingEdited,
             question: {
               hidden: false,
-              hint: 'Some hinting',
-              name: 'string',
-              question: 'Untitled Question',
+              name,
+              question,
               required: true,
-              tooltip: '',
               variant: 'TEXT',
             },
-            variantPayload: {},
+            variantPayload: {
+                name,
+            },
           }).then();
         }}
       >

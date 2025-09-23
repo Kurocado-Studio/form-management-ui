@@ -3,8 +3,8 @@ import * as React from 'react';
 
 import type { QuestionNode } from '../lib';
 import type { TextFieldQuestionCreatorDto } from '../types';
-import { useCreateQuestion } from './api/useCreateQuestion';
-import { useGetFormById } from './api/useGetFormById';
+import { useCreateQuestion } from '../api/useCreateQuestion';
+import { useGetFormById } from '../api/useGetFormById';
 
 export const useFormKitService = () => {
   const { createTextFieldQuestion } = useCreateQuestion();

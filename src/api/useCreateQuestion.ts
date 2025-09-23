@@ -1,18 +1,18 @@
 import { useAxios } from '@kurocado-studio/axios-client-react';
 import { get } from 'lodash-es';
 
-import { axiosHtmlFormsService } from '../../config/htmlFormsServiceInstance';
+import { axiosHtmlFormsService } from '../config/htmlFormsServiceInstance';
 import type {
   FormNode,
   QuestionDto,
   QuestionNode,
   SectionNode,
   VariantDto,
-} from '../../lib';
+} from '../lib';
 import type {
   TextFieldQuestionCreatorDto,
   UseCreateQuestion,
-} from '../../types';
+} from '../types';
 
 export const useCreateQuestion: UseCreateQuestion = () => {
   const [createQuestionState, createQuestionHandler] = useAxios({
