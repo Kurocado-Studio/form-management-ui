@@ -1,5 +1,3 @@
-// @ts-ignore
-// @ts-ignore
 import { useAxios } from '@kurocado-studio/axios-client-react';
 import { get } from 'lodash-es';
 
@@ -7,11 +5,14 @@ import { axiosHtmlFormsService } from '../../config/htmlFormsServiceInstance';
 import type {
   FormNode,
   QuestionDto,
+  QuestionNode,
   SectionNode,
-  TextFieldVariantDto,
-  UseCreateQuestion,
   VariantDto,
 } from '../../lib';
+import type {
+  TextFieldQuestionCreatorDto,
+  UseCreateQuestion,
+} from '../../types';
 
 export const useCreateQuestion: UseCreateQuestion = () => {
   const [createQuestionState, createQuestionHandler] = useAxios({
@@ -23,39 +24,30 @@ export const useCreateQuestion: UseCreateQuestion = () => {
     section: SectionNode;
     question: QuestionDto;
     variant: VariantDto;
-  }): Promise<void> => {
+  }): Promise<QuestionNode> => {
     const { question, variant, form, section } = payload;
 
     const formId = get(form, ['id'], '');
     const sectionId = get(section, ['id'], '');
 
-    try {
-      const vfcvcvcv = await createQuestionHandler({
-        url: `/forms/${formId}/sections/${sectionId}/questions`,
-        method: 'POST',
-        data: {
-          question,
-          variant,
-        },
-      });
-      console.log({ vfcvcvcv });
-      // onSuccess?.(createQuestionState.data);
-    } catch {
-      // onError?.(undefined);
-    } finally {
-      createQuestionState.resetState();
-    }
+    createQuestionState.resetState();
+
+    return createQuestionHandler({
+      url: `/forms/${formId}/sections/${sectionId}/questions`,
+      method: 'POST',
+      data: {
+        question,
+        variant,
+      },
+    });
   };
 
-  const createTextFieldQuestion = async (payload: {
-    form: FormNode;
-    section: SectionNode;
-    question: QuestionDto;
-    variantPayload: TextFieldVariantDto;
-  }): Promise<void> => {
+  const createTextFieldQuestion = async (
+    payload: TextFieldQuestionCreatorDto,
+  ): Promise<QuestionNode> => {
     const { form, question, section, variantPayload } = payload;
 
-    await createQuestion({
+    return createQuestion({
       form,
       section,
       question,

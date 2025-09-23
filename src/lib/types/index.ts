@@ -8,12 +8,13 @@ export type SectionNode = Record<string, unknown>
 export type QuestionNode = Record<string, unknown>
 
 export type QuestionDto = {
-  hidden: true;
-  hint: 'string';
-  name: 'string';
-  question: 'string';
-  required: true;
-  tooltip: 'string';
+  hidden: boolean;
+  hint: string;
+  name: string;
+  question: string;
+  required: boolean;
+  tooltip: string;
+  variant: 'TEXT',
 };
 
 export type VariantDto = {

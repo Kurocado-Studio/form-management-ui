@@ -1,18 +1,23 @@
 import { Button } from '@kurocado-studio/ui-react-research-and-development';
-import { get } from 'lodash-es';
 import React from 'react';
 
-import { useFormKitService } from '../hooks/useFormKitService';
 import type { FormNode, SectionNode } from '../lib';
+import type { TextFieldQuestionCreatorDto } from '../types';
 
 export function QuestionTypeCreator(properties: {
   formBeingEdited?: FormNode;
   sectionBeingEdited?: SectionNode;
+  handleCreateTextFieldQuestion: (
+    payload: TextFieldQuestionCreatorDto,
+  ) => Promise<void>;
 }): React.ReactNode {
-  const { formBeingEdited = {}, sectionBeingEdited = {} } = properties;
-  const { addTextFieldQuestion } = useFormKitService();
+  const {
+    formBeingEdited = {},
+    sectionBeingEdited = {},
+    handleCreateTextFieldQuestion,
+  } = properties;
 
-  const commingSoonProperties = {
+  const comingSoonProperties = {
     fullWidth: true,
     disabled: true,
     variant: 'secondary',
@@ -24,7 +29,7 @@ export function QuestionTypeCreator(properties: {
         fullWidth
         variant='secondary'
         onClick={() => {
-          addTextFieldQuestion({
+          handleCreateTextFieldQuestion({
             form: formBeingEdited,
             section: sectionBeingEdited,
             question: {
@@ -42,17 +47,9 @@ export function QuestionTypeCreator(properties: {
       >
         Text Field
       </Button>
-
-      <pre>
-        {JSON.stringify(
-          get(formBeingEdited, ['sections', 0, 'questions']),
-          null,
-          2,
-        )}
-      </pre>
-      <Button {...commingSoonProperties}>Checkbox (soon)</Button>
-      <Button {...commingSoonProperties}>Radio (soon)</Button>
-      <Button {...commingSoonProperties}>Dropdown (soon)</Button>
+      <Button {...comingSoonProperties}>Checkbox (soon)</Button>
+      <Button {...comingSoonProperties}>Radio (soon)</Button>
+      <Button {...comingSoonProperties}>Dropdown (soon)</Button>
     </div>
   );
 }

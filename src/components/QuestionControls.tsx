@@ -9,6 +9,7 @@ import { useWindowSize } from '../hooks/useWindowSize';
 
 export interface QuestionControls {
   className?: string;
+  id?: string;
   setQuestionToEdit: (
     question: Record<string, unknown>,
     shouldTriggerPanel: boolean,
@@ -25,7 +26,6 @@ export function QuestionControls(
 
   const handleFocus = (): void => {
     properties.setQuestionToEdit(properties.question, shouldTriggerMobilePanel);
-    console.log('Div received focus!');
   };
 
   const handleBlur = (): void => {
@@ -34,6 +34,7 @@ export function QuestionControls(
 
   return (
     <Card
+      id={properties.id}
       className={twMerge(
         properties.className,
         'focus:outline-none focus:ring-2 focus:ring-purple-600',

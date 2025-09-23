@@ -6,6 +6,7 @@ import {
   type GridProps,
   Panel,
 } from '@kurocado-studio/ui-react-research-and-development';
+import { get } from 'lodash-es';
 import * as React from 'react';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
@@ -13,6 +14,7 @@ import { z } from 'zod';
 import { CONTAINER_MAX_WIDTH } from '../config/constants';
 import { useFormKitService } from '../hooks/useFormKitService';
 import { HtmlForm } from '../lib';
+import type { TextFieldQuestionCreatorDto } from '../types';
 import { QuestionControls } from './QuestionControls';
 import { QuestionTypeCreator } from './QuestionTypeCreator';
 import { TextField } from './TextField';
@@ -43,8 +45,8 @@ export function Demo(): React.ReactNode {
     questionBeingEdited,
     formBeingEdited,
     setQuestionToEdit,
+    addTextFieldQuestion,
     getFormById,
-    composeTextFieldQuestion,
   } = useFormKitService();
 
   const [currentView, setCurrentView] = React.useState<CurrentViewEnum>(
@@ -72,9 +74,30 @@ export function Demo(): React.ReactNode {
     setQuestionToEdit(questionToBeEdited);
     if (shouldTriggerPanel) {
       setIsQuestionSelectorPanelOpen(true);
-    } else {
-      setCurrentView(CurrentViewEnum.QUESTION);
     }
+    handleScrollToQuestionNode(questionToBeEdited?.['id'] as string);
+    setCurrentView(CurrentViewEnum.QUESTION);
+  };
+
+  const handleCreateTextFieldQuestion = async (
+    payload: TextFieldQuestionCreatorDto,
+  ): Promise<void> => {
+    const newQuestion = await addTextFieldQuestion(payload);
+
+    const newId = get(newQuestion, ['id'], '') as string;
+    handleScrollToQuestionNode(newId);
+    setCurrentView(CurrentViewEnum.QUESTION);
+  };
+
+  const handleScrollToQuestionNode = (questionNodeId: string): void => {
+    requestAnimationFrame(() => {
+      const element = document.getElementById(questionNodeId);
+      element?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest',
+      });
+    });
   };
 
   React.useEffect(() => {
@@ -113,6 +136,7 @@ export function Demo(): React.ReactNode {
           <Card className={'h-full'}>
             <Card.Body>
               <QuestionTypeCreator
+                handleCreateTextFieldQuestion={handleCreateTextFieldQuestion}
                 formBeingEdited={formBeingEdited}
                 sectionBeingEdited={sectionBeingEdited}
               />
@@ -132,14 +156,18 @@ export function Demo(): React.ReactNode {
                     ({ question, id, ...rest }: Record<string, unknown>) => {
                       return (
                         <QuestionControls
+                          id={id}
                           question={{ question, id, ...rest }}
                           setQuestionToEdit={handleSetQuestionToEdit}
-                          className='z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'
+                          className={twMerge(
+                            'z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3',
+                            id === questionBeingEdited?.['id'] &&
+                              'outline-none ring-2 ring-purple-600',
+                          )}
                           key={id}
                         >
                           <TextField name='MY_INPUT' label='Email' />
                           <TextField name='MY_INPUT_TWO' label='Some Email' />
-                          <button type='submit'>Submit</button>
                         </QuestionControls>
                       );
                     },
@@ -192,6 +220,7 @@ export function Demo(): React.ReactNode {
         isOpen={isQuestionSelectorPanelOpen}
       >
         <QuestionTypeCreator
+          handleCreateTextFieldQuestion={handleCreateTextFieldQuestion}
           formBeingEdited={formBeingEdited}
           sectionBeingEdited={sectionBeingEdited}
         />

@@ -1,17 +1,10 @@
 import { get, set } from 'lodash-es';
 import * as React from 'react';
 
-import { FormNode, SectionNode } from '../lib';
+import { QuestionNode } from '../lib';
+import { TextFieldQuestionCreatorDto } from '../types';
 import { useCreateQuestion } from './api/useCreateQuestion';
 import { useGetFormById } from './api/useGetFormById';
-
-export type OnSuccessHandler<
-  T extends Record<string, unknown> = Record<string, unknown>,
-> = React.Dispatch<React.SetStateAction<T | undefined>>;
-
-export type OnErrorHandler<
-  T extends Record<string, unknown> = Record<string, unknown>,
-> = OnSuccessHandler<T>;
 
 export const useFormKitService = () => {
   const { createTextFieldQuestion } = useCreateQuestion();
@@ -29,24 +22,6 @@ export const useFormKitService = () => {
     Record<string, unknown> | undefined
   >(undefined);
 
-  const handleSetFormBeingEdited = (
-    newlyCreatedQuestion: Record<string, unknown>,
-  ) => {
-    setFormBeingEdited((prevState) => {
-      if (prevState === undefined) return prevState;
-
-      const currentQuestions = get(prevState, ['sections', 0, 'question']);
-
-      set(
-        prevState,
-        ['sections', 0],
-        [...currentQuestions, newlyCreatedQuestion],
-      );
-
-      return prevState;
-    });
-  };
-
   const handleGetFormById = async (id: string): Promise<void> => {
     try {
       const payload = await getFormById(id);
@@ -58,19 +33,33 @@ export const useFormKitService = () => {
     }
   };
 
-  const addTextFieldQuestion = async (payload: {
-    form: FormNode;
-    section: SectionNode;
-    question: Record<string, unknown>;
-    variantPayload: Record<string, unknown>;
-  }): Promise<void> => {
+  const addTextFieldQuestion = async (
+    payload: TextFieldQuestionCreatorDto,
+  ): Promise<QuestionNode> => {
     const { form, section } = payload;
-    await createTextFieldQuestion({
+
+    const newlyCreatedQuestion = await createTextFieldQuestion({
       form,
       section,
       question: payload.question,
       variantPayload: payload.variantPayload,
     });
+
+    const updatedForm = { ...form };
+
+    const currentQuestions = get(updatedForm, ['sections', 0, 'questions'], []);
+
+    set(
+      updatedForm,
+      ['sections', 0, 'questions'],
+      [...currentQuestions, newlyCreatedQuestion],
+    );
+
+    setFormBeingEdited(updatedForm);
+    setSectionBeingEdited(get(form, ['sections', 0], []));
+    setQuestionBeingEdited(newlyCreatedQuestion);
+
+    return newlyCreatedQuestion;
   };
 
   const isApiInProgress = [formById.isLoading].some(Boolean);
