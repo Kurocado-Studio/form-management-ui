@@ -90,6 +90,7 @@ export const useAriaTextField = <
 
   const combinedInputProperties = mergeProps({
     ...inputProps,
+    disabled: get(config, ['disabled']),
     'aria-invalid': get(inputProps, ['aria-invalid'], false),
     ref: inputReference,
   });

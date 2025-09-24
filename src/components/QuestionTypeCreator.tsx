@@ -46,7 +46,7 @@ export function QuestionTypeCreator(properties: {
               variant: 'TEXT',
             },
             variantPayload: {
-                name,
+              name,
             },
           }).then();
         }}

@@ -1,7 +1,7 @@
 import { ReactTestingLibrary, renderComponent } from '@kurocado-studio/qa';
 import React from 'react';
 
-import { Demo } from 'src/components/Demo';
+import { Demo } from 'src/views/Demo';
 
 const { screen } = ReactTestingLibrary;
 

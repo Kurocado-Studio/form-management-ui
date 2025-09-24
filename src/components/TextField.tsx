@@ -1,4 +1,3 @@
-// components/TextField.tsx
 import {
   Input,
   Label,
@@ -7,11 +6,13 @@ import React from 'react';
 
 import { useAriaTextField } from '../lib';
 
-export function TextField(properties: {
-  name: string;
-  label?: string;
-  description?: string;
-}): React.ReactNode {
+export function TextField(
+  properties: {
+    name: string;
+    label?: string;
+    description?: string;
+  } & Partial<HTMLElementTagNameMap['input']>,
+): React.ReactNode {
   const { labelProps, inputProps, descriptionProps, errorMessageProps } =
     useAriaTextField(properties);
 
@@ -19,8 +20,8 @@ export function TextField(properties: {
     <>
       <Label {...labelProps} />
       <Input {...inputProps} />
-      <p className={'block w-full'} {...descriptionProps} />
-      <span className={'block w-full'} {...errorMessageProps} />
+      <p className='block w-full' {...descriptionProps} />
+      <span className='block w-full text-red-700' {...errorMessageProps} />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import type { AxiosDataState } from '@kurocado-studio/axios-client-react';
 
+import type { TextFieldNodeUpdaterSchema } from './components/variants/TextFieldNode.schema';
 import type {
   FormNode,
   QuestionDto,
@@ -13,6 +14,13 @@ export interface TextFieldQuestionCreatorDto {
   section: SectionNode;
   question: QuestionDto;
   variantPayload: TextFieldVariantDto;
+}
+
+export interface TextFieldQuestionUpdaterDto {
+  formBeingEdited: FormNode;
+  sectionBeingEdited: SectionNode;
+  questionBeingEdited: QuestionNode;
+  updatedProperties: TextFieldNodeUpdaterSchema;
 }
 
 export type UseGetFormById = () => {

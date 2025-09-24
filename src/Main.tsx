@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import '../tailwind.css';
-import { Demo } from './components/Demo';
 import { cssVariables } from './config/cssVariables';
+import { Demo } from './views/Demo';
 
 const rootElement = document.getElementById('root')!;
 const root = ReactDOM.createRoot(rootElement);

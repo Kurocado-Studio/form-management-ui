@@ -11,13 +11,14 @@ import * as React from 'react';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 
+import { QuestionControls } from '../components/QuestionControls';
+import { QuestionNodeRenderer } from '../components/QuestionNodeRenderer';
+import { QuestionTypeCreator } from '../components/QuestionTypeCreator';
+import { TextFieldNodeForm } from '../components/variants/TextFieldNode.form';
 import { CONTAINER_MAX_WIDTH } from '../config/constants';
 import { useFormKitService } from '../hooks/useFormKitService';
 import { HtmlForm } from '../lib';
 import type { TextFieldQuestionCreatorDto } from '../types';
-import { QuestionControls } from './QuestionControls';
-import { QuestionTypeCreator } from './QuestionTypeCreator';
-import { TextField } from './TextField';
 
 const gridLayout: GridProps = {
   gap: '1',
@@ -45,6 +46,7 @@ export function Demo(): React.ReactNode {
     questionBeingEdited,
     formBeingEdited,
     setQuestionToEdit,
+    handleUpdateQuestion,
     addTextFieldQuestion,
     getFormById,
   } = useFormKitService();
@@ -144,30 +146,28 @@ export function Demo(): React.ReactNode {
           </Card>
         </aside>
         <div className='w-full overflow-y-auto col-span-12 lg:col-span-6'>
-          <Grid {...gridLayout} className={'relative subgrid'}>
+          <Grid {...gridLayout} className={'relative subgrid overflow-hidden'}>
             <header className='relative mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'>
               <h1>{formBeingEdited?.title}</h1>
               <h1>{formBeingEdited?.description}</h1>
             </header>
             <HtmlForm id='my-form' schema={schema}>
               {sectionBeingEdited?.questions.map(
-                ({ question, id, ...rest }: Record<string, unknown>) => {
+                (question: Record<string, unknown>): React.ReactNode => {
                   return (
                     <QuestionControls
-                      id={id}
-                      question={{ question, id, ...rest }}
+                      key={question.id}
+                      id={question.id}
+                      question={question}
                       setQuestionToEdit={handleSetQuestionToEdit}
                       className={twMerge(
                         'z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3',
-                        id === questionBeingEdited?.['id'] &&
+                        question.id === questionBeingEdited?.['id'] &&
                           'outline-none ring-2 ring-purple-600',
                       )}
-                      key={id}
                     >
-                      <TextField
-                        name={id as string}
-                        label={question as string}
-                      />
+                      <QuestionNodeRenderer question={question} />
+                      <pre>{JSON.stringify(question, null, 2)}</pre>
                     </QuestionControls>
                   );
                 },
@@ -202,8 +202,12 @@ export function Demo(): React.ReactNode {
               )}
               {currentView === CurrentViewEnum.QUESTION && (
                 <>
-                  <p>questionBeingEdited</p>
-                  <pre>{JSON.stringify(questionBeingEdited, null, 2)}</pre>
+                  <TextFieldNodeForm
+                    handleUpdateQuestion={handleUpdateQuestion}
+                    form={formBeingEdited}
+                    section={sectionBeingEdited}
+                    question={questionBeingEdited}
+                  />
                 </>
               )}
             </Card.Body>

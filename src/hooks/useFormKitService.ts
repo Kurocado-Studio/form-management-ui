@@ -1,10 +1,13 @@
-import { get, set } from 'lodash-es';
+import { cloneDeep, get, set } from 'lodash-es';
 import * as React from 'react';
 
-import type { QuestionNode } from '../lib';
-import type { TextFieldQuestionCreatorDto } from '../types';
 import { useCreateQuestion } from '../api/useCreateQuestion';
 import { useGetFormById } from '../api/useGetFormById';
+import type { QuestionNode } from '../lib';
+import type {
+  TextFieldQuestionCreatorDto,
+  TextFieldQuestionUpdaterDto,
+} from '../types';
 
 export const useFormKitService = () => {
   const { createTextFieldQuestion } = useCreateQuestion();
@@ -36,13 +39,13 @@ export const useFormKitService = () => {
   const addTextFieldQuestion = async (
     payload: TextFieldQuestionCreatorDto,
   ): Promise<QuestionNode> => {
-    const { form, section } = payload;
+    const { form, section, variantPayload, question } = payload;
 
     const newlyCreatedQuestion = await createTextFieldQuestion({
       form,
       section,
-      question: payload.question,
-      variantPayload: payload.variantPayload,
+      question,
+      variantPayload,
     });
 
     const updatedForm = { ...form };
@@ -62,6 +65,43 @@ export const useFormKitService = () => {
     return newlyCreatedQuestion;
   };
 
+  const handleUpdateQuestion = async (
+    payload: TextFieldQuestionUpdaterDto,
+  ): Promise<void> => {
+    const {
+      formBeingEdited,
+      updatedProperties,
+      sectionBeingEdited,
+      questionBeingEdited,
+    } = payload;
+    const currentQuestionId = get(questionBeingEdited, ['id'], '') as string;
+    const updatedForm = cloneDeep({ ...formBeingEdited });
+    const updatedSection = cloneDeep({ ...sectionBeingEdited });
+
+    const mappedQuestionsByUuid = Object.fromEntries(
+      updatedSection.questions.map((question: QuestionNode) => [
+        question['id'],
+        question,
+      ]),
+    );
+
+    for (const [key, value] of Object.entries(updatedProperties)) {
+      set(mappedQuestionsByUuid, [currentQuestionId, key], value);
+    }
+
+    const updatedQuestion = get(mappedQuestionsByUuid, [currentQuestionId]);
+
+    set(updatedSection, ['questions'], Object.values(mappedQuestionsByUuid));
+
+    set(updatedForm, ['sections', 0], updatedSection);
+
+    setFormBeingEdited(updatedForm);
+    setSectionBeingEdited(updatedSection);
+    setQuestionBeingEdited(updatedQuestion);
+
+    return updatedQuestion;
+  };
+
   const isApiInProgress = [formById.isLoading].some(Boolean);
 
   return {
@@ -71,6 +111,7 @@ export const useFormKitService = () => {
     questionBeingEdited,
     addTextFieldQuestion,
     formByIdState: formById,
+    handleUpdateQuestion,
     getFormById: handleGetFormById,
     setFormToEdit: setFormBeingEdited,
     setQuestionToEdit: setQuestionBeingEdited,
