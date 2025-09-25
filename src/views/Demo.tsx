@@ -4,6 +4,7 @@ import {
   Card,
   Grid,
   Panel,
+  Typography,
 } from '@kurocado-studio/ui-react-research-and-development';
 import { get } from 'lodash-es';
 import * as React from 'react';
@@ -150,10 +151,18 @@ export function Demo(): React.ReactNode {
           >
             <header
               id={formBeingEdited?.id}
-              className='relative mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'
+              className='relative px-2 mt-8 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'
             >
-              <h1>{formBeingEdited?.title}</h1>
-              <h1>{formBeingEdited?.description}</h1>
+              <Typography
+                as="h1"
+                className="font-display prose font-semibold"
+                size={{ base: '2xl' }}
+              >
+                {formBeingEdited?.title}
+              </Typography>
+              <Typography as="h2" className="prose mb-4" size={{ base: 'xl' }}>
+                {formBeingEdited?.description}
+              </Typography>
             </header>
             <HtmlForm id='form-designer-preview'>
               {sectionBeingEdited?.questions.map(
