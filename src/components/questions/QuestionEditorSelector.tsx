@@ -1,12 +1,12 @@
 import { get } from 'lodash-es';
 import React from 'react';
 
-import type { FormDesignerEditorDto } from '../../types';
 import {
   TextFieldNodeForm,
   type TextFieldNodeFormProperties,
   type TextFieldQuestionUpdaterHandler,
-} from '../forms/TextFieldNode.form';
+} from './TextFieldNode.form';
+import type { FormDesignerEditorDto } from '../../types';
 
 export interface QuestionEditorSelectorProperties
   extends FormDesignerEditorDto {

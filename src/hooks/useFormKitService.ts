@@ -5,6 +5,7 @@ import { useCreateQuestion } from '../api/useCreateQuestion';
 import { useGetFormById } from '../api/useGetFormById';
 import type { FormNode, QuestionNode, SectionNode } from '../lib';
 import type {
+  FormNodeUpdaterDto,
   TextFieldQuestionCreatorDto,
   TextFieldQuestionUpdaterDto,
 } from '../types';
@@ -104,15 +105,33 @@ export const useFormKitService = () => {
     return updatedQuestion;
   };
 
+  const handleUpdateForm = async (
+    payload: FormNodeUpdaterDto,
+  ): Promise<FormNode> => {
+    const { formBeingEdited, updatedProperties } = payload;
+
+    const updatedForm = cloneDeep({ ...formBeingEdited });
+
+    for (const [key, value] of Object.entries(updatedProperties)) {
+      set(updatedForm, [key], value);
+    }
+
+    setFormBeingEdited(updatedForm);
+
+    return updatedForm;
+  };
+
   const isApiInProgress = [formById.isLoading].some(Boolean);
 
   return {
     isApiInProgress,
     formBeingEdited,
+    handleUpdateForm,
     sectionBeingEdited,
     questionBeingEdited,
     formByIdState: formById,
     handleAddTextFieldQuestion,
+    setSectionBeingEdited,
     handleUpdateQuestion,
     getFormById: handleGetFormById,
     setFormToEdit: setFormBeingEdited,

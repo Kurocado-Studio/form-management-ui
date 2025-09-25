@@ -28,6 +28,8 @@ export function Demo(): React.ReactNode {
     questionBeingEdited,
     formBeingEdited,
     setQuestionToEdit,
+    setFormToEdit,
+    handleUpdateForm,
     handleUpdateQuestion,
     handleAddTextFieldQuestion,
     getFormById,
@@ -38,7 +40,7 @@ export function Demo(): React.ReactNode {
   } = useWindowSize();
 
   const [currentView, setCurrentView] = React.useState<CurrentFormViewEnum>(
-    CurrentFormViewEnum.FORM,
+    CurrentFormViewEnum.UNKNOWN,
   );
 
   const [isConfigPanelOpen, setIsConfigPanelOpen] =
@@ -97,13 +99,19 @@ export function Demo(): React.ReactNode {
     handleConfigPanel();
   };
 
+  const handleClickOnBackground = (): void => {
+    setQuestionToEdit(undefined);
+    setCurrentView(CurrentFormViewEnum.FORM);
+  };
+
   React.useEffect(() => {
     if (formBeingEdited === undefined && !isApiInProgress) {
       getFormById('demo').then(() => {
+        // setFormToEdit(formBeingEdited);
         setCurrentView(CurrentFormViewEnum.FORM);
       });
     }
-  }, [formBeingEdited, getFormById, isApiInProgress]);
+  }, [formBeingEdited, setFormToEdit, getFormById, isApiInProgress]);
 
   return (
     <main className='bg-gray-100 flex flex-col h-screen'>
@@ -140,7 +148,10 @@ export function Demo(): React.ReactNode {
               'w-full px-2 overflow-y-auto col-span-12 lg:col-span-6',
             )}
           >
-            <header className='relative mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'>
+            <header
+              id={formBeingEdited?.id}
+              className='relative mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'
+            >
               <h1>{formBeingEdited?.title}</h1>
               <h1>{formBeingEdited?.description}</h1>
             </header>
@@ -168,15 +179,16 @@ export function Demo(): React.ReactNode {
             <div
               className='z-10 w-screen h-screen absolute left-0 bottom-0 right-0 top-0'
               role='button'
-              onClick={() => setCurrentView(CurrentFormViewEnum.FORM)}
+              onClick={handleClickOnBackground}
             />
           </Grid>
         </div>
-        <Card className='hidden xl:block  md:w-full md:col-span-4 h-full'>
+        <Card className='hidden xl:block  md:w-full md:col-span-4 overflow-y-auto h-full'>
           <Card.Body>
             {innerWidth > 768 && (
               <FormDesignerManager
                 currentFormView={currentView}
+                handleUpdateForm={handleUpdateForm}
                 handleUpdateQuestion={handleUpdateQuestion}
                 formBeingEdited={formBeingEdited}
                 sectionBeingEdited={sectionBeingEdited}
@@ -190,6 +202,7 @@ export function Demo(): React.ReactNode {
         {innerWidth < 768 && (
           <FormDesignerManager
             currentFormView={currentView}
+            handleUpdateForm={handleUpdateForm}
             handleUpdateQuestion={handleUpdateQuestion}
             formBeingEdited={formBeingEdited}
             sectionBeingEdited={sectionBeingEdited}

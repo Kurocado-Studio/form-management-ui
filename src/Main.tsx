@@ -1,5 +1,6 @@
 import { ThemeProvider } from '@kurocado-studio/react-ui-kit';
 import React from 'react';
+import 'react18-json-view/src/style.css';
 import ReactDOM from 'react-dom/client';
 
 import '../tailwind.css';
