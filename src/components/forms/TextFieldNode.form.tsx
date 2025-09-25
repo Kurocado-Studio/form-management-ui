@@ -21,7 +21,9 @@ export interface TextFieldNodeFormProperties extends FormDesignerEditorDto {
   handleUpdateQuestion: TextFieldQuestionUpdaterHandler;
 }
 
-export function TextFieldNodeForm(properties: React.PropsWithChildren<TextFieldNodeFormProperties>): React.ReactNode {
+export function TextFieldNodeForm(
+  properties: React.PropsWithChildren<TextFieldNodeFormProperties>,
+): React.ReactNode {
   const { formBeingEdited, sectionBeingEdited, handleUpdateQuestion } =
     properties;
 
@@ -40,8 +42,8 @@ export function TextFieldNodeForm(properties: React.PropsWithChildren<TextFieldN
       key={get(variants, [variant as string, 'id'])}
       schema={textFieldNodeFormSchema}
       defaultValue={defaultValue}
-      shouldValidate="onInput"
-      shouldRevalidate="onInput"
+      shouldValidate='onInput'
+      shouldRevalidate='onInput'
       onSuccess={async (payload) => {
         await handleUpdateQuestion({
           formBeingEdited,

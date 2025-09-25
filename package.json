@@ -35,13 +35,8 @@
     "ui:sync:dev": "pnpm clean && pnpm ui:local:sync && pnpm use:build-local-html-package && pnpm use:sync-local-html-package && pnpm i && pnpm dev"
   },
   "lint-staged": {
-    "*": [
-      "pnpm run prettier-fix"
-    ],
-    "**/*.{ts,tsx}": [
-      "pnpm run eslint-fix",
-      "pnpm run lint"
-    ]
+    "*": ["pnpm run prettier-fix"],
+    "**/*.{ts,tsx}": ["pnpm run eslint-fix", "pnpm run lint"]
   },
   "dependencies": {
     "@conform-to/dom": "^1.10.1",
@@ -112,8 +107,6 @@
     "node": ">=20"
   },
   "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
+    "extends": ["plugin:storybook/recommended"]
   }
 }

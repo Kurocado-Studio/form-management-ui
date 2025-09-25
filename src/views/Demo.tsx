@@ -13,6 +13,7 @@ import { Header } from '../components/Header';
 import { QuestionControls } from '../components/QuestionControls';
 import { QuestionTypeCreator } from '../components/QuestionTypeCreator';
 import { QuestionTypeManager } from '../components/QuestionTypeManager';
+// eslint-disable-next-line
 import { FormDesignerManager } from '../components/forms/FormDesignerManager';
 import { CONTAINER_MAX_WIDTH, GRID_LAYOUT } from '../config/constants';
 import { CurrentFormViewEnum } from '../config/enums';
@@ -107,11 +108,11 @@ export function Demo(): React.ReactNode {
   return (
     <main className='bg-gray-100 flex flex-col h-screen'>
       <Header />
-      <Grid {...GRID_LAYOUT} className={'xl:hidden p-1'}>
-        <div className={'w-full col-span-5'}>
+      <Grid {...GRID_LAYOUT} className='xl:hidden p-1'>
+        <div className='w-full col-span-5'>
           <Button onClick={handleQuestionSelectorPanel}>Add Question</Button>
         </div>
-        <div className={'w-full col-start-8 col-span-5'}>
+        <div className='w-full col-start-8 col-span-5'>
           <Button onClick={handleFormSettingsPanel}>Form Settings</Button>
         </div>
       </Grid>
@@ -120,8 +121,8 @@ export function Demo(): React.ReactNode {
         className={twMerge('p-1 flex-1', CONTAINER_MAX_WIDTH)}
       >
         <Card
-          className={'h-full hidden xl:block z-20 md:w-full md:col-span-2'}
-          as={'aside'}
+          className='h-full hidden xl:block z-20 md:w-full md:col-span-2'
+          as='aside'
         >
           <Card.Body>
             <QuestionTypeCreator
@@ -171,7 +172,7 @@ export function Demo(): React.ReactNode {
             />
           </Grid>
         </div>
-        <Card className={'hidden xl:block  md:w-full md:col-span-4 h-full'}>
+        <Card className='hidden xl:block  md:w-full md:col-span-4 h-full'>
           <Card.Body>
             {innerWidth > 768 && (
               <FormDesignerManager

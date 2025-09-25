@@ -13,9 +13,9 @@ const questionTypeComponentMap = {
   TEXT: TextFieldNode,
 };
 
-export const QuestionTypeManager = (
+export function QuestionTypeManager(
   properties: QuestionNodeTypeRendererProperties,
-): React.ReactNode => {
+): React.ReactNode {
   const { questionBeingEdited } = properties;
   const { variant, hidden } = questionBeingEdited;
 
@@ -30,4 +30,4 @@ export const QuestionTypeManager = (
       <MappedQuestionType question={questionBeingEdited} />
     </div>
   );
-};
+}
