@@ -9,6 +9,8 @@ import type {
   TextFieldQuestionUpdaterDto,
 } from '../types';
 
+// API is in WIP
+//eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const useFormKitService = () => {
   const { createTextFieldQuestion } = useCreateQuestion();
   const { getFormById, formById } = useGetFormById();

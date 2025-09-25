@@ -1,4 +1,3 @@
-import { useWindowSize } from '@kurocado-studio/react-utils';
 import { get } from 'lodash-es';
 import React from 'react';
 
@@ -8,6 +7,7 @@ import type {
   TextFieldQuestionUpdaterDto,
 } from '../../types';
 import { TextField } from '../TextField';
+// eslint-disable-next-line
 import {
   type TextFieldNodeUpdaterSchema,
   textFieldNodeFormSchema,
@@ -21,9 +21,7 @@ export interface TextFieldNodeFormProperties extends FormDesignerEditorDto {
   handleUpdateQuestion: TextFieldQuestionUpdaterHandler;
 }
 
-export const TextFieldNodeForm = (
-  properties: React.PropsWithChildren<TextFieldNodeFormProperties>,
-): React.ReactNode => {
+export function TextFieldNodeForm(properties: React.PropsWithChildren<TextFieldNodeFormProperties>): React.ReactNode {
   const { formBeingEdited, sectionBeingEdited, handleUpdateQuestion } =
     properties;
 
@@ -42,12 +40,12 @@ export const TextFieldNodeForm = (
       key={get(variants, [variant as string, 'id'])}
       schema={textFieldNodeFormSchema}
       defaultValue={defaultValue}
-      shouldValidate={'onInput'}
-      shouldRevalidate={'onInput'}
+      shouldValidate="onInput"
+      shouldRevalidate="onInput"
       onSuccess={async (payload) => {
         await handleUpdateQuestion({
-          formBeingEdited: formBeingEdited,
-          sectionBeingEdited: sectionBeingEdited,
+          formBeingEdited,
+          sectionBeingEdited,
           updatedProperties: payload,
           questionBeingEdited: properties.questionBeingEdited,
         });
@@ -57,4 +55,4 @@ export const TextFieldNodeForm = (
       <TextField name='question' label='Question' />
     </HtmlForm>
   );
-};
+}
