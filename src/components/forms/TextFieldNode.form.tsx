@@ -1,31 +1,33 @@
+import { useWindowSize } from '@kurocado-studio/react-utils';
 import { get } from 'lodash-es';
 import React from 'react';
 
-import {
-  type FormNode,
-  HtmlForm,
-  type QuestionNode,
-  type SectionNode,
-} from '../../lib';
-import type { TextFieldQuestionUpdaterDto } from '../../types';
+import { HtmlForm } from '../../lib';
+import type {
+  FormDesignerEditorDto,
+  TextFieldQuestionUpdaterDto,
+} from '../../types';
 import { TextField } from '../TextField';
 import {
   type TextFieldNodeUpdaterSchema,
   textFieldNodeFormSchema,
-} from './TextFieldNode.schema';
+} from '../questions/TextFieldNode.schema';
 
-export type TextInputNodeProps = React.PropsWithChildren<{
-  question: QuestionNode;
-  form: FormNode;
-  section: SectionNode;
-  handleUpdateQuestion: (payload: TextFieldQuestionUpdaterDto) => Promise<void>;
-}>;
+export type TextFieldQuestionUpdaterHandler = (
+  payload: TextFieldQuestionUpdaterDto,
+) => Promise<void>;
+
+export interface TextFieldNodeFormProperties extends FormDesignerEditorDto {
+  handleUpdateQuestion: TextFieldQuestionUpdaterHandler;
+}
 
 export const TextFieldNodeForm = (
-  properties: TextInputNodeProps,
+  properties: React.PropsWithChildren<TextFieldNodeFormProperties>,
 ): React.ReactNode => {
-  const { form, section, handleUpdateQuestion } = properties;
-  const { question, id, variant, variants } = properties.question;
+  const { formBeingEdited, sectionBeingEdited, handleUpdateQuestion } =
+    properties;
+
+  const { question, id, variant, variants } = properties.questionBeingEdited;
 
   const defaultValue = React.useMemo(() => {
     return {
@@ -44,10 +46,10 @@ export const TextFieldNodeForm = (
       shouldRevalidate={'onInput'}
       onSuccess={async (payload) => {
         await handleUpdateQuestion({
-          formBeingEdited: form,
-          sectionBeingEdited: section,
+          formBeingEdited: formBeingEdited,
+          sectionBeingEdited: sectionBeingEdited,
           updatedProperties: payload,
-          questionBeingEdited: properties.question,
+          questionBeingEdited: properties.questionBeingEdited,
         });
       }}
     >

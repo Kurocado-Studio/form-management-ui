@@ -1,11 +1,10 @@
+import { useWindowSize } from '@kurocado-studio/react-utils';
 import {
   Button,
   Card,
 } from '@kurocado-studio/ui-react-research-and-development';
 import type React from 'react';
 import { twMerge } from 'tailwind-merge';
-
-import { useWindowSize } from '../hooks/useWindowSize';
 
 export interface QuestionControls {
   className?: string;
@@ -28,10 +27,6 @@ export function QuestionControls(
     properties.setQuestionToEdit(properties.question, shouldTriggerMobilePanel);
   };
 
-  const handleBlur = (): void => {
-    console.log('Div lost focus!');
-  };
-
   return (
     <Card
       id={properties.id}
@@ -40,7 +35,6 @@ export function QuestionControls(
         'focus:outline-none focus:ring-2 focus:ring-purple-600',
       )}
       onFocus={!shouldTriggerMobilePanel ? handleFocus : undefined}
-      onBlur={!shouldTriggerMobilePanel ? handleBlur : undefined}
       role='button'
       tabIndex={0}
     >

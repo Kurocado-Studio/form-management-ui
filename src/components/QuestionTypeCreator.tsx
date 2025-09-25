@@ -30,7 +30,7 @@ export function QuestionTypeCreator(properties: {
   const name = `question${numberOfQuestions}`;
 
   return (
-    <div className='flex flex-col space-y-2'>
+    <div className='flex flex-col h-full space-y-2'>
       <Button
         fullWidth
         variant='secondary'

@@ -1,7 +1,7 @@
 import { useAxios } from '@kurocado-studio/axios-client-react';
 import React from 'react';
 
-import { axiosHtmlFormsService } from '../config/htmlFormsServiceInstance';
+import { axiosHtmlFormsService } from '../config/axiosHtmlFormsService';
 import type { UseGetFormById } from '../types';
 
 export const useGetFormById: UseGetFormById = () => {

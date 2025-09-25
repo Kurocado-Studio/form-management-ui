@@ -1,7 +1,7 @@
 import { useAxios } from '@kurocado-studio/axios-client-react';
 import { get } from 'lodash-es';
 
-import { axiosHtmlFormsService } from '../config/htmlFormsServiceInstance';
+import { axiosHtmlFormsService } from '../config/axiosHtmlFormsService';
 import type {
   FormNode,
   QuestionDto,

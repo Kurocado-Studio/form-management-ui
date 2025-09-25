@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { get } from 'lodash-es';
 
 const baseURL =
-  import.meta.env['VITE_NODE_ENV'] === 'local'
+  get(import.meta, ['env', 'VITE_NODE_ENV'], '') === 'local'
     ? 'http://localhost:3000'
     : 'https://html-forms-service.fly.dev';
 

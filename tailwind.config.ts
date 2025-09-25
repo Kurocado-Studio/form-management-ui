@@ -1,4 +1,4 @@
-import { defaultTheme } from './src/config/defaultTheme';
+import { kurocadoTheme } from './src/config/kurocado.theme';
 
 export const content = [
   './src/**/*.{ts,tsx}',
@@ -6,4 +6,4 @@ export const content = [
   './node_modules/@kurocado-studio/react-ui-kit/dist/**/*.js',
 ];
 
-export const theme = defaultTheme;
+export const theme = kurocadoTheme;

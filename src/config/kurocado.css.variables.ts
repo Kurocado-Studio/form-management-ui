@@ -1,4 +1,4 @@
-export const cssVariables: Record<string, unknown> = {
+export const kurocadoCssVariables: Record<string, unknown> = {
   '--color-gray-50': '#f8fafc',
   '--color-gray-100': '#f1f5f9',
   '--color-gray-200': '#e2e8f0',

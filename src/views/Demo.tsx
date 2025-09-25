@@ -1,43 +1,24 @@
+import { useWindowSize } from '@kurocado-studio/react-utils';
 import {
-  Avatar,
   Button,
   Card,
   Grid,
-  type GridProps,
   Panel,
 } from '@kurocado-studio/ui-react-research-and-development';
 import { get } from 'lodash-es';
 import * as React from 'react';
 import { twMerge } from 'tailwind-merge';
-import { z } from 'zod';
 
+import { Header } from '../components/Header';
 import { QuestionControls } from '../components/QuestionControls';
-import { QuestionNodeRenderer } from '../components/QuestionNodeRenderer';
 import { QuestionTypeCreator } from '../components/QuestionTypeCreator';
-import { TextFieldNodeForm } from '../components/variants/TextFieldNode.form';
-import { CONTAINER_MAX_WIDTH } from '../config/constants';
+import { QuestionTypeManager } from '../components/QuestionTypeManager';
+import { FormDesignerManager } from '../components/forms/FormDesignerManager';
+import { CONTAINER_MAX_WIDTH, GRID_LAYOUT } from '../config/constants';
+import { CurrentFormViewEnum } from '../config/enums';
 import { useFormKitService } from '../hooks/useFormKitService';
 import { HtmlForm } from '../lib';
 import type { TextFieldQuestionCreatorDto } from '../types';
-
-const gridLayout: GridProps = {
-  gap: '1',
-  columns: {
-    base: '12',
-  },
-};
-
-const schema = z.object({
-  MY_INPUT: z.string().email('Incorrect email format'),
-  MY_INPUT_THREE: z.string(),
-  MY_INPUT_TWO: z.enum(['General', 'Bugs', 'Collab']),
-});
-
-enum CurrentViewEnum {
-  QUESTION = 'QUESTION',
-  SECTION = 'SECTION',
-  FORM = 'FORM',
-}
 
 export function Demo(): React.ReactNode {
   const {
@@ -47,12 +28,16 @@ export function Demo(): React.ReactNode {
     formBeingEdited,
     setQuestionToEdit,
     handleUpdateQuestion,
-    addTextFieldQuestion,
+    handleAddTextFieldQuestion,
     getFormById,
   } = useFormKitService();
 
-  const [currentView, setCurrentView] = React.useState<CurrentViewEnum>(
-    CurrentViewEnum.FORM,
+  const {
+    size: { innerWidth },
+  } = useWindowSize();
+
+  const [currentView, setCurrentView] = React.useState<CurrentFormViewEnum>(
+    CurrentFormViewEnum.FORM,
   );
 
   const [isConfigPanelOpen, setIsConfigPanelOpen] =
@@ -61,34 +46,30 @@ export function Demo(): React.ReactNode {
   const [isQuestionSelectorPanelOpen, setIsQuestionSelectorPanelOpen] =
     React.useState<boolean>(false);
 
-  const [
-    isPreviewConfigPanelOpensConfigPanelOpen,
-    setIsPreviewConfigPanelOpen,
-  ] = React.useState<boolean>(false);
-
-  const [isQuestionEditorOpen, setIsQuestionEditorOpen] =
-    React.useState<boolean>(false);
-
   const handleSetQuestionToEdit = (
     questionToBeEdited: Record<string, unknown>,
     shouldTriggerPanel: boolean,
   ): void => {
     setQuestionToEdit(questionToBeEdited);
     if (shouldTriggerPanel) {
-      setIsQuestionSelectorPanelOpen(true);
+      setIsConfigPanelOpen(true);
     }
     handleScrollToQuestionNode(questionToBeEdited?.['id'] as string);
-    setCurrentView(CurrentViewEnum.QUESTION);
+    setCurrentView(CurrentFormViewEnum.QUESTION);
   };
 
   const handleCreateTextFieldQuestion = async (
     payload: TextFieldQuestionCreatorDto,
   ): Promise<void> => {
-    const newQuestion = await addTextFieldQuestion(payload);
+    const newQuestion = await handleAddTextFieldQuestion(payload);
 
     const newId = get(newQuestion, ['id'], '') as string;
     handleScrollToQuestionNode(newId);
-    setCurrentView(CurrentViewEnum.QUESTION);
+    setCurrentView(CurrentFormViewEnum.QUESTION);
+
+    if (isQuestionSelectorPanelOpen) {
+      handleQuestionSelectorPanel();
+    }
   };
 
   const handleScrollToQuestionNode = (questionNodeId: string): void => {
@@ -102,56 +83,67 @@ export function Demo(): React.ReactNode {
     });
   };
 
+  const handleQuestionSelectorPanel = (): void => {
+    setIsQuestionSelectorPanelOpen((isOpen) => !isOpen);
+  };
+
+  const handleConfigPanel = (): void => {
+    setIsConfigPanelOpen((isOpen) => !isOpen);
+  };
+
+  const handleFormSettingsPanel = (): void => {
+    setCurrentView(CurrentFormViewEnum.FORM);
+    handleConfigPanel();
+  };
+
   React.useEffect(() => {
     if (formBeingEdited === undefined && !isApiInProgress) {
       getFormById('demo').then(() => {
-        setCurrentView(CurrentViewEnum.FORM);
+        setCurrentView(CurrentFormViewEnum.FORM);
       });
     }
   }, [formBeingEdited, getFormById, isApiInProgress]);
 
   return (
     <main className='bg-gray-100 flex flex-col h-screen'>
-      <Grid
-        {...gridLayout}
-        className={twMerge('shadow bg-white p-1', CONTAINER_MAX_WIDTH)}
-      >
-        <Avatar
-          alt='kurocado-studio'
-          src='https://avatars.githubusercontent.com/u/148841069?s=200&v=4'
-          className='col-span-3'
-        />
-      </Grid>
-      <Grid {...gridLayout} className={'xl:hidden p-1'}>
+      <Header />
+      <Grid {...GRID_LAYOUT} className={'xl:hidden p-1'}>
         <div className={'w-full col-span-5'}>
-          <Button>Add Question</Button>
+          <Button onClick={handleQuestionSelectorPanel}>Add Question</Button>
         </div>
         <div className={'w-full col-start-8 col-span-5'}>
-          <Button>Add Question</Button>
+          <Button onClick={handleFormSettingsPanel}>Form Settings</Button>
         </div>
       </Grid>
       <Grid
-        {...gridLayout}
+        {...GRID_LAYOUT}
         className={twMerge('p-1 flex-1', CONTAINER_MAX_WIDTH)}
       >
-        <aside className='hidden xl:block z-20 md:w-full md:col-span-2'>
-          <Card className={'h-full'}>
-            <Card.Body>
-              <QuestionTypeCreator
-                handleCreateTextFieldQuestion={handleCreateTextFieldQuestion}
-                formBeingEdited={formBeingEdited}
-                sectionBeingEdited={sectionBeingEdited}
-              />
-            </Card.Body>
-          </Card>
-        </aside>
+        <Card
+          className={'h-full hidden xl:block z-20 md:w-full md:col-span-2'}
+          as={'aside'}
+        >
+          <Card.Body>
+            <QuestionTypeCreator
+              handleCreateTextFieldQuestion={handleCreateTextFieldQuestion}
+              formBeingEdited={formBeingEdited}
+              sectionBeingEdited={sectionBeingEdited}
+            />
+          </Card.Body>
+        </Card>
         <div className='w-full overflow-y-auto col-span-12 lg:col-span-6'>
-          <Grid {...gridLayout} className={'relative subgrid overflow-hidden'}>
+          <Grid
+            {...GRID_LAYOUT}
+            className={twMerge(
+              'relative subgrid overflow-hidden',
+              'w-full px-2 overflow-y-auto col-span-12 lg:col-span-6',
+            )}
+          >
             <header className='relative mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'>
               <h1>{formBeingEdited?.title}</h1>
               <h1>{formBeingEdited?.description}</h1>
             </header>
-            <HtmlForm id='my-form' schema={schema}>
+            <HtmlForm id='form-designer-preview'>
               {sectionBeingEdited?.questions.map(
                 (question: Record<string, unknown>): React.ReactNode => {
                   return (
@@ -166,62 +158,47 @@ export function Demo(): React.ReactNode {
                           'outline-none ring-2 ring-purple-600',
                       )}
                     >
-                      <QuestionNodeRenderer question={question} />
-                      <pre>{JSON.stringify(question, null, 2)}</pre>
+                      <QuestionTypeManager questionBeingEdited={question} />
                     </QuestionControls>
                   );
                 },
               )}
             </HtmlForm>
             <div
-              className={
-                'z-10 w-screen h-screen absolute left-0 bottom-0 right-0 top-0'
-              }
+              className='z-10 w-screen h-screen absolute left-0 bottom-0 right-0 top-0'
               role='button'
-              onClick={() => {
-                setQuestionToEdit(undefined);
-                setCurrentView(CurrentViewEnum.FORM);
-              }}
+              onClick={() => setCurrentView(CurrentFormViewEnum.FORM)}
             />
           </Grid>
         </div>
-        <aside className='hidden xl:block  md:w-full md:col-span-4'>
-          <Card className={'h-full'}>
-            <Card.Body>
-              {currentView === CurrentViewEnum.FORM && (
-                <>
-                  <p>formBeingEdited</p>
-                  <pre>{JSON.stringify(formBeingEdited, null, 2)}</pre>
-                </>
-              )}
-              {currentView === CurrentViewEnum.SECTION && (
-                <>
-                  <p>sectionBeingEdited</p>
-                  <pre>{JSON.stringify(sectionBeingEdited, null, 2)}</pre>
-                </>
-              )}
-              {currentView === CurrentViewEnum.QUESTION && (
-                <>
-                  <TextFieldNodeForm
-                    handleUpdateQuestion={handleUpdateQuestion}
-                    form={formBeingEdited}
-                    section={sectionBeingEdited}
-                    question={questionBeingEdited}
-                  />
-                </>
-              )}
-            </Card.Body>
-          </Card>
-        </aside>
+        <Card className={'hidden xl:block  md:w-full md:col-span-4 h-full'}>
+          <Card.Body>
+            {innerWidth > 768 && (
+              <FormDesignerManager
+                currentFormView={currentView}
+                handleUpdateQuestion={handleUpdateQuestion}
+                formBeingEdited={formBeingEdited}
+                sectionBeingEdited={sectionBeingEdited}
+                questionBeingEdited={questionBeingEdited}
+              />
+            )}
+          </Card.Body>
+        </Card>
       </Grid>
-      <Panel
-        triggerPanel={() => setIsConfigPanelOpen((isOpen) => !isOpen)}
-        isOpen={isConfigPanelOpen}
-      >
-        isConfigPanelOpen
+      <Panel triggerPanel={handleConfigPanel} isOpen={isConfigPanelOpen}>
+        {innerWidth < 768 && (
+          <FormDesignerManager
+            currentFormView={currentView}
+            handleUpdateQuestion={handleUpdateQuestion}
+            formBeingEdited={formBeingEdited}
+            sectionBeingEdited={sectionBeingEdited}
+            questionBeingEdited={questionBeingEdited}
+          />
+        )}
+        <Button variant='secondary'>dfjkl</Button>
       </Panel>
       <Panel
-        triggerPanel={() => setIsQuestionSelectorPanelOpen((isOpen) => !isOpen)}
+        triggerPanel={handleQuestionSelectorPanel}
         isOpen={isQuestionSelectorPanelOpen}
       >
         <QuestionTypeCreator
@@ -229,18 +206,6 @@ export function Demo(): React.ReactNode {
           formBeingEdited={formBeingEdited}
           sectionBeingEdited={sectionBeingEdited}
         />
-      </Panel>
-      <Panel
-        triggerPanel={() => setIsPreviewConfigPanelOpen((isOpen) => !isOpen)}
-        isOpen={isPreviewConfigPanelOpensConfigPanelOpen}
-      >
-        isPreviewConfigPanelOpensConfigPanelOpen
-      </Panel>
-      <Panel
-        triggerPanel={() => setIsQuestionEditorOpen((isOpen) => !isOpen)}
-        isOpen={isQuestionEditorOpen}
-      >
-        isPreviewConfigPanelOpensConfigPanelOpen
       </Panel>
     </main>
   );

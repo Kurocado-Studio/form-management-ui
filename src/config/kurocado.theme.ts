@@ -1,4 +1,4 @@
-export const defaultTheme = {
+export const kurocadoTheme = {
   dimension: {
     '0': 'var(--dimension-0)',
     '1': 'var(--dimension-1)',

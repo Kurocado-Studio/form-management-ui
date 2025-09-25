@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { useCreateQuestion } from '../api/useCreateQuestion';
 import { useGetFormById } from '../api/useGetFormById';
-import type { QuestionNode } from '../lib';
+import type { FormNode, QuestionNode, SectionNode } from '../lib';
 import type {
   TextFieldQuestionCreatorDto,
   TextFieldQuestionUpdaterDto,
@@ -14,15 +14,15 @@ export const useFormKitService = () => {
   const { getFormById, formById } = useGetFormById();
 
   const [formBeingEdited, setFormBeingEdited] = React.useState<
-    Record<string, unknown> | undefined
+    FormNode | undefined
   >(undefined);
 
   const [sectionBeingEdited, setSectionBeingEdited] = React.useState<
-    Record<string, unknown> | undefined
+    SectionNode | undefined
   >(undefined);
 
   const [questionBeingEdited, setQuestionBeingEdited] = React.useState<
-    Record<string, unknown> | undefined
+    QuestionNode | undefined
   >(undefined);
 
   const handleGetFormById = async (id: string): Promise<void> => {
@@ -36,7 +36,7 @@ export const useFormKitService = () => {
     }
   };
 
-  const addTextFieldQuestion = async (
+  const handleAddTextFieldQuestion = async (
     payload: TextFieldQuestionCreatorDto,
   ): Promise<QuestionNode> => {
     const { form, section, variantPayload, question } = payload;
@@ -59,7 +59,7 @@ export const useFormKitService = () => {
     );
 
     setFormBeingEdited(updatedForm);
-    setSectionBeingEdited(get(form, ['sections', 0], []));
+    setSectionBeingEdited(get(updatedForm, ['sections', 0], []));
     setQuestionBeingEdited(newlyCreatedQuestion);
 
     return newlyCreatedQuestion;
@@ -109,8 +109,8 @@ export const useFormKitService = () => {
     formBeingEdited,
     sectionBeingEdited,
     questionBeingEdited,
-    addTextFieldQuestion,
     formByIdState: formById,
+    handleAddTextFieldQuestion,
     handleUpdateQuestion,
     getFormById: handleGetFormById,
     setFormToEdit: setFormBeingEdited,
