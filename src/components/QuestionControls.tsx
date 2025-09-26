@@ -21,7 +21,7 @@ export function QuestionControls(
 ): React.ReactNode {
   const { size } = useWindowSize();
 
-  const shouldTriggerMobilePanel = size.innerWidth < 1370;
+  const shouldTriggerMobilePanel = size.innerWidth < 1024;
 
   const handleFocus = (): void => {
     properties.setQuestionToEdit(properties.question, shouldTriggerMobilePanel);

@@ -1,4 +1,3 @@
-import { useWindowSize } from '@kurocado-studio/react-utils';
 import {
   Button,
   Card,
@@ -10,12 +9,11 @@ import { get } from 'lodash-es';
 import * as React from 'react';
 import { twMerge } from 'tailwind-merge';
 
+import { FormDesignerManagerPanel } from '../components/FormDesignerManagerPanel';
 import { Header } from '../components/Header';
 import { QuestionControls } from '../components/QuestionControls';
 import { QuestionTypeCreator } from '../components/QuestionTypeCreator';
 import { QuestionTypeManager } from '../components/QuestionTypeManager';
-// eslint-disable-next-line
-import { FormDesignerManager } from '../components/forms/FormDesignerManager';
 import { CONTAINER_MAX_WIDTH, GRID_LAYOUT } from '../config/constants';
 import { CurrentFormViewEnum } from '../config/enums';
 import { useFormKitService } from '../hooks/useFormKitService';
@@ -36,10 +34,6 @@ export function Demo(): React.ReactNode {
     handleAddTextFieldQuestion,
     getFormById,
   } = useFormKitService();
-
-  const {
-    size: { innerWidth },
-  } = useWindowSize();
 
   const [currentView, setCurrentView] = React.useState<CurrentFormViewEnum>(
     CurrentFormViewEnum.UNKNOWN,
@@ -127,11 +121,11 @@ export function Demo(): React.ReactNode {
   return (
     <main className='bg-gray-100 flex flex-col h-screen'>
       <Header />
-      <Grid {...GRID_LAYOUT} className='z-20 xl:hidden p-1'>
+      <Grid {...GRID_LAYOUT} className='z-20 lg:hidden p-1'>
         <div className='w-full col-span-5'>
           <Button onClick={handleQuestionSelectorPanel}>Add Question</Button>
         </div>
-        <div className='w-full col-start-8 col-span-5'>
+        <div className='w-full col-start-8 flex justify-end col-span-5'>
           <Button onClick={handleFormSettingsPanel}>Form Settings</Button>
         </div>
       </Grid>
@@ -140,7 +134,7 @@ export function Demo(): React.ReactNode {
         className={twMerge('p-1 flex-1', CONTAINER_MAX_WIDTH)}
       >
         <Card
-          className='h-full hidden xl:block z-20 md:w-full md:col-span-2'
+          className='h-full hidden lg:block z-20 md:w-full md:col-span-3 xl:md:col-span-2'
           as='aside'
         >
           <Card.Body>
@@ -151,26 +145,39 @@ export function Demo(): React.ReactNode {
             />
           </Card.Body>
         </Card>
-        <section className='w-full z-10 overflow-y-auto col-span-12 lg:col-span-6'>
+        <section className='w-full z-10 overflow-y-auto col-span-12 lg:col-span-5 xl:col-span-6'>
           <Grid
             {...GRID_LAYOUT}
             className={twMerge(
               'relative subgrid overflow-hidden',
-              'w-full px-2 overflow-y-auto col-span-12 lg:col-span-6',
+              'w-full px-2 overflow-y-auto col-span-12',
             )}
           >
             <header
+              role='button'
+              onClick={handleClickOnBackground}
               id={formBeingEdited?.id}
-              className='relative px-2 mt-8 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'
+              className={twMerge(
+                'relative z-20 px-2 mt-8 mb-2 w-full col-span-12',
+                'md:col-span-12',
+                'xl:col-span-10 xl:col-start-2',
+              )}
             >
               <Typography
                 as='h1'
                 className='font-display prose font-semibold'
-                size={{ base: '2xl' }}
+                size={{
+                  base: 'xl',
+                  xl: '2xl',
+                }}
               >
                 {formBeingEdited?.title}
               </Typography>
-              <Typography as='h2' className='prose mb-4' size={{ base: 'xl' }}>
+              <Typography
+                as='h2'
+                className='prose mb-4'
+                size={{ base: 'md', xl: 'xl' }}
+              >
                 {formBeingEdited?.description}
               </Typography>
             </header>
@@ -184,7 +191,9 @@ export function Demo(): React.ReactNode {
                       question={question}
                       setQuestionToEdit={handleSetQuestionToEdit}
                       className={twMerge(
-                        'z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3',
+                        'z-20 mb-2 w-full col-span-12',
+                        'md:col-span-12',
+                        'xl:col-span-10 xl:col-start-2',
                         question?.id === questionBeingEdited?.['id'] &&
                           'outline-none ring-2 ring-purple-600',
                       )}
@@ -202,38 +211,17 @@ export function Demo(): React.ReactNode {
             onClick={handleClickOnBackground}
           />
         </section>
-        <Card className='hidden xl:block z-20 md:w-full md:col-span-4 overflow-y-auto h-full'>
-          <Card.Body>
-            {innerWidth > 768 && (
-              <FormDesignerManager
-                currentFormView={currentView}
-                handleUpdateForm={handleUpdateForm}
-                handleUpdateQuestion={handleUpdateQuestion}
-                formBeingEdited={formBeingEdited}
-                sectionBeingEdited={sectionBeingEdited}
-                questionBeingEdited={questionBeingEdited}
-              />
-            )}
-          </Card.Body>
-        </Card>
+        <FormDesignerManagerPanel
+          isOpen={isConfigPanelOpen}
+          handleTriggerPanel={handleConfigPanel}
+          currentFormView={currentView}
+          handleUpdateForm={handleUpdateForm}
+          handleUpdateQuestion={handleUpdateQuestion}
+          formBeingEdited={formBeingEdited}
+          sectionBeingEdited={sectionBeingEdited}
+          questionBeingEdited={questionBeingEdited}
+        />
       </Grid>
-      <Panel triggerPanel={handleConfigPanel} isOpen={isConfigPanelOpen}>
-        {innerWidth < 768 && (
-          <FormDesignerManager
-            currentFormView={currentView}
-            handleUpdateForm={handleUpdateForm}
-            handleUpdateQuestion={handleUpdateQuestion}
-            formBeingEdited={formBeingEdited}
-            sectionBeingEdited={sectionBeingEdited}
-            questionBeingEdited={questionBeingEdited}
-          />
-        )}
-        <div className="sticky bottom-8 right-8">
-          <Button fullWidth onClick={handleConfigPanel}>
-            Close Panel
-          </Button>
-        </div>
-      </Panel>
       <Panel
         triggerPanel={handleQuestionSelectorPanel}
         isOpen={isQuestionSelectorPanelOpen}
@@ -243,7 +231,7 @@ export function Demo(): React.ReactNode {
           formBeingEdited={formBeingEdited}
           sectionBeingEdited={sectionBeingEdited}
         />
-        <div className="sticky bottom-8 right-8">
+        <div className='sticky bottom-8 right-8'>
           <Button fullWidth onClick={handleQuestionSelectorPanel}>
             Close Panel
           </Button>

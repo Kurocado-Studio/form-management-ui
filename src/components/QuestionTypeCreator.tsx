@@ -42,7 +42,7 @@ export function QuestionTypeCreator(properties: {
               hidden: false,
               name,
               question,
-              required: true,
+              required: false,
               variant: 'TEXT',
             },
             variantPayload: {
