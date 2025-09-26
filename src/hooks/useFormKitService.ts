@@ -51,7 +51,7 @@ export const useFormKitService = () => {
       variantPayload,
     });
 
-    const updatedForm = { ...form };
+    const updatedForm = cloneDeep({ ...form });
 
     const currentQuestions = get(updatedForm, ['sections', 0, 'questions'], []);
 
@@ -77,6 +77,7 @@ export const useFormKitService = () => {
       sectionBeingEdited,
       questionBeingEdited,
     } = payload;
+
     const currentQuestionId = get(questionBeingEdited, ['id'], '') as string;
     const updatedForm = cloneDeep({ ...formBeingEdited });
     const updatedSection = cloneDeep({ ...sectionBeingEdited });

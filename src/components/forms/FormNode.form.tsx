@@ -59,7 +59,7 @@ export function FormNodeEditor(
         <TextField name='description' label='Description' />
       </HtmlForm>
       <JsonView
-        className="text-xs overflow-y-auto"
+        className='text-xs overflow-y-auto'
         src={properties.formBeingEdited}
       />
     </div>

@@ -25,6 +25,7 @@ import type { TextFieldQuestionCreatorDto } from '../types';
 export function Demo(): React.ReactNode {
   const {
     isApiInProgress,
+    formByIdState,
     sectionBeingEdited,
     questionBeingEdited,
     formBeingEdited,
@@ -106,18 +107,27 @@ export function Demo(): React.ReactNode {
   };
 
   React.useEffect(() => {
-    if (formBeingEdited === undefined && !isApiInProgress) {
+    if (
+      formByIdState.error === undefined &&
+      formBeingEdited === undefined &&
+      !isApiInProgress
+    ) {
       getFormById('demo').then(() => {
-        // setFormToEdit(formBeingEdited);
         setCurrentView(CurrentFormViewEnum.FORM);
       });
     }
-  }, [formBeingEdited, setFormToEdit, getFormById, isApiInProgress]);
+  }, [
+    formByIdState.error,
+    formBeingEdited,
+    setFormToEdit,
+    getFormById,
+    isApiInProgress,
+  ]);
 
   return (
     <main className='bg-gray-100 flex flex-col h-screen'>
       <Header />
-      <Grid {...GRID_LAYOUT} className='xl:hidden p-1'>
+      <Grid {...GRID_LAYOUT} className='z-20 xl:hidden p-1'>
         <div className='w-full col-span-5'>
           <Button onClick={handleQuestionSelectorPanel}>Add Question</Button>
         </div>
@@ -141,7 +151,7 @@ export function Demo(): React.ReactNode {
             />
           </Card.Body>
         </Card>
-        <div className='w-full overflow-y-auto col-span-12 lg:col-span-6'>
+        <section className='w-full z-10 overflow-y-auto col-span-12 lg:col-span-6'>
           <Grid
             {...GRID_LAYOUT}
             className={twMerge(
@@ -154,28 +164,28 @@ export function Demo(): React.ReactNode {
               className='relative px-2 mt-8 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3'
             >
               <Typography
-                as="h1"
-                className="font-display prose font-semibold"
+                as='h1'
+                className='font-display prose font-semibold'
                 size={{ base: '2xl' }}
               >
                 {formBeingEdited?.title}
               </Typography>
-              <Typography as="h2" className="prose mb-4" size={{ base: 'xl' }}>
+              <Typography as='h2' className='prose mb-4' size={{ base: 'xl' }}>
                 {formBeingEdited?.description}
               </Typography>
             </header>
             <HtmlForm id='form-designer-preview'>
-              {sectionBeingEdited?.questions.map(
+              {sectionBeingEdited?.questions?.map(
                 (question: Record<string, unknown>): React.ReactNode => {
                   return (
                     <QuestionControls
-                      key={question.id}
-                      id={question.id}
+                      key={question?.id}
+                      id={question?.id}
                       question={question}
                       setQuestionToEdit={handleSetQuestionToEdit}
                       className={twMerge(
                         'z-20 mb-2 w-full col-span-12 lg:col-span-8 lg:col-start-3',
-                        question.id === questionBeingEdited?.['id'] &&
+                        question?.id === questionBeingEdited?.['id'] &&
                           'outline-none ring-2 ring-purple-600',
                       )}
                     >
@@ -185,14 +195,14 @@ export function Demo(): React.ReactNode {
                 },
               )}
             </HtmlForm>
-            <div
-              className='z-10 w-screen h-screen absolute left-0 bottom-0 right-0 top-0'
-              role='button'
-              onClick={handleClickOnBackground}
-            />
           </Grid>
-        </div>
-        <Card className='hidden xl:block  md:w-full md:col-span-4 overflow-y-auto h-full'>
+          <div
+            className='absolute inset-0 z-0'
+            role='button'
+            onClick={handleClickOnBackground}
+          />
+        </section>
+        <Card className='hidden xl:block z-20 md:w-full md:col-span-4 overflow-y-auto h-full'>
           <Card.Body>
             {innerWidth > 768 && (
               <FormDesignerManager
@@ -218,7 +228,11 @@ export function Demo(): React.ReactNode {
             questionBeingEdited={questionBeingEdited}
           />
         )}
-        <Button variant='secondary'>dfjkl</Button>
+        <div className="sticky bottom-8 right-8">
+          <Button fullWidth onClick={handleConfigPanel}>
+            Close Panel
+          </Button>
+        </div>
       </Panel>
       <Panel
         triggerPanel={handleQuestionSelectorPanel}
@@ -229,6 +243,11 @@ export function Demo(): React.ReactNode {
           formBeingEdited={formBeingEdited}
           sectionBeingEdited={sectionBeingEdited}
         />
+        <div className="sticky bottom-8 right-8">
+          <Button fullWidth onClick={handleQuestionSelectorPanel}>
+            Close Panel
+          </Button>
+        </div>
       </Panel>
     </main>
   );

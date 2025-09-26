@@ -42,7 +42,7 @@ export function TextFieldNodeForm(
   }, [id, question]) as Record<string, string>;
 
   return (
-    <div className="block relative h-full">
+    <div className='block relative h-screen'>
       <HtmlForm<TextFieldNodeUpdaterSchema>
         id='text-field-node-form'
         key={get(variants, [variant as string, 'id'])}
@@ -63,7 +63,7 @@ export function TextFieldNodeForm(
         <TextField name='question' label='Question' />
       </HtmlForm>
       <JsonView
-        className="text-xs overflow-y-auto"
+        className='text-xs overflow-y-auto'
         src={properties.questionBeingEdited}
       />
     </div>
