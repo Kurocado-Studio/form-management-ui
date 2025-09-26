@@ -6,14 +6,16 @@ import {
 import type React from 'react';
 import { twMerge } from 'tailwind-merge';
 
+import type { QuestionNode } from '../lib';
+
 export interface QuestionControls {
   className?: string;
   id?: string;
   setQuestionToEdit: (
-    question: Record<string, unknown>,
+    question: QuestionNode,
     shouldTriggerPanel: boolean,
   ) => void;
-  question: Record<string, unknown>;
+  question: QuestionNode;
 }
 
 export function QuestionControls(

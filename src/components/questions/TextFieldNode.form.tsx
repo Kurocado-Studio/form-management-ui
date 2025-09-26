@@ -2,7 +2,7 @@ import { get } from 'lodash-es';
 import React from 'react';
 import JsonView from 'react18-json-view';
 
-import { HtmlForm } from '../../lib';
+import { HtmlForm, type QuestionNode } from '../../lib';
 import type {
   FormDesignerEditorDto,
   FormNodeUpdaterDto,
@@ -16,7 +16,7 @@ import {
 
 export type TextFieldQuestionUpdaterHandler = (
   payload: TextFieldQuestionUpdaterDto,
-) => Promise<void>;
+) => Promise<QuestionNode>;
 
 export type FormNodeUpdaterHandler = (
   payload: FormNodeUpdaterDto,

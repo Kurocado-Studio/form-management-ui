@@ -2,9 +2,11 @@ import type { FieldName, FormId } from '@conform-to/react';
 import type { LabelHTMLAttributes, ReactNode } from 'react';
 import type React from 'react';
 
-export type FormNode = Record<string, unknown>;
-export type SectionNode = Record<string, unknown>;
-export type QuestionNode = Record<string, unknown>;
+import type { Form, Question, Section } from '../../formkit/src/types';
+
+export type FormNode = Form;
+export type SectionNode = Section;
+export type QuestionNode = Question;
 
 export type QuestionDto = {
   hidden: boolean;

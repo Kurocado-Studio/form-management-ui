@@ -17,7 +17,7 @@ import { QuestionTypeManager } from '../components/QuestionTypeManager';
 import { CONTAINER_MAX_WIDTH, GRID_LAYOUT } from '../config/constants';
 import { CurrentFormViewEnum } from '../config/enums';
 import { useFormKitService } from '../hooks/useFormKitService';
-import { HtmlForm } from '../lib';
+import { HtmlForm, type QuestionNode } from '../lib';
 import type { TextFieldQuestionCreatorDto } from '../types';
 
 export function Demo(): React.ReactNode {
@@ -46,7 +46,7 @@ export function Demo(): React.ReactNode {
     React.useState<boolean>(false);
 
   const handleSetQuestionToEdit = (
-    questionToBeEdited: Record<string, unknown>,
+    questionToBeEdited: QuestionNode,
     shouldTriggerPanel: boolean,
   ): void => {
     setQuestionToEdit(questionToBeEdited);
@@ -182,8 +182,8 @@ export function Demo(): React.ReactNode {
               </Typography>
             </header>
             <HtmlForm id='form-designer-preview'>
-              {sectionBeingEdited?.questions?.map(
-                (question: Record<string, unknown>): React.ReactNode => {
+              {get(sectionBeingEdited, ['questions'], []).map(
+                (question): React.ReactNode => {
                   return (
                     <QuestionControls
                       key={question?.id}

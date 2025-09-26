@@ -32,7 +32,7 @@ export const useFormKitService = () => {
     try {
       const payload = await getFormById(id);
       setFormBeingEdited(payload);
-      setSectionBeingEdited(get(payload, ['sections', 0], {}));
+      setSectionBeingEdited(get(payload, ['sections', 0]));
     } catch {
       setFormBeingEdited(undefined);
       setSectionBeingEdited(undefined);
@@ -62,7 +62,7 @@ export const useFormKitService = () => {
     );
 
     setFormBeingEdited(updatedForm);
-    setSectionBeingEdited(get(updatedForm, ['sections', 0], []));
+    setSectionBeingEdited(get(updatedForm, ['sections', 0]));
     setQuestionBeingEdited(newlyCreatedQuestion);
 
     return newlyCreatedQuestion;
@@ -70,7 +70,7 @@ export const useFormKitService = () => {
 
   const handleUpdateQuestion = async (
     payload: TextFieldQuestionUpdaterDto,
-  ): Promise<void> => {
+  ): Promise<QuestionNode> => {
     const {
       formBeingEdited,
       updatedProperties,

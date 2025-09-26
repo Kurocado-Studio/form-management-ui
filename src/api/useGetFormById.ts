@@ -2,10 +2,11 @@ import { useAxios } from '@kurocado-studio/axios-client-react';
 import React from 'react';
 
 import { axiosHtmlFormsService } from '../config/axiosHtmlFormsService';
+import type { FormNode } from '../lib';
 import type { UseGetFormById } from '../types';
 
 export const useGetFormById: UseGetFormById = () => {
-  const [formById, getSingleFormHandler] = useAxios({
+  const [formById, getSingleFormHandler] = useAxios<FormNode>({
     axiosInstance: axiosHtmlFormsService,
   });
 
