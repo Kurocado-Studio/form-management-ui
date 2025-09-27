@@ -1,10 +1,11 @@
+// @ts-expect-error while we fix typings
 import type { AxiosDataState } from '@kurocado-studio/axios-client-react';
 
 import type { FormNodeUpdaterSchema } from './components/forms/FormNode.schema';
 import type { TextFieldNodeUpdaterSchema } from './components/questions/TextFieldNode.schema';
 import type {
   FormNode,
-  QuestionDto,
+  QuestionCreatorDto,
   QuestionNode,
   SectionNode,
   TextFieldVariantDto,
@@ -19,7 +20,7 @@ export interface FormDesignerEditorDto {
 export interface TextFieldQuestionCreatorDto {
   form: FormNode;
   section: SectionNode;
-  question: QuestionDto;
+  question: QuestionCreatorDto;
   variantPayload: TextFieldVariantDto;
 }
 
@@ -44,7 +45,7 @@ export type UseCreateQuestion = () => {
   createTextFieldQuestion: (payload: {
     form: FormNode;
     section: SectionNode;
-    question: QuestionDto;
+    question: QuestionCreatorDto;
     variantPayload: TextFieldVariantDto;
   }) => Promise<QuestionNode>;
 };

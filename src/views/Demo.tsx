@@ -14,7 +14,13 @@ import { Header } from '../components/Header';
 import { QuestionControls } from '../components/QuestionControls';
 import { QuestionTypeCreator } from '../components/QuestionTypeCreator';
 import { QuestionTypeManager } from '../components/QuestionTypeManager';
-import { CONTAINER_MAX_WIDTH, GRID_LAYOUT } from '../config/constants';
+import {
+  CONTAINER_MAX_WIDTH,
+  EMPTY_FORM_NODE,
+  EMPTY_QUESTION_NODE,
+  EMPTY_SECTION_NODE,
+  GRID_LAYOUT,
+} from '../config/constants';
 import { CurrentFormViewEnum } from '../config/enums';
 import { useFormKitService } from '../hooks/useFormKitService';
 import { HtmlForm, type QuestionNode } from '../lib';
@@ -143,10 +149,7 @@ export function Demo(): React.ReactNode {
         {...GRID_LAYOUT}
         className={twMerge('p-1 flex-1', CONTAINER_MAX_WIDTH)}
       >
-        <Card
-          className='h-full hidden lg:block z-20 md:w-full md:col-span-3 xl:md:col-span-2'
-          as='aside'
-        >
+        <Card className='h-full hidden lg:block z-20 md:w-full md:col-span-3 xl:md:col-span-2'>
           <Card.Body>
             <QuestionTypeCreator
               handleCreateTextFieldQuestion={handleCreateTextFieldQuestion}
@@ -231,9 +234,9 @@ export function Demo(): React.ReactNode {
           currentFormView={currentView}
           handleUpdateForm={handleUpdateForm}
           handleUpdateQuestion={handleUpdateQuestion}
-          formBeingEdited={formBeingEdited}
-          sectionBeingEdited={sectionBeingEdited}
-          questionBeingEdited={questionBeingEdited}
+          formBeingEdited={formBeingEdited || EMPTY_FORM_NODE}
+          sectionBeingEdited={sectionBeingEdited || EMPTY_SECTION_NODE}
+          questionBeingEdited={questionBeingEdited || EMPTY_QUESTION_NODE}
         />
       </Grid>
       <Panel
@@ -241,6 +244,7 @@ export function Demo(): React.ReactNode {
         isOpen={isQuestionSelectorPanelOpen}
       >
         <QuestionTypeCreator
+          isApiInProgress={isApiInProgress}
           handleCreateTextFieldQuestion={handleCreateTextFieldQuestion}
           formBeingEdited={formBeingEdited}
           sectionBeingEdited={sectionBeingEdited}

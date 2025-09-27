@@ -4,29 +4,23 @@ import { get } from 'lodash-es';
 import { axiosHtmlFormsService } from '../config/axiosHtmlFormsService';
 import type {
   FormNode,
-  QuestionDto,
+  QuestionCreatorDto,
   QuestionNode,
   SectionNode,
-  VariantDto,
+  VariantCreatorDto,
 } from '../lib';
 import type { TextFieldQuestionCreatorDto, UseCreateQuestion } from '../types';
 
 export const useCreateQuestion: UseCreateQuestion = () => {
-  const [createQuestionState, createQuestionHandler] = useAxios<
-    {
-      question: QuestionDto;
-      variant: VariantDto;
-    },
-    QuestionNode
-  >({
+  const [createQuestionState, createQuestionHandler] = useAxios<QuestionNode>({
     axiosInstance: axiosHtmlFormsService,
   });
 
   const createQuestion = async (payload: {
     form: FormNode;
     section: SectionNode;
-    question: QuestionDto;
-    variant: VariantDto;
+    question: QuestionCreatorDto;
+    variant: VariantCreatorDto;
   }): Promise<QuestionNode> => {
     const { question, variant, form, section } = payload;
 
@@ -39,7 +33,9 @@ export const useCreateQuestion: UseCreateQuestion = () => {
       url: `/forms/${formId}/sections/${sectionId}/questions`,
       method: 'POST',
       data: {
+        // @ts-expect-error while we fix typings
         question,
+        // @ts-expect-error while we fix typings
         variant,
       },
     });

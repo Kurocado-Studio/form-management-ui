@@ -8,7 +8,7 @@ export type FormNode = Form;
 export type SectionNode = Section;
 export type QuestionNode = Question;
 
-export type QuestionDto = {
+export type QuestionCreatorDto = {
   hidden: boolean;
   hint?: string;
   name: string;
@@ -18,7 +18,7 @@ export type QuestionDto = {
   variant: 'TEXT';
 };
 
-export type VariantDto = {
+export type VariantCreatorDto = {
   variantPayload: Record<string, unknown>;
   variantType: string;
 };

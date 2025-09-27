@@ -31,6 +31,7 @@ export type VariantMap = {
 export interface Question extends Record<string, unknown> {
   id: string;
   question: string;
+  description?: string;
   hint?: string;
   tooltip?: string;
   name?: string;

@@ -31,6 +31,7 @@ export function QuestionControls(
 
   return (
     <Card
+      // @ts-expect-error while we fix typings
       id={properties.id}
       className={twMerge(
         properties.className,
