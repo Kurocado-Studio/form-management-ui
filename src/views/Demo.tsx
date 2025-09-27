@@ -123,10 +123,20 @@ export function Demo(): React.ReactNode {
       <Header />
       <Grid {...GRID_LAYOUT} className='z-20 lg:hidden p-1'>
         <div className='w-full col-span-5'>
-          <Button onClick={handleQuestionSelectorPanel}>Add Question</Button>
+          <Button
+            disabled={formByIdState.isLoading}
+            onClick={handleQuestionSelectorPanel}
+          >
+            Add Question
+          </Button>
         </div>
         <div className='w-full col-start-8 flex justify-end col-span-5'>
-          <Button onClick={handleFormSettingsPanel}>Form Settings</Button>
+          <Button
+            disabled={formByIdState.isLoading}
+            onClick={handleFormSettingsPanel}
+          >
+            Form Settings
+          </Button>
         </div>
       </Grid>
       <Grid
@@ -171,14 +181,18 @@ export function Demo(): React.ReactNode {
                   xl: '2xl',
                 }}
               >
-                {formBeingEdited?.title}
+                {formByIdState.isLoading
+                  ? 'Loading...'
+                  : get(formBeingEdited, ['title'])}
               </Typography>
               <Typography
                 as='h2'
                 className='prose mb-4'
                 size={{ base: 'md', xl: 'xl' }}
               >
-                {formBeingEdited?.description}
+                {formByIdState.isLoading
+                  ? null
+                  : get(formBeingEdited, ['description'])}
               </Typography>
             </header>
             <HtmlForm id='form-designer-preview'>

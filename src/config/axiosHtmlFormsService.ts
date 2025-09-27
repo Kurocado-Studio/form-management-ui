@@ -3,7 +3,7 @@ import axios from 'axios';
 const baseURL =
   import.meta.env['VITE_NODE_ENV'] === 'local'
     ? 'http://localhost:3000'
-    : 'https://html-forms-service.fly.dev';
+    : 'https://html-forms-service-staging.fly.dev';
 
 export const axiosHtmlFormsService = axios.create({
   baseURL,

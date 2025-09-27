@@ -12,7 +12,13 @@ import type {
 import type { TextFieldQuestionCreatorDto, UseCreateQuestion } from '../types';
 
 export const useCreateQuestion: UseCreateQuestion = () => {
-  const [createQuestionState, createQuestionHandler] = useAxios<QuestionNode>({
+  const [createQuestionState, createQuestionHandler] = useAxios<
+    {
+      question: QuestionDto;
+      variant: VariantDto;
+    },
+    QuestionNode
+  >({
     axiosInstance: axiosHtmlFormsService,
   });
 
