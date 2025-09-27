@@ -1,6 +1,6 @@
+import { VariantEnum } from '@kurocado-studio/html-form-service-ui-config';
 import type { GridProps } from '@kurocado-studio/ui-react-research-and-development';
 
-import { VariantEnum } from '../formkit/src/enums';
 import type { FormNode, QuestionNode, SectionNode } from '../lib';
 
 export const CONTAINER_MAX_WIDTH = 'w-full mx-auto max-w-[2440px]';

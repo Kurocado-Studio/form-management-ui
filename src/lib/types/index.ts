@@ -1,8 +1,11 @@
 import type { FieldName, FormId } from '@conform-to/react';
+import type {
+  Form,
+  Question,
+  Section,
+} from '@kurocado-studio/html-form-service-ui-config';
 import type { LabelHTMLAttributes, ReactNode } from 'react';
 import type React from 'react';
-
-import type { Form, Question, Section } from '../../formkit/src/types';
 
 export type FormNode = Form;
 export type SectionNode = Section;

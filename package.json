@@ -43,6 +43,7 @@
     "@conform-to/react": "^1.10.1",
     "@conform-to/zod": "^1.9.0",
     "@kurocado-studio/axios-client-react": "1.0.1-develop.4",
+    "@kurocado-studio/html-form-service-ui-config": "1.0.0-develop.1",
     "@kurocado-studio/html-forms": "1.0.1-develop.1",
     "@kurocado-studio/react-ui-kit": "^1.0.0",
     "@kurocado-studio/react-utils": "1.0.0-develop.1",
