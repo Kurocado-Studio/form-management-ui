@@ -1,8 +1,9 @@
+import type { Form } from '@kurocado-studio/html-form-service-ui-config';
+import { HtmlForm } from '@kurocado-studio/html-forms-react';
 import { get } from 'lodash-es';
 import React from 'react';
 import JsonView from 'react18-json-view';
 
-import { type FormNode, HtmlForm } from '../../lib';
 import type {
   FormDesignerEditorDto,
   FormNodeUpdaterDto,
@@ -18,7 +19,7 @@ export type TextFieldQuestionUpdaterHandler = (
 
 export type FormNodeUpdaterHandler = (
   payload: FormNodeUpdaterDto,
-) => Promise<FormNode>;
+) => Promise<Form>;
 
 export interface FormEditorSelectorProperties extends FormDesignerEditorDto {
   handleUpdateForm: FormNodeUpdaterHandler;

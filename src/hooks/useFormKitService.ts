@@ -1,9 +1,13 @@
+import type {
+  Form,
+  Question,
+  Section,
+} from '@kurocado-studio/html-form-service-ui-config';
 import { cloneDeep, get, set } from 'lodash-es';
 import * as React from 'react';
 
 import { useCreateQuestion } from '../api/useCreateQuestion';
 import { useGetFormById } from '../api/useGetFormById';
-import type { FormNode, QuestionNode, SectionNode } from '../lib';
 import type {
   FormNodeUpdaterDto,
   TextFieldQuestionCreatorDto,
@@ -17,15 +21,15 @@ export const useFormKitService = () => {
   const { getFormById, formById } = useGetFormById();
 
   const [formBeingEdited, setFormBeingEdited] = React.useState<
-    FormNode | undefined
+    Form | undefined
   >(undefined);
 
   const [sectionBeingEdited, setSectionBeingEdited] = React.useState<
-    SectionNode | undefined
+    Section | undefined
   >(undefined);
 
   const [questionBeingEdited, setQuestionBeingEdited] = React.useState<
-    QuestionNode | undefined
+    Question | undefined
   >(undefined);
 
   const handleGetFormById = async (id: string): Promise<void> => {
@@ -41,7 +45,7 @@ export const useFormKitService = () => {
 
   const handleAddTextFieldQuestion = async (
     payload: TextFieldQuestionCreatorDto,
-  ): Promise<QuestionNode> => {
+  ): Promise<Question> => {
     const { form, section, variantPayload, question } = payload;
 
     const newlyCreatedQuestion = await createTextFieldQuestion({
@@ -70,7 +74,7 @@ export const useFormKitService = () => {
 
   const handleUpdateQuestion = async (
     payload: TextFieldQuestionUpdaterDto,
-  ): Promise<QuestionNode> => {
+  ): Promise<Question> => {
     const {
       formBeingEdited,
       updatedProperties,
@@ -83,7 +87,7 @@ export const useFormKitService = () => {
     const updatedSection = cloneDeep({ ...sectionBeingEdited });
 
     const mappedQuestionsByUuid = Object.fromEntries(
-      updatedSection.questions.map((question: QuestionNode) => [
+      updatedSection.questions.map((question: Question) => [
         question['id'],
         question,
       ]),
@@ -108,7 +112,7 @@ export const useFormKitService = () => {
 
   const handleUpdateForm = async (
     payload: FormNodeUpdaterDto,
-  ): Promise<FormNode> => {
+  ): Promise<Form> => {
     const { formBeingEdited, updatedProperties } = payload;
 
     const updatedForm = cloneDeep({ ...formBeingEdited });

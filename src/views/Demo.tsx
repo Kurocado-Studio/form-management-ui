@@ -1,3 +1,5 @@
+import type { Question } from '@kurocado-studio/html-form-service-ui-config';
+import { HtmlForm } from '@kurocado-studio/html-forms-react';
 import {
   Button,
   Card,
@@ -23,7 +25,6 @@ import {
 } from '../config/constants';
 import { CurrentFormViewEnum } from '../config/enums';
 import { useFormKitService } from '../hooks/useFormKitService';
-import { HtmlForm, type QuestionNode } from '../lib';
 import type { TextFieldQuestionCreatorDto } from '../types';
 
 export function Demo(): React.ReactNode {
@@ -52,7 +53,7 @@ export function Demo(): React.ReactNode {
     React.useState<boolean>(false);
 
   const handleSetQuestionToEdit = (
-    questionToBeEdited: QuestionNode,
+    questionToBeEdited: Question,
     shouldTriggerPanel: boolean,
   ): void => {
     setQuestionToEdit(questionToBeEdited);
@@ -200,7 +201,7 @@ export function Demo(): React.ReactNode {
             </header>
             <HtmlForm id='form-designer-preview'>
               {get(sectionBeingEdited, ['questions'], []).map(
-                (question): React.ReactNode => {
+                (question: Question): React.ReactNode => {
                   return (
                     <QuestionControls
                       key={question?.id}

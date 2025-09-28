@@ -1,7 +1,10 @@
-import { VariantEnum } from '@kurocado-studio/html-form-service-ui-config';
+import {
+  type Form,
+  type Question,
+  type Section,
+  VariantEnum,
+} from '@kurocado-studio/html-form-service-ui-config';
 import type { GridProps } from '@kurocado-studio/ui-react-research-and-development';
-
-import type { FormNode, QuestionNode, SectionNode } from '../lib';
 
 export const CONTAINER_MAX_WIDTH = 'w-full mx-auto max-w-[2440px]';
 
@@ -15,7 +18,7 @@ export const GRID_LAYOUT: GridProps = {
   },
 };
 
-export const EMPTY_FORM_NODE: FormNode = {
+export const EMPTY_FORM_NODE: Form = {
   createdAt,
   description: '',
   id: '',
@@ -24,7 +27,7 @@ export const EMPTY_FORM_NODE: FormNode = {
   title: '',
 };
 
-export const EMPTY_SECTION_NODE: SectionNode = {
+export const EMPTY_SECTION_NODE: Section = {
   createdAt,
   description: 'No description provided',
   id: '',
@@ -34,10 +37,11 @@ export const EMPTY_SECTION_NODE: SectionNode = {
   updatedAt,
 };
 
-export const EMPTY_QUESTION_NODE: QuestionNode = {
+export const EMPTY_QUESTION_NODE: Question = {
   hidden: false,
   id: '',
   question: 'No name provided',
+  description: 'No description provided',
   required: false,
   variant: VariantEnum.TEXT,
   variants: {},

@@ -1,14 +1,17 @@
+import type {
+  Form,
+  Section,
+} from '@kurocado-studio/html-form-service-ui-config';
 import { Button } from '@kurocado-studio/ui-react-research-and-development';
 import { get } from 'lodash-es';
 import React from 'react';
 
 import { EMPTY_FORM_NODE, EMPTY_SECTION_NODE } from '../config/constants';
-import type { FormNode, SectionNode } from '../lib';
 import type { TextFieldQuestionCreatorDto } from '../types';
 
 export function QuestionTypeCreator(properties: {
-  formBeingEdited?: FormNode;
-  sectionBeingEdited?: SectionNode;
+  formBeingEdited?: Form;
+  sectionBeingEdited?: Section;
   isApiInProgress?: boolean;
   handleCreateTextFieldQuestion: (
     payload: TextFieldQuestionCreatorDto,

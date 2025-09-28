@@ -21,11 +21,14 @@ importers:
         specifier: 1.0.1-develop.4
         version: 1.0.1-develop.4(typescript@5.9.2)
       '@kurocado-studio/html-form-service-ui-config':
-        specifier: 1.0.0-develop.1
-        version: 1.0.0-develop.1
+        specifier: 1.0.0-develop.2
+        version: 1.0.0-develop.2
       '@kurocado-studio/html-forms':
         specifier: 1.0.1-develop.1
         version: 1.0.1-develop.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@kurocado-studio/html-forms-react':
+        specifier: 1.0.0-develop.2
+        version: 1.0.0-develop.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@kurocado-studio/react-ui-kit':
         specifier: ^1.0.0
         version: 1.0.0(@vueuse/core@13.9.0(vue@3.5.21(typescript@5.9.2)))(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.11)(vue@3.5.21(typescript@5.9.2))
@@ -1136,8 +1139,14 @@ packages:
   '@kurocado-studio/axios-client-react@1.0.1-develop.4':
     resolution: {integrity: sha512-B31J367yh3tvVU2QTvMAwTi9ZJQyhYYUXhoSCsebghyoiM6tE2u+oxAO1dJXD8Y4cSYdhDWhe1EEIZ2EZtQbuw==}
 
-  '@kurocado-studio/html-form-service-ui-config@1.0.0-develop.1':
-    resolution: {integrity: sha512-+hfP80dIwrT58t+mpChLUkGmnEaKcY87aePTjMTn79y/vVjXmX+HA0O9m2fm4Y2hQxkKbjSwvlNFFXlj1LYT/w==}
+  '@kurocado-studio/html-form-service-ui-config@1.0.0-develop.2':
+    resolution: {integrity: sha512-BqdNc11m2Xo6ktuINN79VjMWO8fhtGmwIRZrNr2h5jgCL7UkchdFqNNHx6tXMsVmPZuFIJyF+hxKNgkIJJXn6A==}
+
+  '@kurocado-studio/html-forms-react@1.0.0-develop.2':
+    resolution: {integrity: sha512-kYn1eiYxka/qhYZq48f6QFAFG0tn5lsGhnYo7k36lyvBUIlA53chGzuP4LmNMJ8jTega+PrNuAUrOGRHsVpr1g==}
+    peerDependencies:
+      react: 19.1.0
+      react-dom: 19.1.0
 
   '@kurocado-studio/html-forms@1.0.0':
     resolution: {integrity: sha512-gDOT43sblcpGunK56cQ4dqRDZYFlSp7tFgBw5Oozq+vwgReoqReK31biNAdwfwaXzfD2/hi8vrPJLsHRPk4gjA==}
@@ -8808,7 +8817,20 @@ snapshots:
       - debug
       - typescript
 
-  '@kurocado-studio/html-form-service-ui-config@1.0.0-develop.1': {}
+  '@kurocado-studio/html-form-service-ui-config@1.0.0-develop.2': {}
+
+  '@kurocado-studio/html-forms-react@1.0.0-develop.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@conform-to/dom': 1.10.1
+      '@conform-to/react': 1.10.1(react@19.0.0)
+      '@conform-to/zod': 1.10.1(zod@3.25.76)
+      '@react-aria/utils': 3.30.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      lodash-es: 4.17.21
+      react: 19.0.0
+      react-aria: 3.43.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-dom: 19.0.0(react@19.0.0)
+      tailwind-merge: 3.3.1
+      zod: 3.25.76
 
   '@kurocado-studio/html-forms@1.0.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:

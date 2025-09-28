@@ -1,27 +1,28 @@
 import { useAxios } from '@kurocado-studio/axios-client-react';
+import {
+  type Form,
+  type Question,
+  type QuestionCreatorDto,
+  type Section,
+  type VariantCreatorDto,
+  VariantEnum,
+} from '@kurocado-studio/html-form-service-ui-config';
 import { get } from 'lodash-es';
 
 import { axiosHtmlFormsService } from '../config/axiosHtmlFormsService';
-import type {
-  FormNode,
-  QuestionCreatorDto,
-  QuestionNode,
-  SectionNode,
-  VariantCreatorDto,
-} from '../lib';
 import type { TextFieldQuestionCreatorDto, UseCreateQuestion } from '../types';
 
 export const useCreateQuestion: UseCreateQuestion = () => {
-  const [createQuestionState, createQuestionHandler] = useAxios<QuestionNode>({
+  const [createQuestionState, createQuestionHandler] = useAxios<Question>({
     axiosInstance: axiosHtmlFormsService,
   });
 
   const createQuestion = async (payload: {
-    form: FormNode;
-    section: SectionNode;
+    form: Form;
+    section: Section;
     question: QuestionCreatorDto;
     variant: VariantCreatorDto;
-  }): Promise<QuestionNode> => {
+  }): Promise<Question> => {
     const { question, variant, form, section } = payload;
 
     const formId = get(form, ['id'], '');
@@ -43,7 +44,7 @@ export const useCreateQuestion: UseCreateQuestion = () => {
 
   const createTextFieldQuestion = async (
     payload: TextFieldQuestionCreatorDto,
-  ): Promise<QuestionNode> => {
+  ): Promise<Question> => {
     const { form, question, section, variantPayload } = payload;
 
     return createQuestion({
@@ -52,7 +53,7 @@ export const useCreateQuestion: UseCreateQuestion = () => {
       question,
       variant: {
         variantPayload,
-        variantType: 'TEXT',
+        variantType: VariantEnum.TEXT,
       },
     });
   };

@@ -1,11 +1,11 @@
+import type { Question } from '@kurocado-studio/html-form-service-ui-config';
 import { get } from 'lodash-es';
 import React from 'react';
 
-import type { QuestionNode } from '../../lib';
 import { TextField } from '../TextField';
 
 export function TextFieldNode(properties: {
-  question: QuestionNode;
+  question: Question;
 }): React.ReactNode {
   const { question, variant, variants, description } = properties.question;
   const name = get(variants, [variant as string, 'id']);

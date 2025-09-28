@@ -1,3 +1,4 @@
+import type { Question } from '@kurocado-studio/html-form-service-ui-config';
 import { useWindowSize } from '@kurocado-studio/react-utils';
 import {
   Button,
@@ -6,16 +7,11 @@ import {
 import type React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import type { QuestionNode } from '../lib';
-
 export interface QuestionControls {
   className?: string;
   id?: string;
-  setQuestionToEdit: (
-    question: QuestionNode,
-    shouldTriggerPanel: boolean,
-  ) => void;
-  question: QuestionNode;
+  setQuestionToEdit: (question: Question, shouldTriggerPanel: boolean) => void;
+  question: Question;
 }
 
 export function QuestionControls(
