@@ -47,10 +47,10 @@ export function QuestionTypeCreator(properties: {
             section: sectionBeingEdited || EMPTY_SECTION_NODE,
             question: {
               hidden: false,
+              description: 'None provided',
               name,
               question,
               required: false,
-              variant: 'TEXT',
             },
             variantPayload: {
               name,

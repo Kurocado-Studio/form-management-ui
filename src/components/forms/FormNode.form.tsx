@@ -6,7 +6,7 @@ import JsonView from 'react18-json-view';
 
 import type {
   FormDesignerEditorDto,
-  FormNodeUpdaterDto,
+  FormUpdaterDto,
   TextFieldQuestionUpdaterDto,
 } from '../../types';
 import { TextField } from '../TextField';
@@ -17,9 +17,7 @@ export type TextFieldQuestionUpdaterHandler = (
   payload: TextFieldQuestionUpdaterDto,
 ) => Promise<void>;
 
-export type FormNodeUpdaterHandler = (
-  payload: FormNodeUpdaterDto,
-) => Promise<Form>;
+export type FormNodeUpdaterHandler = (payload: FormUpdaterDto) => Promise<Form>;
 
 export interface FormEditorSelectorProperties extends FormDesignerEditorDto {
   handleUpdateForm: FormNodeUpdaterHandler;

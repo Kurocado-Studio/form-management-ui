@@ -1,51 +1,51 @@
 // @ts-expect-error while we fix typings
 import type { AxiosDataState } from '@kurocado-studio/axios-client-react';
-
-import type { FormNodeUpdaterSchema } from './components/forms/FormNode.schema';
-import type { TextFieldNodeUpdaterSchema } from './components/questions/TextFieldNode.schema';
 import type {
-  FormNode,
+  Form,
+  Question,
   QuestionCreatorDto,
-  QuestionNode,
-  SectionNode,
-  TextFieldVariantDto,
-} from './lib';
+  QuestionCreatorPayload,
+  Section,
+} from '@kurocado-studio/html-form-service-ui-config';
+
+import type { FormNodeFormSchema } from './components/forms/FormNode.schema';
+import type { TextFieldNodeUpdaterSchema } from './components/questions/TextFieldNode.schema';
 
 export interface FormDesignerEditorDto {
-  questionBeingEdited: QuestionNode;
-  formBeingEdited: FormNode;
-  sectionBeingEdited: SectionNode;
+  questionBeingEdited: Question;
+  formBeingEdited: Form;
+  sectionBeingEdited: Section;
 }
 
 export interface TextFieldQuestionCreatorDto {
-  form: FormNode;
-  section: SectionNode;
+  form: Form;
+  section: Section;
   question: QuestionCreatorDto;
-  variantPayload: TextFieldVariantDto;
+  variantPayload: QuestionCreatorPayload['variant']['variantPayload'];
 }
 
 export interface TextFieldQuestionUpdaterDto {
-  formBeingEdited: FormNode;
-  sectionBeingEdited: SectionNode;
-  questionBeingEdited: QuestionNode;
+  formBeingEdited: Form;
+  sectionBeingEdited: Section;
+  questionBeingEdited: Question;
   updatedProperties: TextFieldNodeUpdaterSchema;
 }
 
-export interface FormNodeUpdaterDto {
-  formBeingEdited: FormNode;
-  updatedProperties: FormNodeUpdaterSchema;
+export interface FormUpdaterDto {
+  formBeingEdited: Form;
+  updatedProperties: FormNodeFormSchema;
 }
 
 export type UseGetFormById = () => {
   formById: AxiosDataState<Record<string, unknown>>;
-  getFormById: (id: string) => Promise<FormNode>;
+  getFormById: (id: string) => Promise<Form>;
 };
 
 export type UseCreateQuestion = () => {
   createTextFieldQuestion: (payload: {
-    form: FormNode;
-    section: SectionNode;
+    form: Form;
+    section: Section;
     question: QuestionCreatorDto;
-    variantPayload: TextFieldVariantDto;
-  }) => Promise<QuestionNode>;
+    variantPayload: QuestionCreatorPayload['variant']['variantPayload'];
+  }) => Promise<Question>;
 };

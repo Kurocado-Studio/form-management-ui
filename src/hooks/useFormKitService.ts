@@ -9,7 +9,7 @@ import * as React from 'react';
 import { useCreateQuestion } from '../api/useCreateQuestion';
 import { useGetFormById } from '../api/useGetFormById';
 import type {
-  FormNodeUpdaterDto,
+  FormUpdaterDto,
   TextFieldQuestionCreatorDto,
   TextFieldQuestionUpdaterDto,
 } from '../types';
@@ -110,9 +110,7 @@ export const useFormKitService = () => {
     return updatedQuestion;
   };
 
-  const handleUpdateForm = async (
-    payload: FormNodeUpdaterDto,
-  ): Promise<Form> => {
+  const handleUpdateForm = async (payload: FormUpdaterDto): Promise<Form> => {
     const { formBeingEdited, updatedProperties } = payload;
 
     const updatedForm = cloneDeep({ ...formBeingEdited });

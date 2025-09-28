@@ -1,12 +1,12 @@
+import type { Question } from '@kurocado-studio/html-form-service-ui-config';
 import { get } from 'lodash-es';
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import type { QuestionNode } from '../lib';
 import { TextFieldNode } from './questions/TextFieldNode';
 
 export interface QuestionNodeTypeRendererProperties {
-  questionBeingEdited: QuestionNode;
+  questionBeingEdited: Question;
 }
 
 const questionTypeComponentMap = {
