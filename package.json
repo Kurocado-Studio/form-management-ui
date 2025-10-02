@@ -45,7 +45,7 @@
     "@kurocado-studio/axios-client-react": "1.0.1-develop.4",
     "@kurocado-studio/html-form-service-ui-config": "1.0.0-develop.3",
     "@kurocado-studio/html-forms": "1.0.1-develop.1",
-    "@kurocado-studio/react-design-system": "1.0.0-develop.1",
+    "@kurocado-studio/react-design-system": "1.0.0-develop.2",
     "@kurocado-studio/react-ui-kit": "^1.0.0",
     "@kurocado-studio/react-utils": "1.0.0-develop.1",
     "@kurocado-studio/ui-react-research-and-development": "1.0.0-develop.5",
