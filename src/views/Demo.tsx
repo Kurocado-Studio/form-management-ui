@@ -1,12 +1,12 @@
 import type { Question } from '@kurocado-studio/html-form-service-ui-config';
-import { HtmlForm } from '@kurocado-studio/html-forms-react';
+import { Card } from '@kurocado-studio/react-design-system';
 import {
   Button,
-  Card,
   Grid,
   Panel,
   Typography,
 } from '@kurocado-studio/ui-react-research-and-development';
+import { HtmlForm } from '@kurocado-studio/web-forms-react';
 import { get } from 'lodash-es';
 import * as React from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -151,13 +151,13 @@ export function Demo(): React.ReactNode {
         className={twMerge('p-1 flex-1', CONTAINER_MAX_WIDTH)}
       >
         <Card className='h-full hidden lg:block z-20 md:w-full md:col-span-3 xl:md:col-span-2'>
-          <Card.Body>
+          <Card.Header>
             <QuestionTypeCreator
               handleCreateTextFieldQuestion={handleCreateTextFieldQuestion}
               formBeingEdited={formBeingEdited}
               sectionBeingEdited={sectionBeingEdited}
             />
-          </Card.Body>
+          </Card.Header>
         </Card>
         <section className='w-full z-10 overflow-y-auto col-span-12 lg:col-span-5 xl:col-span-6'>
           <Grid

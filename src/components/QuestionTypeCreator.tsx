@@ -1,6 +1,7 @@
-import type {
-  Form,
-  Section,
+import {
+  type Form,
+  type Section,
+  VariantEnum,
 } from '@kurocado-studio/html-form-service-ui-config';
 import { Button } from '@kurocado-studio/ui-react-research-and-development';
 import { get } from 'lodash-es';
@@ -51,6 +52,7 @@ export function QuestionTypeCreator(properties: {
               name,
               question,
               required: false,
+              variant: VariantEnum.TEXT,
             },
             variantPayload: {
               name,

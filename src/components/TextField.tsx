@@ -1,8 +1,8 @@
-import { useAriaTextField } from '@kurocado-studio/html-forms-react';
 import {
   Input,
   Label,
 } from '@kurocado-studio/ui-react-research-and-development';
+import { useAriaTextField } from '@kurocado-studio/web-forms-react';
 import React from 'react';
 
 export function TextField(

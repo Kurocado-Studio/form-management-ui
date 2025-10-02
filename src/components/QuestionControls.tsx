@@ -37,7 +37,7 @@ export function QuestionControls(
       role='button'
       tabIndex={0}
     >
-      <Card.Body>{properties.children}</Card.Body>
+      <Card.Header>{properties.children}</Card.Header>
       {shouldTriggerMobilePanel ? (
         <Card.Footer>
           <Button

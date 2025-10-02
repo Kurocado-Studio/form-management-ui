@@ -1,5 +1,5 @@
 import type { Question } from '@kurocado-studio/html-form-service-ui-config';
-import { HtmlForm } from '@kurocado-studio/html-forms-react';
+import { HtmlForm } from '@kurocado-studio/web-forms-react';
 import { get } from 'lodash-es';
 import React from 'react';
 import JsonView from 'react18-json-view';

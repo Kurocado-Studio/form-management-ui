@@ -1,4 +1,7 @@
-import type { Question } from '@kurocado-studio/html-form-service-ui-config';
+import {
+  type Question,
+  VariantEnum,
+} from '@kurocado-studio/html-form-service-ui-config';
 import { get } from 'lodash-es';
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -10,23 +13,24 @@ export interface QuestionNodeTypeRendererProperties {
 }
 
 const questionTypeComponentMap = {
-  TEXT: TextFieldNode,
+  [VariantEnum.TEXT]: TextFieldNode,
 };
 
 export function QuestionTypeManager(
   properties: QuestionNodeTypeRendererProperties,
 ): React.ReactNode {
   const { questionBeingEdited } = properties;
-  const { variant, hidden } = questionBeingEdited;
+  const variant = get(properties, ['questionBeingEdited', 'variant']);
+  const hidden = get(properties, ['questionBeingEdited', 'hidden']);
 
   const MappedQuestionType = get(
     questionTypeComponentMap,
-    [variant as string],
-    'TEXT',
+    [variant],
+    () => null,
   );
 
   return (
-    <div className={twMerge('', (hidden as boolean) && 'z-30 bg-amber-200/20')}>
+    <div className={twMerge(hidden && 'z-30 bg-amber-200/20')}>
       <MappedQuestionType question={questionBeingEdited} />
     </div>
   );
