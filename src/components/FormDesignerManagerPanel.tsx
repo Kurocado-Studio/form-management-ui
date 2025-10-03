@@ -1,7 +1,7 @@
+import { Card } from '@kurocado-studio/react-design-system';
 import { useWindowSize } from '@kurocado-studio/react-utils';
 import {
   Button,
-  Card,
   Panel,
 } from '@kurocado-studio/ui-react-research-and-development';
 import React from 'react';

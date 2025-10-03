@@ -21,7 +21,7 @@
     "typecheck": "tsc",
     "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build",
-    "setup": "pnpm clean && pnpm i",
+    "setup": "pnpm clean && pnpm i && pnpm build",
     "use:local-ui": "pnpm remove @kurocado-studio/ui && pnpm add @kurocado-studio/ui@file:../design-system/packages/ui",
     "use:remote-ui": "pnpm remove @kurocado-studio/ui && pnpm add @kurocado-studio/ui@latest",
     "use:remote-html-forms": "pnpm remove @kurocado-studio/html-forms && pnpm add @kurocado-studio/html-forms@file:../platform/teams/dev-experience/packages/html-forms",
