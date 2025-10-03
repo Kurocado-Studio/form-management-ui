@@ -1,5 +1,5 @@
 {
-  "name": "@kurocado-studio/styleguide-react-template",
+  "name": "@kurocado-studio/form-management-ui",
   "version": "0.0.0-semantically-released",
   "private": true,
   "type": "module",
@@ -8,7 +8,7 @@
     "build": "vite build",
     "commitlint": "pnpm exec commitlint --edit .git/COMMIT_EDITMSG",
     "clean": "rm -rf node_modules pnpm.lock dist",
-    "dev": "vite",
+    "dev": "cross-env VITE_NODE_ENV=local vite",
     "eslint-check": "eslint --max-warnings=0 . --debug",
     "eslint-fix": "eslint --max-warnings=0 . --fix --no-warn-ignored",
     "lint": "eslint --max-warnings=0 . --no-warn-ignored",
@@ -21,39 +21,65 @@
     "typecheck": "tsc",
     "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build",
+    "setup": "pnpm clean && pnpm i && pnpm build",
     "use:local-ui": "pnpm remove @kurocado-studio/ui && pnpm add @kurocado-studio/ui@file:../design-system/packages/ui",
-    "use:remote-ui": "pnpm remove @kurocado-studio/ui && pnpm add @kurocado-studio/ui@latest"
+    "use:remote-ui": "pnpm remove @kurocado-studio/ui && pnpm add @kurocado-studio/ui@latest",
+    "use:remote-html-forms": "pnpm remove @kurocado-studio/html-forms && pnpm add @kurocado-studio/html-forms@file:../platform/teams/dev-experience/packages/html-forms",
+    "use:local-html-forms": "pnpm remove @kurocado-studio/html-forms && pnpm add @kurocado-studio/html-forms@file:../platform/teams/dev-experience/packages/html-forms",
+    "use:build-local-html-package": "cd ../platform/teams/dev-experience/packages/html-forms && pnpm build",
+    "use:sync-local-html-package": "pnpm clean && pnpm add @kurocado-studio/html-forms@file:../platform/packages/dev-experience/html-forms && pnpm i",
+    "ui:local:lib": "pnpm add @kurocado-studio/ui-react-research-and-development@file:../../../design-system/packages/ui",
+    "ui:canary:lib": "pnpm add @kurocado-studio/ui-react-research-and-development@canary",
+    "ui:published:lib": "pnpm add @kurocado-studio/ui-react-research-and-development@latest",
+    "ui:local:sync": "cd ../design-system-research-and-development/packages/ui-research-and-development && pnpm run build && cd - && pnpm install @kurocado-studio/ui-react-research-and-development@file:../design-system-research-and-development/packages/ui-research-and-development",
+    "ui:sync:dev": "pnpm clean && pnpm ui:local:sync && pnpm use:build-local-html-package && pnpm use:sync-local-html-package && pnpm i && pnpm dev"
   },
   "lint-staged": {
-    "*": [
-      "pnpm run prettier-fix"
-    ],
-    "**/*.{ts,tsx}": [
-      "pnpm run eslint-fix",
-      "pnpm run lint"
-    ]
+    "*": ["pnpm run prettier-fix"],
+    "**/*.{ts,tsx}": ["pnpm run eslint-fix", "pnpm run lint"]
   },
   "dependencies": {
-    "@kurocado-studio/ui": "file:../design-system/packages/ui",
+    "@conform-to/dom": "^1.10.1",
+    "@conform-to/react": "^1.10.1",
+    "@conform-to/zod": "^1.9.0",
+    "@kurocado-studio/axios-client-react": "1.0.1-develop.4",
+    "@kurocado-studio/html-form-service-ui-config": "1.0.0-develop.3",
+    "@kurocado-studio/html-forms": "1.0.1-develop.1",
+    "@kurocado-studio/react-design-system": "1.0.0-develop.4",
+    "@kurocado-studio/react-ui-kit": "^1.0.0",
+    "@kurocado-studio/react-utils": "1.0.0-develop.1",
+    "@kurocado-studio/ui-react-research-and-development": "1.0.0-develop.5",
+    "@kurocado-studio/web-forms-react": "^1.0.0",
+    "@react-aria/utils": "^3.30.1",
+    "axios": "^1.12.0",
     "framer-motion": "^12.6.2",
     "isbot": "^5.1.25",
     "lodash-es": "^4.17.21",
     "react": "19.0.0",
+    "react-aria": "^3.43.2",
     "react-dom": "19.0.0",
+    "react18-json-view": "^0.2.9",
     "tailwind-merge": "^3.1.0",
-    "tailwindcss": "^3.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "zod": "^3.23.0"
   },
   "devDependencies": {
     "@kurocado-studio/qa": "2.0.0-alpha.2",
     "@kurocado-studio/styleguide": "2.3.3",
-    "@storybook/addon-essentials": "^8.6.12",
-    "@storybook/addon-interactions": "^8.6.12",
-    "@storybook/addon-onboarding": "^8.6.12",
-    "@storybook/blocks": "^8.6.12",
-    "@storybook/react": "^8.6.12",
-    "@storybook/react-vite": "^8.6.12",
-    "@storybook/test": "^8.6.12",
+    "@storybook/addon-actions": "^8.6.14",
+    "@storybook/addon-docs": "^8.6.14",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/addon-interactions": "^8.6.14",
+    "@storybook/addon-links": "^8.6.14",
+    "@storybook/addon-onboarding": "^8.6.14",
+    "@storybook/addon-themes": "^8.6.14",
+    "@storybook/blocks": "^8.6.14",
+    "@storybook/react": "^8.6.14",
+    "@storybook/react-vite": "^8.6.14",
+    "@storybook/test": "^8.6.14",
+    "@storybook/theming": "^8.6.14",
+    "@tailwindcss/postcss": "^4.1.13",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.13",
     "@testing-library/jest-dom": "^6.6.3",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.14.0",
@@ -63,6 +89,7 @@
     "@vitest/coverage-v8": "^3.0.5",
     "autoprefixer": "^10.4.21",
     "commitlint": "^19.8.0",
+    "cross-env": "^10.0.0",
     "eslint": "^9.23.0",
     "eslint-plugin-storybook": "^0.12.0",
     "husky": "^9.1.7",
@@ -72,7 +99,8 @@
     "prettier": "^3.5.3",
     "semantic-release": "^23.1.1",
     "storybook": "^8.6.12",
-    "tailwindcss": "^3.3.2",
+    "tailwindcss": "^4.1.11",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.8.2",
     "vite": "^6.2.5",
     "vite-plugin-dts": "^4.5.3",
@@ -82,9 +110,13 @@
   "engines": {
     "node": ">=20"
   },
+  "pnpm": {
+    "overrides": {
+      "react": "19.0.0",
+      "react-dom": "19.0.0"
+    }
+  },
   "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
+    "extends": ["plugin:storybook/recommended"]
   }
 }
