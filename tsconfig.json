@@ -10,14 +10,17 @@
     "skipLibCheck": true,
     "rootDir": ".",
     "baseUrl": ".",
-    "jsx": "react"
+    "jsx": "preserve"
   },
   "include": [
+    "./.storybook/**/*",
+    "./stories/**/*",
+    "setup.web.ts",
     "src",
-    "setup.remix.ts",
-    "tailwind.config.ts",
+    "tailwind.config",
     "test",
     "vite.config.ts",
+    "tailwind.config.ts",
     "vitest.config.ts"
   ],
   "exclude": ["node_modules", "dist"]

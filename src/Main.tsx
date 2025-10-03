@@ -1,18 +1,19 @@
-import { ThemeProvider } from '@kurocado-studio/ui';
+import { ThemeProvider } from '@kurocado-studio/react-design-system';
 import React from 'react';
+import 'react18-json-view/src/style.css';
 import ReactDOM from 'react-dom/client';
 
-import { Welcome } from './components/Welcome';
-import './tailwind.css';
-import themeTokens from './tokens/tokens.json';
+import '../tailwind.css';
+import { kurocadoCssVariables } from './config/kurocado.css.variables';
+import { Demo } from './views/Demo';
 
 const rootElement = document.getElementById('root')!;
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={themeTokens}>
-      <Welcome />
+    <ThemeProvider cssVariables={kurocadoCssVariables}>
+      <Demo />
     </ThemeProvider>
   </React.StrictMode>,
 );
