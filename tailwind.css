@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@plugin 'tailwindcss-animate';
+
+@config "./tailwind.config.ts";
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-display: 'Mona-Sans wide', sans-serif;
+  --font-sans: 'Mona-Sans', sans-serif;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
