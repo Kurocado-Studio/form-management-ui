@@ -1,29 +1,18 @@
-import {
-  type Form,
-  type Section,
-  VariantEnum,
-} from '@kurocado-studio/html-form-service-ui-config';
+import { VariantEnum } from '@kurocado-studio/html-form-service-ui-config';
 import { Button } from '@kurocado-studio/ui-react-research-and-development';
 import { get } from 'lodash-es';
 import React from 'react';
 
-import { EMPTY_FORM_NODE, EMPTY_SECTION_NODE } from '../config/constants';
-import type { TextFieldQuestionCreatorDto } from '../types';
+import { useCreateTextFieldQuestionUseCase } from '../application/usecase/Questions/useCreateQuestion.usecase';
+import { useFormKitStore } from '../store/useFormikStore';
 
-export function QuestionTypeCreator(properties: {
-  formBeingEdited?: Form;
-  sectionBeingEdited?: Section;
-  isApiInProgress?: boolean;
-  handleCreateTextFieldQuestion: (
-    payload: TextFieldQuestionCreatorDto,
-  ) => Promise<void>;
-}): React.ReactNode {
-  const {
-    formBeingEdited,
-    isApiInProgress,
-    sectionBeingEdited,
-    handleCreateTextFieldQuestion,
-  } = properties;
+export function QuestionCreator(): React.ReactNode {
+  const sectionBeingEdited = 'sectionBeingEdited';
+
+  const { createQuestionState } = useFormKitStore((state) => state);
+
+  const { executeCreateTextFieldQuestion } =
+    useCreateTextFieldQuestionUseCase();
 
   const comingSoonProperties = {
     fullWidth: true,
@@ -37,15 +26,13 @@ export function QuestionTypeCreator(properties: {
   const name = `question${numberOfQuestions}`;
 
   return (
-    <div className='flex flex-col h-screen space-y-2'>
+    <div className='flex h-full flex-col space-y-2'>
       <Button
-        disabled={isApiInProgress}
+        disabled={createQuestionState.isLoading}
         fullWidth
         variant='secondary'
         onClick={() => {
-          handleCreateTextFieldQuestion({
-            form: formBeingEdited || EMPTY_FORM_NODE,
-            section: sectionBeingEdited || EMPTY_SECTION_NODE,
+          executeCreateTextFieldQuestion({
             question: {
               hidden: false,
               description: 'None provided',
@@ -54,8 +41,11 @@ export function QuestionTypeCreator(properties: {
               required: false,
               variant: VariantEnum.TEXT,
             },
-            variantPayload: {
-              name,
+            variant: {
+              variantType: VariantEnum.TEXT,
+              variantPayload: {
+                name,
+              },
             },
           }).then();
         }}

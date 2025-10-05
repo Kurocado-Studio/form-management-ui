@@ -21,9 +21,9 @@ importers:
       '@conform-to/zod':
         specifier: ^1.9.0
         version: 1.9.0(zod@3.23.0)
-      '@kurocado-studio/axios-client-react':
-        specifier: 1.0.1-develop.4
-        version: 1.0.1-develop.4(typescript@5.9.2)
+      '@kurocado-studio/axios-react':
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.9.2)
       '@kurocado-studio/html-form-service-ui-config':
         specifier: 1.0.0-develop.3
         version: 1.0.0-develop.3
@@ -78,6 +78,9 @@ importers:
       zod:
         specifier: ^3.23.0
         version: 3.23.0
+      zustand:
+        specifier: ^5.0.8
+        version: 5.0.8(@types/react@18.3.24)(react@19.0.0)(use-sync-external-store@1.5.0(react@19.0.0))
     devDependencies:
       '@kurocado-studio/qa':
         specifier: 2.0.0-alpha.2
@@ -1143,8 +1146,8 @@ packages:
   '@jspm/core@2.1.0':
     resolution: {integrity: sha512-3sRl+pkyFY/kLmHl0cgHiFp2xEqErA8N3ECjMs7serSUBmoJ70lBa0PG5t0IM6WJgdZNyyI0R8YFfi5wM8+mzg==}
 
-  '@kurocado-studio/axios-client-react@1.0.1-develop.4':
-    resolution: {integrity: sha512-B31J367yh3tvVU2QTvMAwTi9ZJQyhYYUXhoSCsebghyoiM6tE2u+oxAO1dJXD8Y4cSYdhDWhe1EEIZ2EZtQbuw==}
+  '@kurocado-studio/axios-react@1.0.0':
+    resolution: {integrity: sha512-ICvZy0CIpDuioApfnXInwMQPxiq+nZl9LJPbrbOhb+pxkOnI4cMGE2TX37jVe3LB3l0t/sitggcdDylZYnQ2OA==}
 
   '@kurocado-studio/html-form-service-ui-config@1.0.0-develop.3':
     resolution: {integrity: sha512-2P9ZagRnfCqzOi/324ePBcyo8/O45e8g1opHCc76dxUll9azDSaNY2lSz3ykNtB7nzK8WF4Jj8bqROsk07aHqg==}
@@ -7956,6 +7959,24 @@ packages:
   zod@4.1.9:
     resolution: {integrity: sha512-HI32jTq0AUAC125z30E8bQNz0RQ+9Uc+4J7V97gLYjZVKRjeydPgGt6dvQzFrav7MYOUGFqqOGiHpA/fdbd0cQ==}
 
+  zustand@5.0.8:
+    resolution: {integrity: sha512-gyPKpIaxY9XcO2vSMrLbiER7QMAMGOQZVRdJ6Zi782jkbzZygq5GI9nG8g+sMgitRtndwaBSl7uiqC49o1SSiw==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: 19.0.0
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
+        optional: true
+
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
@@ -8804,7 +8825,7 @@ snapshots:
 
   '@jspm/core@2.1.0': {}
 
-  '@kurocado-studio/axios-client-react@1.0.1-develop.4(typescript@5.9.2)':
+  '@kurocado-studio/axios-react@1.0.0(typescript@5.9.2)':
     dependencies:
       axios: 1.12.2
       lodash-es: 4.17.21
@@ -17436,5 +17457,11 @@ snapshots:
   zod@3.25.76: {}
 
   zod@4.1.9: {}
+
+  zustand@5.0.8(@types/react@18.3.24)(react@19.0.0)(use-sync-external-store@1.5.0(react@19.0.0)):
+    optionalDependencies:
+      '@types/react': 18.3.24
+      react: 19.0.0
+      use-sync-external-store: 1.5.0(react@19.0.0)
 
   zwitch@2.0.4: {}

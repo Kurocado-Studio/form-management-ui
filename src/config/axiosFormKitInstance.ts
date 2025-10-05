@@ -6,7 +6,7 @@ const baseURL =
     ? 'http://localhost:3000'
     : 'https://html-forms-service-staging.fly.dev';
 
-export const axiosHtmlFormsService = axios.create({
+export const axiosFormKitInstance = axios.create({
   baseURL,
   headers: {
     'Content-Type': 'application/json',

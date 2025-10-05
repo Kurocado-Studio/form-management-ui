@@ -1,0 +1,12 @@
+export enum FormDesignerPanelsEnum {
+  QUESTION = 'QUESTION',
+  SECTION = 'SECTION',
+  FORM = 'FORM',
+  UNKNOWN = 'UNKNOWN',
+}
+
+export enum ModalsAndPanelsViewsEnum {
+  QUESTION_SELECTOR_PANEL = 'QUESTION_SELECTOR_PANEL',
+  FORM_DESIGNER_PANEL = 'FORM_DESIGNER_PANEL',
+  UNKNOWN = 'UNKNOWN',
+}

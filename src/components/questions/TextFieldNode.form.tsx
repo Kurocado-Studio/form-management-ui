@@ -4,9 +4,9 @@ import { get } from 'lodash-es';
 import React from 'react';
 import JsonView from 'react18-json-view';
 
+import { useFormKitStore } from '../../store/useFormikStore';
 import type {
   FormDesignerEditorDto,
-  FormUpdaterDto,
   TextFieldQuestionUpdaterDto,
 } from '../../types';
 import { TextField } from '../TextField';
@@ -19,8 +19,6 @@ export type TextFieldQuestionUpdaterHandler = (
   payload: TextFieldQuestionUpdaterDto,
 ) => Promise<Question>;
 
-export type FormNodeUpdaterHandler = (payload: FormUpdaterDto) => Promise<void>;
-
 export interface TextFieldNodeFormProperties extends FormDesignerEditorDto {
   handleUpdateQuestion: TextFieldQuestionUpdaterHandler;
 }
@@ -28,10 +26,20 @@ export interface TextFieldNodeFormProperties extends FormDesignerEditorDto {
 export function TextFieldNodeForm(
   properties: React.PropsWithChildren<TextFieldNodeFormProperties>,
 ): React.ReactNode {
-  const { formBeingEdited, sectionBeingEdited, handleUpdateQuestion } =
-    properties;
+  const {
+    formsNodeTree,
+    questionIdBeingEdited,
+    formIdBeingEdited,
+    sectionIdBeingEdited,
+  } = useFormKitStore((state) => state);
 
-  const { question, id, variant, variants } = properties.questionBeingEdited;
+  const { question, id, variant, variants, ...rest } = get(formsNodeTree, [
+    formIdBeingEdited ?? '',
+    'sections',
+    sectionIdBeingEdited ?? '',
+    'questions',
+    questionIdBeingEdited ?? '',
+  ]);
 
   const defaultValue = React.useMemo(() => {
     return {
@@ -53,7 +61,7 @@ export function TextFieldNodeForm(
           await handleUpdateQuestion({
             formBeingEdited,
             sectionBeingEdited,
-            updatedProperties: payload,
+            updatedQuestion: payload,
             questionBeingEdited: properties.questionBeingEdited,
           });
         }}
@@ -63,7 +71,7 @@ export function TextFieldNodeForm(
       </HtmlForm>
       <JsonView
         className='text-xs overflow-y-auto'
-        src={properties.questionBeingEdited}
+        src={{ question, id, variant, variants, ...rest }}
       />
     </div>
   );

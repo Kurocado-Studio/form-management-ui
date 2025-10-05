@@ -1,13 +1,13 @@
-import { useAxios } from '@kurocado-studio/axios-client-react';
+import { useAxios } from '@kurocado-studio/axios-react';
 import type { Form } from '@kurocado-studio/html-form-service-ui-config';
 import React from 'react';
 
-import { axiosHtmlFormsService } from '../config/axiosHtmlFormsService';
+import { axiosFormKitInstance } from '../config/axiosFormKitInstance';
 import type { UseGetFormById } from '../types';
 
 export const useGetFormById: UseGetFormById = () => {
   const [formById, getSingleFormHandler] = useAxios<Form>({
-    axiosInstance: axiosHtmlFormsService,
+    axiosInstance: axiosFormKitInstance,
   });
 
   const getFormById = React.useCallback(
