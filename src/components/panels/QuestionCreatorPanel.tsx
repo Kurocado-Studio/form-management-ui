@@ -4,16 +4,12 @@ import {
 } from '@kurocado-studio/ui-react-research-and-development';
 import * as React from 'react';
 
-import { useFormKitService } from '../../application/useFormKitService';
 import { usePanelsAndModalsContext } from '../../context/PanelsAndModalsContext';
 import { ModalsAndPanelsViewsEnum } from '../../enums';
 import { QuestionCreator } from '../QuestionCreator';
 
-
 export function QuestionCreatorPanel(): React.ReactNode {
-const { QUESTION_SELECTOR_PANEL } = ModalsAndPanelsViewsEnum;
-
-  const {} = useFormKitService();
+  const { QUESTION_SELECTOR_PANEL } = ModalsAndPanelsViewsEnum;
 
   const { handlePanelsAndModalsState, panelsAndModalsState } =
     usePanelsAndModalsContext();

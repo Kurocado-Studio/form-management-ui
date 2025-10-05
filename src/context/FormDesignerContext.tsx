@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
 import { FormDesignerPanelsEnum } from '../enums';
-import type { FormDesignerContext, FormViewContextType } from '../types';
+import type { FormDesignerContext } from '../types';
 
 const FormDesignerContext = createContext<FormDesignerContext>({
   handleFormDesignerState: () => {},

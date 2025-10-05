@@ -6,6 +6,8 @@ import {
 import React from 'react';
 
 import { axiosFormKitInstance } from '../../../config/axiosFormKitInstance';
+import { useFormDesignerContext } from '../../../context/FormDesignerContext';
+import { FormDesignerPanelsEnum } from '../../../enums';
 import { useFormKitStore } from '../../../store/useFormikStore';
 import type {
   QuestionCreatorPayload,
@@ -17,11 +19,14 @@ import { scrollToElement } from '../../../utils/scrollToElement';
 
 export const useCreateTextFieldQuestionUseCase: UseCreateQuestionUseCase =
   () => {
+    const { QUESTION } = FormDesignerPanelsEnum;
+
     const [{ resetState, error, isLoading }, createQuestionHandler] =
       useAxios<Question>({
         axiosInstance: axiosFormKitInstance,
       });
 
+    const { handleFormDesignerState } = useFormDesignerContext();
     const {
       formIdBeingEdited,
       sectionIdBeingEdited,
@@ -49,25 +54,23 @@ export const useCreateTextFieldQuestionUseCase: UseCreateQuestionUseCase =
 
       try {
         resetState();
-        const createdQuestion: Question = await createQuestionHandler({
+        const question: Question | undefined = await createQuestionHandler({
           url: `/forms/${formIdBeingEdited}/sections/${sectionIdBeingEdited}/questions`,
           method: 'POST',
           //   @ts-expect-error while we sync typings
           data,
         });
 
-        if (createdQuestion === undefined) return;
+        if (question === undefined) return;
 
-        const { id } = createdQuestion;
+        const { id } = question;
 
-        handleAddQuestionToForm({
-          sectionId: sectionIdBeingEdited,
-          question: createdQuestion,
-        });
+        handleAddQuestionToForm({ question });
         handleSetQuestionToBeEdited({ id });
         scrollToElement(id);
+        handleFormDesignerState(QUESTION);
 
-        return createdQuestion;
+        return question;
       } catch {
         return undefined;
       }

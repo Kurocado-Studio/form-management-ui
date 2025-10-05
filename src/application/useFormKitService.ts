@@ -7,8 +7,7 @@ import { useUpdateQuestionUseCase } from './usecase/Questions/useUpdateQuestion.
 
 export const useFormKitService = () => {
   const { executeGetFormById } = useGetFormByIdUseCase();
-  const { executeReadForm, executeClickOnFormBackground } =
-    useReadFormUseCase();
+  const { executeReadForm } = useReadFormUseCase();
   const { executeReadQuestion } = useReadQuestionUseCase();
   const { executeUpdateQuestion } = useUpdateQuestionUseCase();
   const { executeUpdateForm } = useUpdateFormUseCase();
@@ -16,7 +15,6 @@ export const useFormKitService = () => {
     useCreateTextFieldQuestionUseCase();
 
   return {
-    executeClickOnFormBackground,
     executeUpdateForm,
     executeUpdateQuestion,
     executeReadQuestion,

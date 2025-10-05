@@ -4,6 +4,7 @@ import { get } from 'lodash-es';
 import React from 'react';
 import JsonView from 'react18-json-view';
 
+import { useFormKitService } from '../../application/useFormKitService';
 import { useFormKitStore } from '../../store/useFormikStore';
 import type {
   FormDesignerEditorDto,
@@ -23,15 +24,15 @@ export interface TextFieldNodeFormProperties extends FormDesignerEditorDto {
   handleUpdateQuestion: TextFieldQuestionUpdaterHandler;
 }
 
-export function TextFieldNodeForm(
-  properties: React.PropsWithChildren<TextFieldNodeFormProperties>,
-): React.ReactNode {
+export function TextFieldNodeForm(): React.ReactNode {
   const {
     formsNodeTree,
     questionIdBeingEdited,
     formIdBeingEdited,
     sectionIdBeingEdited,
   } = useFormKitStore((state) => state);
+
+  const { executeUpdateQuestion } = useFormKitService();
 
   const { question, id, variant, variants, ...rest } = get(formsNodeTree, [
     formIdBeingEdited ?? '',
@@ -57,13 +58,8 @@ export function TextFieldNodeForm(
         defaultValue={defaultValue}
         shouldValidate='onInput'
         shouldRevalidate='onInput'
-        onSuccess={async (payload) => {
-          await handleUpdateQuestion({
-            formBeingEdited,
-            sectionBeingEdited,
-            updatedQuestion: payload,
-            questionBeingEdited: properties.questionBeingEdited,
-          });
+        onSuccess={(updatedQuestion) => {
+          executeUpdateQuestion({ updatedQuestionProperties: updatedQuestion });
         }}
       >
         <TextField name='id' disabled />

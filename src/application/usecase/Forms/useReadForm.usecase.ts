@@ -1,5 +1,4 @@
 import { useWindowSize } from '@kurocado-studio/react-utils';
-import React from 'react';
 
 import { VIEWPORT_WIDTH_TO_TRIGGER_MOBILE_PANEL } from '../../../config/constants';
 import { useFormDesignerContext } from '../../../context/FormDesignerContext';
@@ -36,10 +35,5 @@ export const useReadFormUseCase = () => {
     }
   };
 
-  const executeClickOnFormBackground = () => {
-    handleSetQuestionToBeEdited({ id: undefined });
-    handleFormDesignerState(FORM);
-  };
-
-  return { executeReadForm, executeClickOnFormBackground };
+  return { executeReadForm };
 };

@@ -1,4 +1,3 @@
-import type { Question } from '@kurocado-studio/html-form-service-ui-config';
 import { get, set } from 'lodash-es';
 
 import type {
@@ -25,31 +24,6 @@ export function getFormByIdHandler(payload: {
 
   return updatedState;
 }
-
-export const addQuestionToFormHandler = (payload: {
-  formId: string;
-  sectionId: string;
-  question: Question;
-  store: FormsStoreSlice;
-}): FormsStoreSlice => {
-  const { store, formId, sectionId, question } = payload;
-
-  const updatedState = { ...store };
-
-  const currentQuestions = get(
-    updatedState,
-    ['formsNodeTree', formId, 'sections', sectionId, 'questions'],
-    {},
-  );
-
-  set(
-    updatedState,
-    ['formsNodeTree', formId, 'sections', sectionId, 'questions'],
-    { ...currentQuestions, [question.id]: question },
-  );
-
-  return updatedState;
-};
 
 export const updateFormsStoreApiStateHandler = (payload: {
   apiState: ApiState;
