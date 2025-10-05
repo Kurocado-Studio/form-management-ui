@@ -10,13 +10,10 @@ import {
   ModalsAndPanelsViewsEnum,
 } from '../../../enums';
 import { useFormKitStore } from '../../../store/useFormikStore';
+import type { UseReadQuestionUseCase } from '../../../types';
 import { scrollToElement } from '../../../utils/scrollToElement';
 
-export type UseCreateQuestionUseCase = () => {
-  executeReadQuestion: (payload: { question: Question }) => void;
-};
-
-export const useReadQuestionUseCase: UseCreateQuestionUseCase = () => {
+export const useReadQuestionUseCase: UseReadQuestionUseCase = () => {
   const { handleSetQuestionToBeEdited } = useFormKitStore((state) => state);
   const { handlePanelsAndModalsState } = usePanelsAndModalsContext();
   const { handleFormDesignerState } = useFormDesignerContext();

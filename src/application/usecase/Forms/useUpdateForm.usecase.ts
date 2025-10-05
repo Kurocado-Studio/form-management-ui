@@ -1,18 +1,23 @@
-import { set } from 'lodash-es';
+import { get, set } from 'lodash-es';
 
 import { useFormKitStore } from '../../../store/useFormikStore';
 import type { FormUpdaterDto } from '../../../types';
 
 export const useUpdateFormUseCase = () => {
-  const { formsNodeTree, formIdBeingEdited, handleUpdateFormsNodeTree } =
+  const { formsNodeTree, composePaths, handleUpdateFormsNodeTree } =
     useFormKitStore();
 
   const executeUpdateForm = (payload: FormUpdaterDto): void => {
     const { updatedProperties } = payload;
     const updatedNodeTree = { ...formsNodeTree };
+    const { toCurrentForm } = composePaths();
+
+    const updatedForm = get(updatedNodeTree, toCurrentForm);
+
+    if (updatedForm === undefined) return;
 
     for (const [key, value] of Object.entries(updatedProperties)) {
-      set(updatedNodeTree, [formIdBeingEdited ?? '', key], value);
+      set(updatedForm, [key], value);
     }
 
     handleUpdateFormsNodeTree(updatedNodeTree);

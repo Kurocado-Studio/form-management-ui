@@ -28,6 +28,10 @@ export interface FormDesignerEditorDto {
   sectionBeingEdited: Section;
 }
 
+export type UseReadQuestionUseCase = () => {
+  executeReadQuestion: (payload: { question: Question }) => void;
+};
+
 export interface TextFieldQuestionCreatorDto {
   question: QuestionCreatorDto;
   variant: VariantCreatorDto;
@@ -84,10 +88,7 @@ export interface FormsStoreSlice {
   handleSetFormBeingEdited: (payload: { id: string | undefined }) => void;
   handleGetFormById: (payload: { formNodeTree: FormsNodeTree }) => void;
   handleComposeFormsNodeTree: (payload: { forms: Array<Form> }) => void;
-  handleAddQuestionToForm: (payload: {
-    sectionId: string | undefined;
-    question: Question;
-  }) => void;
+  handleAddQuestionToForm: (payload: { question: Question }) => void;
 }
 
 export interface QuestionCreatorPayload extends Record<string, unknown> {
@@ -120,9 +121,6 @@ export interface QuestionsStoreSlice {
   handleUpdateQuestionsStoreApiState: (
     apiState: ApiState,
     name: QuestionStoreApiNames,
-  ) => void;
-  handleCreateQuestion: <T extends VariantEnum = VariantEnum.TEXT>(
-    payload: BaseQuestionCreatorPayload<T>,
   ) => void;
 }
 

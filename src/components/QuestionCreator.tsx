@@ -5,11 +5,13 @@ import React from 'react';
 
 import { useCreateTextFieldQuestionUseCase } from '../application/usecase/Questions/useCreateQuestion.usecase';
 import { useFormKitStore } from '../store/useFormikStore';
+import type { TextFieldQuestionCreatorDto } from '../types';
 
 export function QuestionCreator(): React.ReactNode {
-  const sectionBeingEdited = 'sectionBeingEdited';
-
-  const { createQuestionState } = useFormKitStore((state) => state);
+  const { createQuestionState, composePaths, formsNodeTree } = useFormKitStore(
+    (state) => state,
+  );
+  const { toQuestions } = composePaths();
 
   const { executeCreateTextFieldQuestion } =
     useCreateTextFieldQuestionUseCase();
@@ -20,10 +22,29 @@ export function QuestionCreator(): React.ReactNode {
     variant: 'secondary',
   };
 
-  const numberOfQuestions = get(sectionBeingEdited, ['questions', 'length'], 0);
+  const numberOfQuestions = Object.keys(
+    get(formsNodeTree, toQuestions, {}),
+  ).length;
 
   const question = `Untitled Question ${numberOfQuestions}`;
   const name = `question${numberOfQuestions}`;
+
+  const emptyQuestionCreatorPayload: TextFieldQuestionCreatorDto = {
+    question: {
+      hidden: false,
+      description: 'None provided',
+      name,
+      question,
+      required: false,
+      variant: VariantEnum.TEXT,
+    },
+    variant: {
+      variantType: VariantEnum.TEXT,
+      variantPayload: {
+        name,
+      },
+    },
+  };
 
   return (
     <div className='flex h-full flex-col space-y-2'>
@@ -32,22 +53,7 @@ export function QuestionCreator(): React.ReactNode {
         fullWidth
         variant='secondary'
         onClick={() => {
-          executeCreateTextFieldQuestion({
-            question: {
-              hidden: false,
-              description: 'None provided',
-              name,
-              question,
-              required: false,
-              variant: VariantEnum.TEXT,
-            },
-            variant: {
-              variantType: VariantEnum.TEXT,
-              variantPayload: {
-                name,
-              },
-            },
-          }).then();
+          executeCreateTextFieldQuestion(emptyQuestionCreatorPayload).then();
         }}
       >
         Text Field

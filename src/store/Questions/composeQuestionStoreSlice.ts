@@ -6,26 +6,15 @@ import type {
   QuestionsStoreSlice,
   StoreSliceCreator,
 } from '../../types';
-import { createQuestionHandler } from './handlers';
 
 export const composeQuestionStoreSlice: StoreSliceCreator<
   QuestionsStoreSlice
-> = (setState, getState) => {
+> = (setState) => {
   return {
     questionIdBeingEdited: undefined,
     createQuestionState: DEFAULT_API_STATE,
-    handleCreateQuestion: (payload) => {
-      const { variant, question } = payload;
-      const formStore = createQuestionHandler({
-        question,
-        store: getState(),
-      });
-      setState(formStore);
-    },
     handleSetQuestionToBeEdited: ({ id }) => {
-      setState((prevState) => {
-        return { ...prevState, questionIdBeingEdited: id };
-      });
+      setState({ questionIdBeingEdited: id });
     },
     handleUpdateQuestionsStoreApiState: (payload, name) => {
       const questionStoreApiMap: Record<QuestionStoreApiNames, string> = {

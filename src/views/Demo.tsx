@@ -31,34 +31,34 @@ import { useFormKitStore } from '../store/useFormikStore';
 
 export function Demo(): React.ReactNode {
   const { executeGetFormById, executeReadForm } = useFormKitService();
+  const { handleFormDesignerState } = useFormDesignerContext();
   const {
     getFormByIdState,
     formsNodeTree,
+    handleSetQuestionToBeEdited,
     formIdBeingEdited,
-    sectionIdBeingEdited,
     questionIdBeingEdited,
+    composePaths,
   } = useFormKitStore();
 
   const { QUESTION_SELECTOR_PANEL } = ModalsAndPanelsViewsEnum;
-  const formId = formIdBeingEdited ?? '';
-  const sectionId = sectionIdBeingEdited ?? '';
 
   const { handlePanelsAndModalsState } = usePanelsAndModalsContext();
-  const { executeClickOnFormBackground } = useFormKitService();
+  const { toQuestions, toCurrentForm } = composePaths();
 
-  const questionsMap = get(
-    formsNodeTree,
-    [formId, 'sections', sectionId, 'questions'],
-    {},
-  );
-
+  const questionsMap = get(formsNodeTree, toQuestions, {});
   const formBeingEdited: Omit<Form, 'sections' | 'questions'> = get(
     formsNodeTree,
-    [formId],
+    toCurrentForm,
     EMPTY_FORM_NODE,
   );
 
-  const questionsBeingEdited = Object.values(questionsMap);
+  const handleClickOnFormBackground = (): void => {
+    handleSetQuestionToBeEdited({ id: undefined });
+    handleFormDesignerState(FormDesignerPanelsEnum.FORM);
+  };
+
+  const questionsBeingEdited: Array<Question> = Object.values(questionsMap);
 
   React.useEffect(() => {
     if (
@@ -115,8 +115,7 @@ export function Demo(): React.ReactNode {
           >
             <header
               role='button'
-              onClick={executeClickOnFormBackground}
-              id={formBeingEdited['id']}
+              onClick={handleClickOnFormBackground}
               className={twMerge(
                 'relative z-20 px-2 mt-8 mb-2 w-full col-span-12',
                 'md:col-span-12',
@@ -174,7 +173,7 @@ export function Demo(): React.ReactNode {
           <div
             className='absolute inset-0 z-0'
             role='button'
-            onClick={executeClickOnFormBackground}
+            onClick={handleClickOnFormBackground}
           />
         </section>
         <FormDesignerManagerPanel />

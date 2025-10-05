@@ -1,5 +1,5 @@
 import type { Question } from '@kurocado-studio/html-form-service-ui-config';
-import { set } from 'lodash-es';
+import { get, set } from 'lodash-es';
 
 import { DEFAULT_API_STATE, EMPTY_NODE_TREE } from '../../config/constants';
 import type {
@@ -7,9 +7,9 @@ import type {
   FormsStoreSlice,
   StoreSliceCreator,
 } from '../../types';
+import { useFormKitStore } from '../useFormikStore';
 import { composeFormsNodeTree } from './composeFormsNodeTree';
 import {
-  addQuestionToFormHandler,
   getFormByIdHandler,
   updateFormsStoreApiStateHandler,
 } from './handlers';
@@ -55,21 +55,20 @@ export const composeFormsStoreSlice: StoreSliceCreator<FormsStoreSlice> = (
     handleUpdateFormsNodeTree: (formsNodeTree) => {
       setState({ formsNodeTree });
     },
-    handleAddQuestionToForm: (payload: {
-      sectionId: string;
-      question: Question;
-    }) => {
-      const { sectionId, question } = payload;
-      const formId = getState().formIdBeingEdited;
+    handleAddQuestionToForm: (payload: { question: Question }) => {
+      const { toQuestions } = useFormKitStore.getState().composePaths();
+      const { question } = payload;
 
-      const updatedState = addQuestionToFormHandler({
-        formId,
-        sectionId,
-        question,
-        store: getState(),
+      const formsNodeTree = { ...getState().formsNodeTree };
+
+      const currentQuestions = get(formsNodeTree, toQuestions, {});
+
+      set(formsNodeTree, toQuestions, {
+        ...currentQuestions,
+        [question.id]: question,
       });
 
-      setState(updatedState);
+      setState({ formsNodeTree });
     },
   };
 };
