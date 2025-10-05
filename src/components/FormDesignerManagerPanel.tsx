@@ -4,18 +4,13 @@ import {
   Button,
   Panel,
 } from '@kurocado-studio/ui-react-research-and-development';
+import { get } from 'lodash-es';
 import React from 'react';
 
-import {
-  FormDesignerManager,
-  type FormDesignerProperties,
-} from './forms/FormDesignerManager';
-
-export interface FormDesignerManagerPanelProperties
-  extends FormDesignerProperties {
-  isOpen: boolean;
-  handleTriggerPanel: (isOpen: boolean) => void;
-}
+import { formDesignerComponentMap } from '../config/componentMaps';
+import { useFormDesignerContext } from '../context/FormDesignerContext';
+import { usePanelsAndModalsContext } from '../context/PanelsAndModalsContext';
+import { ModalsAndPanelsViewsEnum } from '../enums';
 
 function CardPanel(properties: React.PropsWithChildren): React.ReactNode {
   return (
@@ -25,17 +20,25 @@ function CardPanel(properties: React.PropsWithChildren): React.ReactNode {
   );
 }
 
-function SlideOutPanel(
-  properties: React.PropsWithChildren<
-    Pick<FormDesignerManagerPanelProperties, 'handleTriggerPanel' | 'isOpen'>
-  >,
-): React.ReactNode {
-  const { handleTriggerPanel, isOpen, children } = properties;
+function SlideOutPanel(properties: React.PropsWithChildren): React.ReactNode {
+  const { FORM_DESIGNER_PANEL } = ModalsAndPanelsViewsEnum;
+  const { children } = properties;
+
+  const { handlePanelsAndModalsState, panelsAndModalsState } =
+    usePanelsAndModalsContext();
+
+  const handleQuestionSelectorPanel = (): void => {
+    handlePanelsAndModalsState(FORM_DESIGNER_PANEL);
+  };
+
   return (
-    <Panel triggerPanel={handleTriggerPanel} isOpen={isOpen}>
+    <Panel
+      triggerPanel={handleQuestionSelectorPanel}
+      isOpen={panelsAndModalsState[FORM_DESIGNER_PANEL]}
+    >
       {children}
       <div className='sticky bottom-8 right-8'>
-        <Button fullWidth onClick={handleTriggerPanel}>
+        <Button fullWidth onClick={handleQuestionSelectorPanel}>
           Close Panel
         </Button>
       </div>
@@ -43,10 +46,8 @@ function SlideOutPanel(
   );
 }
 
-export function FormDesignerManagerPanel(
-  properties: FormDesignerManagerPanelProperties,
-): React.ReactNode {
-  const { handleTriggerPanel, isOpen, ...rest } = properties;
+export function FormDesignerManagerPanel(): React.ReactNode {
+  const {} = usePanelsAndModalsContext();
 
   const {
     size: { innerWidth },
@@ -54,9 +55,17 @@ export function FormDesignerManagerPanel(
 
   const Component = innerWidth < 1024 ? SlideOutPanel : CardPanel;
 
+  const { formDesignerState } = useFormDesignerContext();
+
+  const FormDesignerEditor = get(
+    formDesignerComponentMap,
+    [formDesignerState],
+    formDesignerComponentMap.FORM,
+  );
+
   return (
-    <Component handleTriggerPanel={handleTriggerPanel} isOpen={isOpen}>
-      <FormDesignerManager {...rest} />
+    <Component>
+      <FormDesignerEditor />
     </Component>
   );
 }

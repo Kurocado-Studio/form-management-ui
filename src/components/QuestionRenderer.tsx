@@ -16,7 +16,7 @@ const questionTypeComponentMap = {
   [VariantEnum.TEXT]: TextFieldNode,
 };
 
-export function QuestionTypeManager(
+export function QuestionRenderer(
   properties: QuestionNodeTypeRendererProperties,
 ): React.ReactNode {
   const { questionBeingEdited } = properties;
