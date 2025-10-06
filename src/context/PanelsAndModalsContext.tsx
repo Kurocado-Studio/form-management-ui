@@ -36,8 +36,8 @@ export function PanelsAndModalsProvider({
       [UNKNOWN]: false,
     };
 
-    setPanelsAndModalsState((prevState) => {
-      const nextSelectedState = get(prevState, [payload]);
+    setPanelsAndModalsState((previousState) => {
+      const nextSelectedState = get(previousState, [payload]);
       return {
         ...panelsAndModalsMap,
         [payload]: !nextSelectedState,

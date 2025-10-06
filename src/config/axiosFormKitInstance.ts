@@ -11,5 +11,5 @@ export const axiosFormKitInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000,
+  timeout: 10_000,
 });

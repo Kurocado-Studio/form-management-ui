@@ -7,9 +7,9 @@ import type {
   StoreSliceCreator,
 } from '../../types';
 
-export const composeQuestionStoreSlice: StoreSliceCreator<
-  QuestionsStoreSlice
-> = (setState) => {
+export const questionsStore: StoreSliceCreator<QuestionsStoreSlice> = (
+  setState,
+) => {
   return {
     questionIdBeingEdited: undefined,
     createQuestionState: DEFAULT_API_STATE,
@@ -21,8 +21,8 @@ export const composeQuestionStoreSlice: StoreSliceCreator<
         createQuestionState: 'createQuestionState',
       };
 
-      setState((prevState) => {
-        const updatedQuestionsStore = { ...prevState };
+      setState((previousState) => {
+        const updatedQuestionsStore = { ...previousState };
         const apiStateSelected = get(questionStoreApiMap, [name]);
 
         set(updatedQuestionsStore, [apiStateSelected], payload);

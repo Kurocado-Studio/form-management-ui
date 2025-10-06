@@ -1,7 +1,7 @@
 import type { Form } from '@kurocado-studio/html-form-service-ui-config';
 import { chain, keyBy } from 'lodash-es';
 
-import type { FormsNodeTree } from '../../types';
+import type { FormsNodeTree } from '../../../types';
 
 export function composeFormsNodeTree(apiForms: Form[]): FormsNodeTree {
   return chain(apiForms)

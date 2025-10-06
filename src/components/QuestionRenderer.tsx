@@ -1,3 +1,5 @@
+// TODO: update styleguide to disable this rule on files ending with (.tsx)
+/* eslint-disable unicorn/no-null */
 import {
   type Question,
   VariantEnum,

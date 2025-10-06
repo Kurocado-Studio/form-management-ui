@@ -1,13 +1,11 @@
 // @ts-expect-error while we fix typings
 import type { AxiosDataState, AxiosState } from '@kurocado-studio/axios-react';
 import type {
-  QuestionCreatorPayload as BaseQuestionCreatorPayload,
   Form,
   Question,
   QuestionCreatorDto,
   Section,
   VariantCreatorDto,
-  VariantEnum,
 } from '@kurocado-studio/html-form-service-ui-config';
 import type React from 'react';
 import type { StoreApi } from 'zustand';
@@ -124,6 +122,10 @@ export interface QuestionsStoreSlice {
   ) => void;
 }
 
+export type UseReadFormUseCase = () => {
+  executeReadForm: (payload: { id: string | undefined }) => void;
+};
+
 export interface SectionsStoreSlice {
   sectionIdBeingEdited: string | undefined;
   handleUpdateSectionBeingEdited: (payload: { id: string | undefined }) => void;
@@ -134,9 +136,7 @@ export type FormDesignerComponentMap = {
 };
 
 export type PanelsAndModalsMapComponentMap = {
-  [ModalsAndPanelsViewsEnum.FORM_DESIGNER_PANEL]: React.FC;
-  [ModalsAndPanelsViewsEnum.QUESTION_SELECTOR_PANEL]: React.FC;
-  [ModalsAndPanelsViewsEnum.UNKNOWN]: React.FC;
+  [k in ModalsAndPanelsViewsEnum]: React.FC;
 };
 
 export type PanelsAndModalsMap = {

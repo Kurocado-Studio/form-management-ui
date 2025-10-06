@@ -4,9 +4,8 @@ import React from 'react';
 import JsonView from 'react18-json-view';
 
 import { useFormKitService } from '../../application/useFormKitService';
-import { useFormKitStore } from '../../store/useFormikStore';
+import { useFormKitStore } from '../../application/useFormikStore';
 import { TextField } from '../TextField';
-// eslint-disable-next-line
 import { FormNodeUpdaterSchema, formNodeFormSchema } from './FormNode.schema';
 
 export function FormNodeEditor(): React.ReactNode {
@@ -28,7 +27,7 @@ export function FormNodeEditor(): React.ReactNode {
   }, [description, id, title]) as Record<string, string>;
 
   return (
-    <div className='block relative h-full overflow-y-auto'>
+    <div className='relative block h-full overflow-y-auto'>
       <HtmlForm<FormNodeUpdaterSchema>
         id='form-node-form'
         key={id ?? 'form-node-form-key'}
@@ -44,7 +43,7 @@ export function FormNodeEditor(): React.ReactNode {
         <TextField name='title' label='Title' />
         <TextField name='description' label='Description' />
       </HtmlForm>
-      <JsonView className='text-xs overflow-y-auto' src={payload} />
+      <JsonView className='overflow-y-auto text-xs' src={payload} />
     </div>
   );
 }

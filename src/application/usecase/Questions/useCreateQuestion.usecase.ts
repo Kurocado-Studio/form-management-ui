@@ -8,7 +8,6 @@ import React from 'react';
 import { axiosFormKitInstance } from '../../../config/axiosFormKitInstance';
 import { useFormDesignerContext } from '../../../context/FormDesignerContext';
 import { FormDesignerPanelsEnum } from '../../../enums';
-import { useFormKitStore } from '../../../store/useFormikStore';
 import type {
   QuestionCreatorPayload,
   QuestionCreatorReturnType,
@@ -16,6 +15,7 @@ import type {
   UseCreateQuestionUseCase,
 } from '../../../types';
 import { scrollToElement } from '../../../utils/scrollToElement';
+import { useFormKitStore } from '../../useFormikStore';
 
 export const useCreateTextFieldQuestionUseCase: UseCreateQuestionUseCase =
   () => {

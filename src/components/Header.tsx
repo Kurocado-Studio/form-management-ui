@@ -11,7 +11,7 @@ export function Header(): React.ReactNode {
   return (
     <Grid
       {...GRID_LAYOUT}
-      className={twMerge('shadow z-20 bg-white p-1', CONTAINER_MAX_WIDTH)}
+      className={twMerge('z-20 bg-white p-1 shadow', CONTAINER_MAX_WIDTH)}
     >
       <Avatar
         alt='kurocado-studio'

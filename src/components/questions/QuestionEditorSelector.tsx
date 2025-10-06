@@ -2,7 +2,6 @@ import { get } from 'lodash-es';
 import React from 'react';
 
 import type { FormDesignerEditorDto } from '../../types';
-// eslint-disable-next-line
 import {
   TextFieldNodeForm,
   type TextFieldNodeFormProperties,

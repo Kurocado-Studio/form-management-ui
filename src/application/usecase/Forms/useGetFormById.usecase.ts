@@ -6,8 +6,8 @@ import React from 'react';
 import { axiosFormKitInstance } from '../../../config/axiosFormKitInstance';
 import { useFormDesignerContext } from '../../../context/FormDesignerContext';
 import { FormDesignerPanelsEnum } from '../../../enums';
-import { useFormKitStore } from '../../../store/useFormikStore';
 import type { FormsNodeTree } from '../../../types';
+import { useFormKitStore } from '../../useFormikStore';
 
 export type UseGetFormByIdUseCase = () => {
   executeGetFormById: (payload: {
