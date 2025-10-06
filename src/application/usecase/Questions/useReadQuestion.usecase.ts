@@ -9,9 +9,9 @@ import {
   FormDesignerPanelsEnum,
   ModalsAndPanelsViewsEnum,
 } from '../../../enums';
-import { useFormKitStore } from '../../../store/useFormikStore';
 import type { UseReadQuestionUseCase } from '../../../types';
 import { scrollToElement } from '../../../utils/scrollToElement';
+import { useFormKitStore } from '../../useFormikStore';
 
 export const useReadQuestionUseCase: UseReadQuestionUseCase = () => {
   const { handleSetQuestionToBeEdited } = useFormKitStore((state) => state);

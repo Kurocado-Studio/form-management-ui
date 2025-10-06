@@ -1,3 +1,5 @@
+// TODO: update styleguide to disable this rule on files ending with (.tsx)
+/* eslint-disable unicorn/no-null */
 import type {
   Form,
   Question,
@@ -14,6 +16,7 @@ import * as React from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import { useFormKitService } from '../application/useFormKitService';
+import { useFormKitStore } from '../application/useFormikStore';
 import { FormDesignerManagerPanel } from '../components/FormDesignerManagerPanel';
 import { Header } from '../components/Header';
 import { QuestionControls } from '../components/QuestionControls';
@@ -27,7 +30,6 @@ import {
 import { useFormDesignerContext } from '../context/FormDesignerContext';
 import { usePanelsAndModalsContext } from '../context/PanelsAndModalsContext';
 import { FormDesignerPanelsEnum, ModalsAndPanelsViewsEnum } from '../enums';
-import { useFormKitStore } from '../store/useFormikStore';
 
 export function Demo(): React.ReactNode {
   const { executeGetFormById, executeReadForm } = useFormKitService();
@@ -42,11 +44,11 @@ export function Demo(): React.ReactNode {
   } = useFormKitStore();
 
   const { QUESTION_SELECTOR_PANEL } = ModalsAndPanelsViewsEnum;
-
   const { handlePanelsAndModalsState } = usePanelsAndModalsContext();
   const { toQuestions, toCurrentForm } = composePaths();
 
   const questionsMap = get(formsNodeTree, toQuestions, {});
+
   const formBeingEdited: Omit<Form, 'sections' | 'questions'> = get(
     formsNodeTree,
     toCurrentForm,
@@ -76,10 +78,10 @@ export function Demo(): React.ReactNode {
   ]);
 
   return (
-    <main className='bg-gray-100 flex flex-col h-screen'>
+    <main className='flex h-screen flex-col bg-gray-100'>
       <Header />
-      <Grid {...GRID_LAYOUT} className='z-20 lg:hidden p-1'>
-        <div className='w-full col-span-5'>
+      <Grid {...GRID_LAYOUT} className='z-20 p-1 lg:hidden'>
+        <div className='col-span-5 w-full'>
           <Button
             disabled={getFormByIdState.isLoading}
             onClick={() => handlePanelsAndModalsState(QUESTION_SELECTOR_PANEL)}
@@ -87,7 +89,7 @@ export function Demo(): React.ReactNode {
             Add Question
           </Button>
         </div>
-        <div className='w-full col-start-8 flex justify-end col-span-5'>
+        <div className='col-span-5 col-start-8 flex w-full justify-end'>
           <Button
             disabled={getFormByIdState.isLoading}
             onClick={() => executeReadForm({ id: formIdBeingEdited })}
@@ -98,26 +100,26 @@ export function Demo(): React.ReactNode {
       </Grid>
       <Grid
         {...GRID_LAYOUT}
-        className={twMerge('p-1 flex-1', CONTAINER_MAX_WIDTH)}
+        className={twMerge('flex-1 p-1', CONTAINER_MAX_WIDTH)}
       >
-        <Card className='h-full hidden lg:block z-20 md:w-full md:col-span-3 xl:md:col-span-2'>
+        <Card className='z-20 hidden h-full md:col-span-3 md:w-full lg:block xl:md:col-span-2'>
           <Card.Header>
             <QuestionCreator />
           </Card.Header>
         </Card>
-        <section className='w-full z-10 overflow-y-auto col-span-12 lg:col-span-5 xl:col-span-6'>
+        <section className='z-10 col-span-12 w-full overflow-y-auto lg:col-span-5 xl:col-span-6'>
           <Grid
             {...GRID_LAYOUT}
             className={twMerge(
-              'relative subgrid overflow-hidden',
-              'w-full px-2 overflow-y-auto col-span-12',
+              'subgrid relative overflow-hidden',
+              'col-span-12 w-full overflow-y-auto px-2',
             )}
           >
             <header
               role='button'
               onClick={handleClickOnFormBackground}
               className={twMerge(
-                'relative z-20 px-2 mt-8 mb-2 w-full col-span-12',
+                'relative z-20 col-span-12 mt-8 mb-2 w-full px-2',
                 'md:col-span-12',
                 'xl:col-span-10 xl:col-start-2',
               )}
@@ -156,11 +158,11 @@ export function Demo(): React.ReactNode {
                       key={question.id}
                       question={question}
                       className={twMerge(
-                        'z-20 mb-2 w-full col-span-12',
+                        'z-20 col-span-12 mb-2 w-full',
                         'md:col-span-12',
                         'xl:col-span-10 xl:col-start-2',
                         question.id === questionIdBeingEdited &&
-                          'outline-none ring-2 ring-purple-600',
+                          'ring-2 ring-purple-600 outline-none',
                       )}
                     >
                       <QuestionRenderer questionBeingEdited={question} />

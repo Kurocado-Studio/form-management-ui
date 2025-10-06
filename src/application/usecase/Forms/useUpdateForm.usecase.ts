@@ -1,7 +1,7 @@
 import { get, set } from 'lodash-es';
 
-import { useFormKitStore } from '../../../store/useFormikStore';
 import type { FormUpdaterDto } from '../../../types';
+import { useFormKitStore } from '../../useFormikStore';
 
 export const useUpdateFormUseCase = () => {
   const { formsNodeTree, composePaths, handleUpdateFormsNodeTree } =

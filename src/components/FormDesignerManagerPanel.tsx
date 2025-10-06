@@ -14,7 +14,7 @@ import { ModalsAndPanelsViewsEnum } from '../enums';
 
 function CardPanel(properties: React.PropsWithChildren): React.ReactNode {
   return (
-    <Card className='hidden lg:block z-20 md:w-full md:col-span-4 overflow-y-auto h-full'>
+    <Card className='z-20 hidden h-full overflow-y-auto md:col-span-4 md:w-full lg:block'>
       <Card.Body>{properties.children}</Card.Body>
     </Card>
   );
@@ -37,7 +37,7 @@ function SlideOutPanel(properties: React.PropsWithChildren): React.ReactNode {
       isOpen={panelsAndModalsState[FORM_DESIGNER_PANEL]}
     >
       {children}
-      <div className='sticky bottom-8 right-8'>
+      <div className='sticky right-8 bottom-8'>
         <Button fullWidth onClick={handleQuestionSelectorPanel}>
           Close Panel
         </Button>

@@ -7,9 +7,10 @@ import {
   FormDesignerPanelsEnum,
   ModalsAndPanelsViewsEnum,
 } from '../../../enums';
-import { useFormKitStore } from '../../../store/useFormikStore';
+import type { UseReadFormUseCase } from '../../../types';
+import { useFormKitStore } from '../../useFormikStore';
 
-export const useReadFormUseCase = () => {
+export const useReadFormUseCase: UseReadFormUseCase = () => {
   const { handleSetFormBeingEdited, handleSetQuestionToBeEdited } =
     useFormKitStore();
 
@@ -23,7 +24,7 @@ export const useReadFormUseCase = () => {
   const shouldTriggerMobilePanel =
     size.innerWidth < VIEWPORT_WIDTH_TO_TRIGGER_MOBILE_PANEL;
 
-  const executeReadForm = (payload: { id: string | undefined }) => {
+  const executeReadForm = (payload: { id: string | undefined }): void => {
     const { id } = payload;
 
     handleSetQuestionToBeEdited({ id: undefined });

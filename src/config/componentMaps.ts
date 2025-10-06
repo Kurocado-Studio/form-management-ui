@@ -1,3 +1,5 @@
+// TODO: update styleguide to disable this rule on files ending with (.tsx)
+/* eslint-disable unicorn/no-null */
 import { FormDesignerManagerPanel } from '../components/FormDesignerManagerPanel';
 import { FormNodeEditor } from '../components/forms/FormNode.form';
 import { QuestionCreatorPanel } from '../components/panels/QuestionCreatorPanel';

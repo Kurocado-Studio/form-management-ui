@@ -24,7 +24,7 @@ export function QuestionCreatorPanel(): React.ReactNode {
       isOpen={panelsAndModalsState[QUESTION_SELECTOR_PANEL]}
     >
       <QuestionCreator />
-      <div className='sticky bottom-8 right-8'>
+      <div className='sticky right-8 bottom-8'>
         <Button fullWidth onClick={handleQuestionSelectorPanel}>
           Close Panel
         </Button>

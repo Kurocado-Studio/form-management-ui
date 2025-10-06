@@ -5,9 +5,9 @@ import type {
   QuestionsStoreSlice,
   SectionsStoreSlice,
 } from '../types';
-import { composeFormsStoreSlice } from './Forms/composeFormsStoreSlice';
-import { composeQuestionStoreSlice } from './Questions/composeQuestionStoreSlice';
-import { composeSectionsStoreSlice } from './Sections/composeSectionsStoreSlice';
+import { formsStore } from './store/forms.store';
+import { questionsStore } from './store/questions.store';
+import { sectionsStore } from './store/sections.store';
 
 export type FormKitStore = FormsStoreSlice &
   QuestionsStoreSlice &
@@ -22,9 +22,9 @@ export type FormKitStore = FormsStoreSlice &
   };
 
 export const useFormKitStore = create<FormKitStore>((...storeParameters) => ({
-  ...composeQuestionStoreSlice(...storeParameters),
-  ...composeSectionsStoreSlice(...storeParameters),
-  ...composeFormsStoreSlice(...storeParameters),
+  ...questionsStore(...storeParameters),
+  ...sectionsStore(...storeParameters),
+  ...formsStore(...storeParameters),
   composePaths: () => {
     const getState = storeParameters[1];
 

@@ -5,7 +5,7 @@ import React from 'react';
 import JsonView from 'react18-json-view';
 
 import { useFormKitService } from '../../application/useFormKitService';
-import { useFormKitStore } from '../../store/useFormikStore';
+import { useFormKitStore } from '../../application/useFormikStore';
 import type {
   FormDesignerEditorDto,
   TextFieldQuestionUpdaterDto,
@@ -50,7 +50,7 @@ export function TextFieldNodeForm(): React.ReactNode {
   }, [id, question]) as Record<string, string>;
 
   return (
-    <div className='block relative h-screen'>
+    <div className='relative block h-screen'>
       <HtmlForm<TextFieldNodeUpdaterSchema>
         id='text-field-node-form'
         key={get(variants, [variant as string, 'id'])}
@@ -66,7 +66,7 @@ export function TextFieldNodeForm(): React.ReactNode {
         <TextField name='question' label='Question' />
       </HtmlForm>
       <JsonView
-        className='text-xs overflow-y-auto'
+        className='overflow-y-auto text-xs'
         src={{ question, id, variant, variants, ...rest }}
       />
     </div>

@@ -9,17 +9,19 @@ import { FormDesignerProvider } from './context/FormDesignerContext';
 import { PanelsAndModalsProvider } from './context/PanelsAndModalsContext';
 import { Demo } from './views/Demo';
 
-const rootElement = document.getElementById('root')!;
-const root = ReactDOM.createRoot(rootElement);
+const rootElement = document.querySelector('#root');
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
 
-root.render(
-  <React.StrictMode>
-    <ThemeProvider cssVariables={kurocadoCssVariables}>
-      <PanelsAndModalsProvider>
-        <FormDesignerProvider>
-          <Demo />
-        </FormDesignerProvider>
-      </PanelsAndModalsProvider>
-    </ThemeProvider>
-  </React.StrictMode>,
-);
+  root.render(
+    <React.StrictMode>
+      <ThemeProvider cssVariables={kurocadoCssVariables}>
+        <PanelsAndModalsProvider>
+          <FormDesignerProvider>
+            <Demo />
+          </FormDesignerProvider>
+        </PanelsAndModalsProvider>
+      </ThemeProvider>
+    </React.StrictMode>,
+  );
+}

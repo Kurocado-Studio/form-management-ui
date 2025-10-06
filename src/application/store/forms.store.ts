@@ -8,13 +8,13 @@ import type {
   StoreSliceCreator,
 } from '../../types';
 import { useFormKitStore } from '../useFormikStore';
-import { composeFormsNodeTree } from './composeFormsNodeTree';
+import { composeFormsNodeTree } from './Forms/composeFormsNodeTree';
 import {
   getFormByIdHandler,
   updateFormsStoreApiStateHandler,
-} from './handlers';
+} from './Forms/handlers';
 
-export const composeFormsStoreSlice: StoreSliceCreator<FormsStoreSlice> = (
+export const formsStore: StoreSliceCreator<FormsStoreSlice> = (
   setState,
   getState,
 ) => {
@@ -31,8 +31,8 @@ export const composeFormsStoreSlice: StoreSliceCreator<FormsStoreSlice> = (
       setState(updatedFormStore);
     },
     handleSetFormBeingEdited: ({ id }) => {
-      setState((prevState) => {
-        const updatedState = { ...prevState };
+      setState((previousState) => {
+        const updatedState = { ...previousState };
         set(updatedState, ['formIdBeingEdited'], id);
         return updatedState;
       });
@@ -47,8 +47,8 @@ export const composeFormsStoreSlice: StoreSliceCreator<FormsStoreSlice> = (
       setState(updatedFormStore);
     },
     handleComposeFormsNodeTree: ({ forms }) => {
-      setState((prevState) => ({
-        ...prevState,
+      setState((previousState) => ({
+        ...previousState,
         formsNodeTree: composeFormsNodeTree(forms),
       }));
     },

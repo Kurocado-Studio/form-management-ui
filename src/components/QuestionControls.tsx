@@ -1,3 +1,5 @@
+// TODO: update styleguide to disable this rule on files ending with (.tsx)
+/* eslint-disable unicorn/no-null */
 import type { Question } from '@kurocado-studio/html-form-service-ui-config';
 import { Card } from '@kurocado-studio/react-design-system';
 import { useWindowSize } from '@kurocado-studio/react-utils';
@@ -30,9 +32,9 @@ export function QuestionControls(
       id={question.id}
       className={twMerge(
         properties.className,
-        'focus:outline-none focus:ring-2 focus:ring-purple-600',
+        'focus:ring-2 focus:ring-purple-600 focus:outline-none',
       )}
-      onFocus={!shouldTriggerMobilePanel ? handleFocus : undefined}
+      onFocus={shouldTriggerMobilePanel ? undefined : handleFocus}
       role='button'
       tabIndex={0}
     >

@@ -5,7 +5,7 @@ import type {
   FormsNodeTree,
   FormsStoreApiNames,
   FormsStoreSlice,
-} from '../../types';
+} from '../../../types';
 
 export function getFormByIdHandler(payload: {
   formNode: FormsNodeTree;
