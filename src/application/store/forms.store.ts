@@ -31,11 +31,7 @@ export const formsStore: StoreSliceCreator<FormsStoreSlice> = (
       setState(updatedFormStore);
     },
     handleSetFormBeingEdited: ({ id }) => {
-      setState((previousState) => {
-        const updatedState = { ...previousState };
-        set(updatedState, ['formIdBeingEdited'], id);
-        return updatedState;
-      });
+      setState({ formIdBeingEdited: id });
     },
     handleUpdateFormsStoreApiState: (payload, name) => {
       const updatedFormStore = updateFormsStoreApiStateHandler({
