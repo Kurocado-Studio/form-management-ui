@@ -6,10 +6,22 @@ import {
 } from '@kurocado-studio/html-form-service-ui-config';
 import type { GridProps } from '@kurocado-studio/ui-react-research-and-development';
 
+import { composeFormsNodeTree } from '../application/store/composeFormsNodeTree';
+import type { ApiState } from '../types';
+
 export const CONTAINER_MAX_WIDTH = 'w-full mx-auto max-w-[2440px]';
 
 const createdAt = new Date().toISOString();
 const updatedAt = new Date().toISOString();
+
+export const EMPTY_NODE_TREE = composeFormsNodeTree([]);
+
+export const DEFAULT_API_STATE: ApiState = {
+  isLoading: false,
+  error: undefined,
+};
+
+export const VIEWPORT_WIDTH_TO_TRIGGER_MOBILE_PANEL = 1024;
 
 export const GRID_LAYOUT: GridProps = {
   gap: '1',

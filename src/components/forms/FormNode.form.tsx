@@ -4,30 +4,22 @@ import { get } from 'lodash-es';
 import React from 'react';
 import JsonView from 'react18-json-view';
 
-import type {
-  FormDesignerEditorDto,
-  FormUpdaterDto,
-  TextFieldQuestionUpdaterDto,
-} from '../../types';
+import { useFormKitService } from '../../application/useFormKitService';
+import { useFormKitStore } from '../../application/useFormikStore';
 import { TextField } from '../TextField';
-// eslint-disable-next-line
 import { FormNodeUpdaterSchema, formNodeFormSchema } from './FormNode.schema';
 
-export type TextFieldQuestionUpdaterHandler = (
-  payload: TextFieldQuestionUpdaterDto,
-) => Promise<void>;
+export function FormNodeEditor(): React.ReactNode {
+  const { formsNodeTree, composePaths } = useFormKitStore((state) => state);
+  const { toCurrentForm } = composePaths();
+  const { executeUpdateForm } = useFormKitService();
 
-export type FormNodeUpdaterHandler = (payload: FormUpdaterDto) => Promise<Form>;
+  const payload: Form & Omit<Form, 'sections'> = get(
+    formsNodeTree,
+    toCurrentForm,
+  );
 
-export interface FormEditorSelectorProperties extends FormDesignerEditorDto {
-  handleUpdateForm: FormNodeUpdaterHandler;
-}
-
-export function FormNodeEditor(
-  properties: React.PropsWithChildren<FormEditorSelectorProperties>,
-): React.ReactNode {
-  const { formBeingEdited, handleUpdateForm } = properties;
-  const { title, id, description } = formBeingEdited || {};
+  const { title, id, description } = payload;
 
   const defaultValue = React.useMemo(() => {
     return {
@@ -38,29 +30,23 @@ export function FormNodeEditor(
   }, [description, id, title]) as Record<string, string>;
 
   return (
-    <div className='block relative h-full overflow-y-auto'>
+    <div className='relative block h-full overflow-y-auto'>
       <HtmlForm<FormNodeUpdaterSchema>
         id='form-node-form'
-        key={get(formBeingEdited, ['id' as string, 'form-node-id'])}
+        key={id}
         schema={formNodeFormSchema}
         defaultValue={defaultValue}
         shouldValidate='onInput'
         shouldRevalidate='onInput'
-        onSuccess={async (payload) => {
-          await handleUpdateForm({
-            formBeingEdited,
-            updatedProperties: payload,
-          });
+        onSuccess={(updatedProperties) => {
+          executeUpdateForm({ updatedProperties });
         }}
       >
         <TextField name='id' disabled />
         <TextField name='title' label='Title' />
         <TextField name='description' label='Description' />
       </HtmlForm>
-      <JsonView
-        className='text-xs overflow-y-auto'
-        src={properties.formBeingEdited}
-      />
+      <JsonView className='overflow-y-auto text-xs' src={payload} />
     </div>
   );
 }

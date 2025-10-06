@@ -1,51 +1,35 @@
+// TODO: update styleguide to disable this rule on files ending with (.tsx)
+/* eslint-disable unicorn/no-null */
+import { VariantEnum } from '@kurocado-studio/html-form-service-ui-config';
 import { get } from 'lodash-es';
 import React from 'react';
 
-import type { FormDesignerEditorDto } from '../../types';
-// eslint-disable-next-line
-import {
-  TextFieldNodeForm,
-  type TextFieldNodeFormProperties,
-  type TextFieldQuestionUpdaterHandler,
-} from './TextFieldNode.form';
-
-export interface QuestionEditorSelectorProperties
-  extends FormDesignerEditorDto {
-  handleUpdateQuestion: TextFieldQuestionUpdaterHandler;
-}
+import { useFormKitStore } from '../../application/useFormikStore';
+import { TextFieldNodeForm } from './TextFieldNode.form';
 
 type QuestionEditorComponentMap = {
-  TEXT: React.FC<TextFieldNodeFormProperties>;
+  TEXT: React.FC;
 };
 
 const questionEditorComponentMap: QuestionEditorComponentMap = {
   TEXT: TextFieldNodeForm,
 };
 
-export function QuestionEditorSelector(
-  properties: React.PropsWithChildren<QuestionEditorSelectorProperties>,
-): React.ReactNode {
-  const {
-    formBeingEdited,
-    handleUpdateQuestion,
-    sectionBeingEdited,
-    questionBeingEdited,
-  } = properties;
+export function QuestionEditorSelector(): React.ReactNode {
+  const { formsNodeTree, composePaths } = useFormKitStore();
+  const { toCurrentQuestion } = composePaths();
 
-  const questionType = get(questionBeingEdited, ['variant'], 'TEXT') as string;
+  const questionType: VariantEnum = get(
+    formsNodeTree,
+    [...toCurrentQuestion, 'variant'],
+    VariantEnum.TEXT,
+  );
 
   const QuestionEditor = get(
     questionEditorComponentMap,
     [questionType],
-    'TEXT',
+    () => null,
   );
-  return (
-    <QuestionEditor
-      handleUpdateQuestion={handleUpdateQuestion}
-      formBeingEdited={formBeingEdited}
-      questionBeingEdited={questionBeingEdited}
-      sectionBeingEdited={sectionBeingEdited}
-      questionType={questionType}
-    />
-  );
+
+  return <QuestionEditor />;
 }

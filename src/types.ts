@@ -1,15 +1,24 @@
 // @ts-expect-error while we fix typings
-import type { AxiosDataState } from '@kurocado-studio/axios-client-react';
+import type { AxiosDataState, AxiosState } from '@kurocado-studio/axios-react';
 import type {
   Form,
   Question,
   QuestionCreatorDto,
-  QuestionCreatorPayload,
   Section,
+  VariantCreatorDto,
 } from '@kurocado-studio/html-form-service-ui-config';
+import type React from 'react';
+import type { StoreApi } from 'zustand';
 
 import type { FormNodeFormSchema } from './components/forms/FormNode.schema';
 import type { TextFieldNodeUpdaterSchema } from './components/questions/TextFieldNode.schema';
+import type { FormDesignerPanelsEnum, ModalsAndPanelsViewsEnum } from './enums';
+
+export type StoreSliceCreator<T> = (
+  set: StoreApi<T>['setState'],
+  get: StoreApi<T>['getState'],
+  api: StoreApi<T>,
+) => T;
 
 export interface FormDesignerEditorDto {
   questionBeingEdited: Question;
@@ -17,35 +26,130 @@ export interface FormDesignerEditorDto {
   sectionBeingEdited: Section;
 }
 
+export type UseReadQuestionUseCase = () => {
+  executeReadQuestion: (payload: { question: Question }) => void;
+};
+
 export interface TextFieldQuestionCreatorDto {
-  form: Form;
-  section: Section;
   question: QuestionCreatorDto;
-  variantPayload: QuestionCreatorPayload['variant']['variantPayload'];
+  variant: VariantCreatorDto;
 }
 
 export interface TextFieldQuestionUpdaterDto {
   formBeingEdited: Form;
   sectionBeingEdited: Section;
   questionBeingEdited: Question;
-  updatedProperties: TextFieldNodeUpdaterSchema;
+  updatedQuestion: TextFieldNodeUpdaterSchema;
 }
 
 export interface FormUpdaterDto {
-  formBeingEdited: Form;
   updatedProperties: FormNodeFormSchema;
 }
 
 export type UseGetFormById = () => {
-  formById: AxiosDataState<Record<string, unknown>>;
+  formById: AxiosDataState<Form>;
   getFormById: (id: string) => Promise<Form>;
 };
 
-export type UseCreateQuestion = () => {
-  createTextFieldQuestion: (payload: {
-    form: Form;
-    section: Section;
-    question: QuestionCreatorDto;
-    variantPayload: QuestionCreatorPayload['variant']['variantPayload'];
-  }) => Promise<Question>;
+export type FormsNodeTree = {
+  [formId: string]: Omit<Form, 'sections'> & {
+    sections: {
+      [sectionId: string]: SectionNodeTree;
+    };
+  };
+};
+
+export type FormsNode = {
+  [formId: string]: Omit<Form, 'sections'> & {
+    sections: {
+      [sectionId: string]: SectionNodeTree;
+    };
+  };
+};
+
+export interface SectionNodeTree extends Omit<Section, 'questions'> {
+  questions: {
+    [questionId: string]: Question;
+  };
+}
+
+export type ApiState = Pick<
+  AxiosState<Record<string, unknown>>,
+  'isLoading' | 'error'
+>;
+
+export type FormsStoreApiNames = 'getFormByIdState';
+
+export type QuestionStoreApiNames = 'createQuestionState';
+
+export interface FormsStoreSlice {
+  formIdBeingEdited: string | undefined;
+  formsNodeTree: FormsNodeTree;
+  getFormByIdState: ApiState;
+  handleUpdateFormsStoreApiState: (
+    apiState: ApiState,
+    name: FormsStoreApiNames,
+  ) => void;
+  handleUpdateFormsNodeTree: (payload: FormsNodeTree) => void;
+  handleSetFormBeingEdited: (payload: { id: string | undefined }) => void;
+  handleComposeFormsNodeTree: (payload: { forms: Array<Form> }) => void;
+  handleAddQuestionToForm: (payload: { question: Question }) => void;
+}
+
+export interface QuestionCreatorPayload extends Record<string, unknown> {
+  question: QuestionCreatorDto;
+  variant: VariantCreatorDto;
+}
+
+export type QuestionCreatorReturnType = Question | undefined;
+
+export type UseCreateQuestionUseCase = () => {
+  executeCreateTextFieldQuestion: (
+    payload: TextFieldQuestionCreatorDto,
+  ) => Promise<QuestionCreatorReturnType>;
+};
+
+export interface FormViewContextType {
+  panelsAndModalsState: PanelsAndModalsMap;
+  handlePanelsAndModalsState: (view: ModalsAndPanelsViewsEnum) => void;
+}
+
+export interface FormDesignerContext {
+  formDesignerState: FormDesignerPanelsEnum;
+  handleFormDesignerState: (view: FormDesignerPanelsEnum) => void;
+}
+
+export interface QuestionsStoreSlice {
+  createQuestionState: ApiState;
+  questionIdBeingEdited: string | undefined;
+  handleSetQuestionToBeEdited: (payload: { id: string | undefined }) => void;
+  handleUpdateQuestionsStoreApiState: (
+    apiState: ApiState,
+    name: QuestionStoreApiNames,
+  ) => void;
+}
+
+export type UseReadFormUseCase = () => {
+  executeReadForm: (payload: { id: string | undefined }) => void;
+};
+
+export interface SectionsStoreSlice {
+  sectionIdBeingEdited: string | undefined;
+  handleUpdateSectionBeingEdited: (payload: { id: string | undefined }) => void;
+}
+
+export type FormDesignerComponentMap = {
+  [k in FormDesignerPanelsEnum]: React.FC;
+};
+
+export type PanelsAndModalsMapComponentMap = {
+  [k in ModalsAndPanelsViewsEnum]: React.FC;
+};
+
+export type PanelsAndModalsMap = {
+  [k in ModalsAndPanelsViewsEnum]: boolean;
+};
+
+export type FormDesignerContextState = {
+  [k in FormDesignerPanelsEnum]: boolean;
 };

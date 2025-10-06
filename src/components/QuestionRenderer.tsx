@@ -1,3 +1,5 @@
+// TODO: update styleguide to disable this rule on files ending with (.tsx)
+/* eslint-disable unicorn/no-null */
 import {
   type Question,
   VariantEnum,
@@ -16,7 +18,7 @@ const questionTypeComponentMap = {
   [VariantEnum.TEXT]: TextFieldNode,
 };
 
-export function QuestionTypeManager(
+export function QuestionRenderer(
   properties: QuestionNodeTypeRendererProperties,
 ): React.ReactNode {
   const { questionBeingEdited } = properties;

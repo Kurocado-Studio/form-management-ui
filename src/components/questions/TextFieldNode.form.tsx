@@ -4,11 +4,9 @@ import { get } from 'lodash-es';
 import React from 'react';
 import JsonView from 'react18-json-view';
 
-import type {
-  FormDesignerEditorDto,
-  FormUpdaterDto,
-  TextFieldQuestionUpdaterDto,
-} from '../../types';
+import { useFormKitService } from '../../application/useFormKitService';
+import { useFormKitStore } from '../../application/useFormikStore';
+import type { TextFieldQuestionUpdaterDto } from '../../types';
 import { TextField } from '../TextField';
 import {
   type TextFieldNodeUpdaterSchema,
@@ -19,19 +17,23 @@ export type TextFieldQuestionUpdaterHandler = (
   payload: TextFieldQuestionUpdaterDto,
 ) => Promise<Question>;
 
-export type FormNodeUpdaterHandler = (payload: FormUpdaterDto) => Promise<void>;
+export function TextFieldNodeForm(): React.ReactNode {
+  const {
+    formsNodeTree,
+    questionIdBeingEdited,
+    formIdBeingEdited,
+    sectionIdBeingEdited,
+  } = useFormKitStore((state) => state);
 
-export interface TextFieldNodeFormProperties extends FormDesignerEditorDto {
-  handleUpdateQuestion: TextFieldQuestionUpdaterHandler;
-}
+  const { executeUpdateQuestion } = useFormKitService();
 
-export function TextFieldNodeForm(
-  properties: React.PropsWithChildren<TextFieldNodeFormProperties>,
-): React.ReactNode {
-  const { formBeingEdited, sectionBeingEdited, handleUpdateQuestion } =
-    properties;
-
-  const { question, id, variant, variants } = properties.questionBeingEdited;
+  const { question, id, variant, variants, ...rest } = get(formsNodeTree, [
+    formIdBeingEdited ?? '',
+    'sections',
+    sectionIdBeingEdited ?? '',
+    'questions',
+    questionIdBeingEdited ?? '',
+  ]);
 
   const defaultValue = React.useMemo(() => {
     return {
@@ -41,7 +43,7 @@ export function TextFieldNodeForm(
   }, [id, question]) as Record<string, string>;
 
   return (
-    <div className='block relative h-screen'>
+    <div className='relative block h-screen'>
       <HtmlForm<TextFieldNodeUpdaterSchema>
         id='text-field-node-form'
         key={get(variants, [variant as string, 'id'])}
@@ -49,21 +51,16 @@ export function TextFieldNodeForm(
         defaultValue={defaultValue}
         shouldValidate='onInput'
         shouldRevalidate='onInput'
-        onSuccess={async (payload) => {
-          await handleUpdateQuestion({
-            formBeingEdited,
-            sectionBeingEdited,
-            updatedProperties: payload,
-            questionBeingEdited: properties.questionBeingEdited,
-          });
+        onSuccess={(updatedQuestion) => {
+          executeUpdateQuestion({ updatedQuestionProperties: updatedQuestion });
         }}
       >
         <TextField name='id' disabled />
         <TextField name='question' label='Question' />
       </HtmlForm>
       <JsonView
-        className='text-xs overflow-y-auto'
-        src={properties.questionBeingEdited}
+        className='overflow-y-auto text-xs'
+        src={{ question, id, variant, variants, ...rest }}
       />
     </div>
   );
