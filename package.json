@@ -84,6 +84,7 @@
     "lint-staged": "^15.5.0",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "semantic-release": "^23.1.1",
     "tailwindcss": "^4.1.11",
     "tailwindcss-animate": "^1.0.7",
