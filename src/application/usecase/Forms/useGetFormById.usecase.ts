@@ -15,6 +15,8 @@ export type UseGetFormByIdUseCase = () => {
   }) => Promise<FormsNodeTree | undefined>;
 };
 
+const { FORM } = FormDesignerPanelsEnum;
+
 export const useGetFormByIdUseCase: UseGetFormByIdUseCase = () => {
   const {
     formsNodeTree,
@@ -35,7 +37,6 @@ export const useGetFormByIdUseCase: UseGetFormByIdUseCase = () => {
   React.useEffect(() => {
     handleUpdateFormsStoreApiState({ isLoading, error }, 'getFormByIdState');
   }, [handleUpdateFormsStoreApiState, error, isLoading]);
-  const { FORM } = FormDesignerPanelsEnum;
 
   const executeGetFormById = async (payload: {
     id: string;

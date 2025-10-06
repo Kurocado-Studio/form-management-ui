@@ -59,6 +59,14 @@ export type FormsNodeTree = {
   };
 };
 
+export type FormsNode = {
+  [formId: string]: Omit<Form, 'sections'> & {
+    sections: {
+      [sectionId: string]: SectionNodeTree;
+    };
+  };
+};
+
 export interface SectionNodeTree extends Omit<Section, 'questions'> {
   questions: {
     [questionId: string]: Question;

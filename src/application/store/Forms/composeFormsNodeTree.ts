@@ -1,14 +1,17 @@
-import type { Form } from '@kurocado-studio/html-form-service-ui-config';
+import type {
+  Form,
+  Section,
+} from '@kurocado-studio/html-form-service-ui-config';
 import { chain, keyBy } from 'lodash-es';
 
-import type { FormsNodeTree } from '../../../types';
+import type { FormsNode, FormsNodeTree } from '../../../types';
 
 export function composeFormsNodeTree(apiForms: Form[]): FormsNodeTree {
   return chain(apiForms)
-    .map((form) => ({
+    .map((form: Form) => ({
       ...form,
       sections: chain(form.sections)
-        .map((section) => ({
+        .map((section: Section) => ({
           ...section,
           questions: keyBy(section.questions, 'id'),
         }))
@@ -19,12 +22,12 @@ export function composeFormsNodeTree(apiForms: Form[]): FormsNodeTree {
     .value();
 }
 
-export function adaptFormToNodeTree(form: Form): FormsNodeTree {
+export function adaptFormToNodeTree(form: Form): FormsNode {
   return {
     [form.id]: {
       ...form,
       sections: chain(form.sections)
-        .map((section) => ({
+        .map((section: Section) => ({
           ...section,
           questions: keyBy(section.questions, 'id'),
         }))
