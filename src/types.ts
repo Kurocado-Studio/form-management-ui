@@ -92,7 +92,6 @@ export interface FormsStoreSlice {
   ) => void;
   handleUpdateFormsNodeTree: (payload: FormsNodeTree) => void;
   handleSetFormBeingEdited: (payload: { id: string | undefined }) => void;
-  handleGetFormById: (payload: { formNodeTree: FormsNodeTree }) => void;
   handleComposeFormsNodeTree: (payload: { forms: Array<Form> }) => void;
   handleAddQuestionToForm: (payload: { question: Question }) => void;
 }

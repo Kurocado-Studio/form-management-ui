@@ -6,7 +6,7 @@ import {
 } from '@kurocado-studio/html-form-service-ui-config';
 import type { GridProps } from '@kurocado-studio/ui-react-research-and-development';
 
-import { composeFormsNodeTree } from '../application/store/Forms/composeFormsNodeTree';
+import { composeFormsNodeTree } from '../application/store/composeFormsNodeTree';
 import type { ApiState } from '../types';
 
 export const CONTAINER_MAX_WIDTH = 'w-full mx-auto max-w-[2440px]';
