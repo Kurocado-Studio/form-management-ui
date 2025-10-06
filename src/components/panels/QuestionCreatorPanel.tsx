@@ -8,9 +8,9 @@ import { usePanelsAndModalsContext } from '../../context/PanelsAndModalsContext'
 import { ModalsAndPanelsViewsEnum } from '../../enums';
 import { QuestionCreator } from '../QuestionCreator';
 
-export function QuestionCreatorPanel(): React.ReactNode {
-  const { QUESTION_SELECTOR_PANEL } = ModalsAndPanelsViewsEnum;
+const { QUESTION_SELECTOR_PANEL } = ModalsAndPanelsViewsEnum;
 
+export function QuestionCreatorPanel(): React.ReactNode {
   const { handlePanelsAndModalsState, panelsAndModalsState } =
     usePanelsAndModalsContext();
 
