@@ -6,14 +6,14 @@ import { chain, keyBy } from 'lodash-es';
 
 import type { FormsNode, FormsNodeTree } from '../../types';
 
-export function composeFormsNodeTree(apiForms: Form[]): FormsNodeTree {
-  return chain(apiForms || [])
+export function composeFormsNodeTree(apiForms: Form[] = []): FormsNodeTree {
+  return chain(apiForms)
     .map((form: Form) => ({
       ...form,
-      sections: chain(form.sections)
+      sections: chain(form.sections || [])
         .map((section: Section) => ({
           ...section,
-          questions: keyBy(section.questions, 'id'),
+          questions: keyBy(section.questions || [], 'id'),
         }))
         .keyBy('id')
         .value(),
