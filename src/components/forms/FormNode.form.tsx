@@ -1,3 +1,4 @@
+import type { Form } from '@kurocado-studio/html-form-service-ui-config';
 import { HtmlForm } from '@kurocado-studio/web-forms-react';
 import { get } from 'lodash-es';
 import React from 'react';
@@ -9,13 +10,15 @@ import { TextField } from '../TextField';
 import { FormNodeUpdaterSchema, formNodeFormSchema } from './FormNode.schema';
 
 export function FormNodeEditor(): React.ReactNode {
-  const { formsNodeTree, formIdBeingEdited } = useFormKitStore(
-    (state) => state,
-  );
-
+  const { formsNodeTree, composePaths } = useFormKitStore((state) => state);
+  const { toCurrentForm } = composePaths();
   const { executeUpdateForm } = useFormKitService();
 
-  const payload = get(formsNodeTree, [formIdBeingEdited ?? '']);
+  const payload: Form & Omit<Form, 'sections'> = get(
+    formsNodeTree,
+    toCurrentForm,
+  );
+
   const { title, id, description } = payload;
 
   const defaultValue = React.useMemo(() => {
@@ -30,7 +33,7 @@ export function FormNodeEditor(): React.ReactNode {
     <div className='relative block h-full overflow-y-auto'>
       <HtmlForm<FormNodeUpdaterSchema>
         id='form-node-form'
-        key={id ?? 'form-node-form-key'}
+        key={id}
         schema={formNodeFormSchema}
         defaultValue={defaultValue}
         shouldValidate='onInput'
