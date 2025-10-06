@@ -13,8 +13,6 @@
     "jsx": "preserve"
   },
   "include": [
-    "./.storybook/**/*",
-    "./stories/**/*",
     "setup.web.ts",
     "src",
     "tailwind.config",
