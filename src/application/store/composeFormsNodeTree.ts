@@ -7,7 +7,7 @@ import { chain, keyBy } from 'lodash-es';
 import type { FormsNode, FormsNodeTree } from '../../types';
 
 export function composeFormsNodeTree(apiForms: Form[]): FormsNodeTree {
-  return chain(apiForms)
+  return chain(apiForms || [])
     .map((form: Form) => ({
       ...form,
       sections: chain(form.sections)
