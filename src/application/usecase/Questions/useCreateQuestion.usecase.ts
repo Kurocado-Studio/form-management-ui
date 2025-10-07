@@ -7,7 +7,11 @@ import React from 'react';
 
 import { axiosFormKitInstance } from '../../../config/axiosFormKitInstance';
 import { useFormDesignerContext } from '../../../context/FormDesignerContext';
-import { FormDesignerPanelsEnum } from '../../../enums';
+import { usePanelsAndModalsContext } from '../../../context/PanelsAndModalsContext';
+import {
+  FormDesignerPanelsEnum,
+  ModalsAndPanelsViewsEnum,
+} from '../../../enums';
 import type {
   QuestionCreatorPayload,
   QuestionCreatorReturnType,
@@ -20,13 +24,20 @@ import { useFormKitStore } from '../../useFormikStore';
 export const useCreateTextFieldQuestionUseCase: UseCreateQuestionUseCase =
   () => {
     const { QUESTION } = FormDesignerPanelsEnum;
+    const { UNKNOWN } = ModalsAndPanelsViewsEnum;
+
+    const { panelsAndModalsState, handlePanelsAndModalsState } =
+      usePanelsAndModalsContext();
 
     const [{ resetState, error, isLoading }, createQuestionHandler] =
       useAxios<Question>({
         axiosInstance: axiosFormKitInstance,
       });
 
+    const isQuestionSelectorOpen = panelsAndModalsState.QUESTION_SELECTOR_PANEL;
+
     const { handleFormDesignerState } = useFormDesignerContext();
+
     const {
       formIdBeingEdited,
       sectionIdBeingEdited,
@@ -70,6 +81,9 @@ export const useCreateTextFieldQuestionUseCase: UseCreateQuestionUseCase =
         scrollToElement(id);
         handleFormDesignerState(QUESTION);
 
+        if (isQuestionSelectorOpen) {
+          handlePanelsAndModalsState(UNKNOWN);
+        }
         return question;
       } catch {
         return undefined;

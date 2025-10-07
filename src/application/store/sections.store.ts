@@ -1,8 +1,6 @@
-import type { SectionsStoreSlice, StoreSliceCreator } from '../../types';
+import type { SectionsStore, StoreCreator } from '../../types';
 
-export const sectionsStore: StoreSliceCreator<SectionsStoreSlice> = (
-  setState,
-) => {
+export const sectionsStore: StoreCreator<SectionsStore> = (setState) => {
   return {
     sectionIdBeingEdited: undefined,
     handleUpdateSectionBeingEdited: ({ id }) => {

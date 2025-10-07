@@ -2,18 +2,11 @@ import type { Question } from '@kurocado-studio/html-form-service-ui-config';
 import { get, set } from 'lodash-es';
 
 import { DEFAULT_API_STATE, EMPTY_NODE_TREE } from '../../config/constants';
-import type {
-  FormsStoreApiNames,
-  FormsStoreSlice,
-  StoreSliceCreator,
-} from '../../types';
+import type { FormsStore, FormsStoreApiNames, StoreCreator } from '../../types';
 import { useFormKitStore } from '../useFormikStore';
 import { composeFormsNodeTree } from './composeFormsNodeTree';
 
-export const formsStore: StoreSliceCreator<FormsStoreSlice> = (
-  setState,
-  getState,
-) => {
+export const formsStore: StoreCreator<FormsStore> = (setState, getState) => {
   return {
     getFormByIdState: DEFAULT_API_STATE,
     formIdBeingEdited: undefined,

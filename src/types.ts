@@ -14,7 +14,7 @@ import type { FormNodeFormSchema } from './components/forms/FormNode.schema';
 import type { TextFieldNodeUpdaterSchema } from './components/questions/TextFieldNode.schema';
 import type { FormDesignerPanelsEnum, ModalsAndPanelsViewsEnum } from './enums';
 
-export type StoreSliceCreator<T> = (
+export type StoreCreator<T> = (
   set: StoreApi<T>['setState'],
   get: StoreApi<T>['getState'],
   api: StoreApi<T>,
@@ -82,7 +82,7 @@ export type FormsStoreApiNames = 'getFormByIdState';
 
 export type QuestionStoreApiNames = 'createQuestionState';
 
-export interface FormsStoreSlice {
+export interface FormsStore {
   formIdBeingEdited: string | undefined;
   formsNodeTree: FormsNodeTree;
   getFormByIdState: ApiState;
@@ -119,7 +119,7 @@ export interface FormDesignerContext {
   handleFormDesignerState: (view: FormDesignerPanelsEnum) => void;
 }
 
-export interface QuestionsStoreSlice {
+export interface QuestionsStore {
   createQuestionState: ApiState;
   questionIdBeingEdited: string | undefined;
   handleSetQuestionToBeEdited: (payload: { id: string | undefined }) => void;
@@ -133,7 +133,7 @@ export type UseReadFormUseCase = () => {
   executeReadForm: (payload: { id: string | undefined }) => void;
 };
 
-export interface SectionsStoreSlice {
+export interface SectionsStore {
   sectionIdBeingEdited: string | undefined;
   handleUpdateSectionBeingEdited: (payload: { id: string | undefined }) => void;
 }
