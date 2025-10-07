@@ -43,6 +43,7 @@ export function Demo(): React.ReactNode {
   const {
     getFormByIdState,
     formsNodeTree,
+    composeApiLoadingState,
     handleSetQuestionToBeEdited,
     formIdBeingEdited,
     questionIdBeingEdited,
@@ -68,20 +69,13 @@ export function Demo(): React.ReactNode {
 
   const questionsBeingEdited: Array<Question> = Object.values(questionsMap);
 
+  const { isAnyLoading } = composeApiLoadingState();
+
   React.useEffect(() => {
-    if (
-      getFormByIdState.error === undefined &&
-      !formIdBeingEdited &&
-      !getFormByIdState.isLoading
-    ) {
+    if (!isAnyLoading && formIdBeingEdited === undefined) {
       executeGetFormById({ id: 'demo' }).then();
     }
-  }, [
-    executeGetFormById,
-    formIdBeingEdited,
-    getFormByIdState.error,
-    getFormByIdState.isLoading,
-  ]);
+  }, [executeGetFormById, isAnyLoading, formIdBeingEdited]);
 
   return (
     <main className='flex h-screen flex-col bg-gray-100'>

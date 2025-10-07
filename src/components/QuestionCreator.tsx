@@ -8,9 +8,10 @@ import { useCreateTextFieldQuestionUseCase } from '../application/usecase/Questi
 import type { TextFieldQuestionCreatorDto } from '../types';
 
 export function QuestionCreator(): React.ReactNode {
-  const { createQuestionState, composePaths, formsNodeTree } = useFormKitStore(
-    (state) => state,
-  );
+  const { composeApiLoadingState, composePaths, formsNodeTree } =
+    useFormKitStore((state) => state);
+
+  const { isAnyLoading } = composeApiLoadingState();
   const { toQuestions } = composePaths();
 
   const { executeCreateTextFieldQuestion } =
@@ -49,7 +50,7 @@ export function QuestionCreator(): React.ReactNode {
   return (
     <div className='flex h-full flex-col space-y-2'>
       <Button
-        disabled={createQuestionState.isLoading}
+        disabled={isAnyLoading}
         fullWidth
         variant='secondary'
         onClick={() => {

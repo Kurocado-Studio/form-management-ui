@@ -3,13 +3,11 @@ import { get, set } from 'lodash-es';
 import { DEFAULT_API_STATE } from '../../config/constants';
 import type {
   QuestionStoreApiNames,
-  QuestionsStoreSlice,
-  StoreSliceCreator,
+  QuestionsStore,
+  StoreCreator,
 } from '../../types';
 
-export const questionsStore: StoreSliceCreator<QuestionsStoreSlice> = (
-  setState,
-) => {
+export const questionsStore: StoreCreator<QuestionsStore> = (setState) => {
   return {
     questionIdBeingEdited: undefined,
     createQuestionState: DEFAULT_API_STATE,
