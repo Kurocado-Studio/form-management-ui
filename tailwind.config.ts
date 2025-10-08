@@ -1,10 +1,7 @@
-/* eslint import/no-default-export: 0 */
-import { kurocadoStudioTheme } from '@kurocado-studio/ui/theme';
-
 export const content = [
-  './src/**/*.{ts,mdx,tsx}',
-  './node_modules/@kurocado-studio/ui/dist/**/*.js',
+  './src/**/*.{ts,tsx}',
+  './node_modules/@kurocado-studio/ui-react-research-and-development/dist/**/*.js',
+  './node_modules/@kurocado-studio/react-ui-kit/dist/**/*.js',
 ];
-export const theme = kurocadoStudioTheme;
-export const darkMode = ['class', '[data-mode="dark"]'];
-export const plugins = [require('tailwindcss-animate')];
+
+export { kurocadoTheme as theme } from './src/config/kurocado.theme';
