@@ -1,5 +1,6 @@
 import {
   Avatar,
+  FadeIn,
   Grid,
 } from '@kurocado-studio/ui-react-research-and-development';
 import React from 'react';
@@ -9,7 +10,9 @@ import { CONTAINER_MAX_WIDTH, GRID_LAYOUT } from '../config/constants';
 
 export function Header(): React.ReactNode {
   return (
-    <Grid
+    <FadeIn
+      tag={Grid}
+      fadeInDirection={'UP'}
       {...GRID_LAYOUT}
       className={twMerge('z-20 rounded-full bg-white p-1', CONTAINER_MAX_WIDTH)}
     >
@@ -18,6 +21,6 @@ export function Header(): React.ReactNode {
         src='https://avatars.githubusercontent.com/u/148841069?s=200&v=4'
         className='col-span-3'
       />
-    </Grid>
+    </FadeIn>
   );
 }

@@ -3,7 +3,10 @@
 import type { Question } from '@kurocado-studio/html-form-service-ui-config';
 import { Card } from '@kurocado-studio/react-design-system';
 import { useWindowSize } from '@kurocado-studio/react-utils';
-import { Button } from '@kurocado-studio/ui-react-research-and-development';
+import {
+  Button,
+  FadeIn,
+} from '@kurocado-studio/ui-react-research-and-development';
 import type React from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -28,7 +31,9 @@ export function QuestionControls(
   };
 
   return (
-    <Card
+    <FadeIn
+      tag={Card}
+      viewport={{ once: true }}
       id={question.id}
       className={twMerge(
         properties.className,
@@ -46,6 +51,6 @@ export function QuestionControls(
           </Button>
         </Card.Footer>
       ) : null}
-    </Card>
+    </FadeIn>
   );
 }

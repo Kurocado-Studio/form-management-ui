@@ -1,4 +1,6 @@
 import type { Question } from '@kurocado-studio/html-form-service-ui-config';
+import { Card } from '@kurocado-studio/react-design-system';
+import { FadeIn } from '@kurocado-studio/ui-react-research-and-development';
 import { HtmlForm } from '@kurocado-studio/web-forms-react';
 import { get } from 'lodash-es';
 import React from 'react';
@@ -11,7 +13,7 @@ import { TextField } from '../TextField';
 import {
   type TextFieldNodeUpdaterSchema,
   textFieldNodeFormSchema,
-} from './TextFieldNode.schema';
+} from '../questions/TextFieldNode.schema';
 
 export type TextFieldQuestionUpdaterHandler = (
   payload: TextFieldQuestionUpdaterDto,
@@ -55,13 +57,23 @@ export function TextFieldNodeForm(): React.ReactNode {
           executeUpdateQuestion({ updatedQuestionProperties: updatedQuestion });
         }}
       >
-        <TextField name='id' disabled />
-        <TextField name='question' label='Question' />
+        <FadeIn fadeInDirection={'UP'} viewport={{ once: true }}>
+          <TextField name='id' disabled />
+        </FadeIn>
+        <FadeIn fadeInDirection={'UP'} iewport={{ once: true }}>
+          <TextField name='question' label='Question' />
+        </FadeIn>
+        <FadeIn fadeInDirection={'UP'} viewport={{ once: true }}>
+          <Card>
+            <Card.Body>
+              <JsonView
+                className='overflow-y-auto text-xs'
+                src={{ question, id, variant, variants, ...rest }}
+              />
+            </Card.Body>
+          </Card>
+        </FadeIn>
       </HtmlForm>
-      <JsonView
-        className='overflow-y-auto text-xs'
-        src={{ question, id, variant, variants, ...rest }}
-      />
     </div>
   );
 }

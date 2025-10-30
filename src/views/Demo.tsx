@@ -7,6 +7,7 @@ import type {
 import { Card } from '@kurocado-studio/react-design-system';
 import {
   Button,
+  FadeIn,
   Grid,
   Typography,
 } from '@kurocado-studio/ui-react-research-and-development';
@@ -124,22 +125,29 @@ export function Demo(): React.ReactNode {
                 'xl:col-span-10 xl:col-start-2',
               )}
             >
-              <Typography
+              <FadeIn
+                viewport={{ once: true }}
+                tag={Typography}
+                fadeInDirection={'UP'}
+                staggerOrder={1}
                 as='h1'
                 className='font-display prose font-semibold'
                 size={{
                   base: 'xl',
-                  xl: '2xl',
                 }}
               >
                 {getFormByIdState.isLoading
                   ? 'Loading...'
                   : get(formBeingEdited, ['title'], 'No title provided')}
-              </Typography>
-              <Typography
+              </FadeIn>
+              <FadeIn
+                viewport={{ once: true }}
+                tag={Typography}
+                fadeInDirection={'UP'}
+                staggerOrder={2}
                 as='h2'
                 className='prose mb-4'
-                size={{ base: 'md', xl: 'xl' }}
+                size={{ base: 'md' }}
               >
                 {getFormByIdState.isLoading
                   ? null
@@ -148,7 +156,7 @@ export function Demo(): React.ReactNode {
                       ['description'],
                       'No description provided',
                     )}
-              </Typography>
+              </FadeIn>
             </header>
             <HtmlForm id='form-designer-preview'>
               {questionsBeingEdited.map(
