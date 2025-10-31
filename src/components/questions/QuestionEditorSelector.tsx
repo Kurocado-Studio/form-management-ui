@@ -5,7 +5,7 @@ import { get } from 'lodash-es';
 import React from 'react';
 
 import { useFormKitStore } from '../../application/useFormikStore';
-import { TextFieldNodeForm } from '../forms/TextFieldNode.form';
+import { TextFieldNodeForm } from './TextFieldNode.form';
 
 type QuestionEditorComponentMap = {
   TEXT: React.FC;

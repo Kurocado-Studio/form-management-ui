@@ -1,12 +1,10 @@
-import {
-  FullScreenLoader,
-  KurocadoStudioThemeProvider,
-} from '@kurocado-studio/react-design-system';
+import { ThemeProvider } from '@kurocado-studio/react-design-system';
 import React from 'react';
 import 'react18-json-view/src/style.css';
 import ReactDOM from 'react-dom/client';
 
 import '../tailwind.css';
+import { kurocadoCssVariables } from './config/kurocado.css.variables';
 import { FormDesignerProvider } from './context/FormDesignerContext';
 import { PanelsAndModalsProvider } from './context/PanelsAndModalsContext';
 import { Demo } from './views/Demo';
@@ -17,19 +15,13 @@ if (rootElement) {
 
   root.render(
     <React.StrictMode>
-      <KurocadoStudioThemeProvider
-        LoaderComponent={(properties) => (
-          <div className={'z-50'}>
-            <FullScreenLoader {...properties} />
-          </div>
-        )}
-      >
+      <ThemeProvider cssVariables={kurocadoCssVariables}>
         <PanelsAndModalsProvider>
           <FormDesignerProvider>
             <Demo />
           </FormDesignerProvider>
         </PanelsAndModalsProvider>
-      </KurocadoStudioThemeProvider>
+      </ThemeProvider>
     </React.StrictMode>,
   );
 }
