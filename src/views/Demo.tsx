@@ -32,12 +32,6 @@ import { useFormDesignerContext } from '../context/FormDesignerContext';
 import { usePanelsAndModalsContext } from '../context/PanelsAndModalsContext';
 import { FormDesignerPanelsEnum, ModalsAndPanelsViewsEnum } from '../enums';
 
-const questionControlClassNames = [
-  'z-20 col-span-12 mb-2 w-full',
-  'md:col-span-12',
-  'xl:col-span-10 xl:col-start-2',
-];
-
 export function Demo(): React.ReactNode {
   const { executeGetFormById, executeReadForm } = useFormKitService();
   const { handleFormDesignerState } = useFormDesignerContext();
@@ -132,9 +126,7 @@ export function Demo(): React.ReactNode {
                 staggerOrder={1}
                 as='h1'
                 className='font-display prose font-semibold'
-                size={{
-                  base: 'xl',
-                }}
+                size={{ base: 'xl' }}
               >
                 {getFormByIdState.isLoading
                   ? 'Loading...'
@@ -158,24 +150,33 @@ export function Demo(): React.ReactNode {
                     )}
               </FadeIn>
             </header>
-            <HtmlForm id='form-designer-preview'>
-              {questionsBeingEdited.map(
-                (question: Question): React.ReactNode => {
-                  return (
-                    <QuestionControls
-                      key={question.id}
-                      question={question}
-                      className={twMerge(
-                        ...questionControlClassNames,
-                        question.id === questionIdBeingEdited &&
-                          'ring-2 ring-purple-600 outline-none',
-                      )}
-                    >
-                      <QuestionRenderer questionBeingEdited={question} />
-                    </QuestionControls>
-                  );
-                },
-              )}
+            <HtmlForm
+              className={
+                'z-20 col-span-12 block w-full xl:col-span-10 xl:col-start-2'
+              }
+              id='form-designer-preview'
+            >
+              <FadeIn viewport={{ once: true }} staggerOrder={4}>
+                {questionsBeingEdited.map(
+                  (question: Question): React.ReactNode => {
+                    return (
+                      <QuestionControls
+                        key={question.id}
+                        question={question}
+                        className={twMerge(
+                          'z-20 col-span-12 mb-2 w-full',
+                          'md:col-span-12',
+                          'xl:col-span-10 xl:col-start-2',
+                          question.id === questionIdBeingEdited &&
+                            'ring-2 ring-purple-600 outline-none',
+                        )}
+                      >
+                        <QuestionRenderer questionBeingEdited={question} />
+                      </QuestionControls>
+                    );
+                  },
+                )}
+              </FadeIn>
             </HtmlForm>
           </Grid>
           <div

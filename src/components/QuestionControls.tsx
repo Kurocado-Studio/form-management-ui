@@ -32,8 +32,8 @@ export function QuestionControls(
 
   return (
     <FadeIn
-      tag={Card}
       viewport={{ once: true }}
+      tag={Card}
       id={question.id}
       className={twMerge(
         properties.className,

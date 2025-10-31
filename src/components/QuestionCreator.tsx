@@ -51,8 +51,12 @@ export function QuestionCreator(): React.ReactNode {
   };
 
   return (
-    <FadeIn as={'div'} className='flex h-full flex-col space-y-2'>
-      <FadeIn staggerOrder={0} fadeInDirection={'UP'}>
+    <FadeIn
+      viewport={{ once: true }}
+      as={'div'}
+      className='flex h-full flex-col space-y-2'
+    >
+      <FadeIn staggerOrder={0} fadeInDirection={'UP'} viewport={{ once: true }}>
         <Button
           fullWidth
           disabled={isAnyLoading}
@@ -64,13 +68,13 @@ export function QuestionCreator(): React.ReactNode {
           Text Field
         </Button>
       </FadeIn>
-      <FadeIn staggerOrder={2} fadeInDirection={'UP'}>
+      <FadeIn viewport={{ once: true }} staggerOrder={2} fadeInDirection={'UP'}>
         <Button {...comingSoonProperties}>Checkbox (soon)</Button>
       </FadeIn>
-      <FadeIn staggerOrder={3} fadeInDirection={'UP'}>
+      <FadeIn viewport={{ once: true }} staggerOrder={3} fadeInDirection={'UP'}>
         <Button {...comingSoonProperties}>Radio (soon)</Button>
       </FadeIn>
-      <FadeIn staggerOrder={4} fadeInDirection={'UP'}>
+      <FadeIn viewport={{ once: true }} staggerOrder={4} fadeInDirection={'UP'}>
         <Button {...comingSoonProperties}>Dropdown (soon)</Button>
       </FadeIn>
     </FadeIn>

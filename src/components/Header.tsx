@@ -11,6 +11,7 @@ import { CONTAINER_MAX_WIDTH, GRID_LAYOUT } from '../config/constants';
 export function Header(): React.ReactNode {
   return (
     <FadeIn
+      viewport={{ once: true }}
       tag={Grid}
       fadeInDirection={'UP'}
       {...GRID_LAYOUT}
