@@ -1,8 +1,5 @@
 import { VariantEnum } from '@kurocado-studio/html-form-service-ui-config';
-import {
-  Button,
-  FadeIn,
-} from '@kurocado-studio/ui-react-research-and-development';
+import { Button } from '@kurocado-studio/ui-react-research-and-development';
 import { get } from 'lodash-es';
 import React from 'react';
 
@@ -51,28 +48,20 @@ export function QuestionCreator(): React.ReactNode {
   };
 
   return (
-    <FadeIn as={'div'} className='flex h-full flex-col space-y-2'>
-      <FadeIn staggerOrder={0} fadeInDirection={'UP'}>
-        <Button
-          fullWidth
-          disabled={isAnyLoading}
-          variant='secondary'
-          onClick={() => {
-            executeCreateTextFieldQuestion(emptyQuestionCreatorPayload).then();
-          }}
-        >
-          Text Field
-        </Button>
-      </FadeIn>
-      <FadeIn staggerOrder={2} fadeInDirection={'UP'}>
-        <Button {...comingSoonProperties}>Checkbox (soon)</Button>
-      </FadeIn>
-      <FadeIn staggerOrder={3} fadeInDirection={'UP'}>
-        <Button {...comingSoonProperties}>Radio (soon)</Button>
-      </FadeIn>
-      <FadeIn staggerOrder={4} fadeInDirection={'UP'}>
-        <Button {...comingSoonProperties}>Dropdown (soon)</Button>
-      </FadeIn>
-    </FadeIn>
+    <div className='flex h-full flex-col space-y-2'>
+      <Button
+        disabled={isAnyLoading}
+        fullWidth
+        variant='secondary'
+        onClick={() => {
+          executeCreateTextFieldQuestion(emptyQuestionCreatorPayload).then();
+        }}
+      >
+        Text Field
+      </Button>
+      <Button {...comingSoonProperties}>Checkbox (soon)</Button>
+      <Button {...comingSoonProperties}>Radio (soon)</Button>
+      <Button {...comingSoonProperties}>Dropdown (soon)</Button>
+    </div>
   );
 }

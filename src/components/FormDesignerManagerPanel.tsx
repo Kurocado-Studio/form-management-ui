@@ -2,7 +2,6 @@ import { Card } from '@kurocado-studio/react-design-system';
 import { useWindowSize } from '@kurocado-studio/react-utils';
 import {
   Button,
-  FadeIn,
   Panel,
 } from '@kurocado-studio/ui-react-research-and-development';
 import { get } from 'lodash-es';
@@ -15,13 +14,9 @@ import { ModalsAndPanelsViewsEnum } from '../enums';
 
 function CardPanel(properties: React.PropsWithChildren): React.ReactNode {
   return (
-    <FadeIn
-      fadeInDirection={'RIGHT_TO_LEFT'}
-      tag={Card}
-      className='z-20 hidden h-full overflow-y-auto md:col-span-4 md:w-full lg:block'
-    >
+    <Card className='z-20 hidden h-full overflow-y-auto md:col-span-4 md:w-full lg:block'>
       <Card.Body>{properties.children}</Card.Body>
-    </FadeIn>
+    </Card>
   );
 }
 
@@ -52,6 +47,8 @@ function SlideOutPanel(properties: React.PropsWithChildren): React.ReactNode {
 }
 
 export function FormDesignerManagerPanel(): React.ReactNode {
+  const {} = usePanelsAndModalsContext();
+
   const {
     size: { innerWidth },
   } = useWindowSize();

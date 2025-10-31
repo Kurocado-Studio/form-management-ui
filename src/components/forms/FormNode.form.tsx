@@ -1,6 +1,4 @@
 import type { Form } from '@kurocado-studio/html-form-service-ui-config';
-import { Card } from '@kurocado-studio/react-design-system';
-import { FadeIn } from '@kurocado-studio/ui-react-research-and-development';
 import { HtmlForm } from '@kurocado-studio/web-forms-react';
 import { get } from 'lodash-es';
 import React from 'react';
@@ -32,34 +30,23 @@ export function FormNodeEditor(): React.ReactNode {
   }, [description, id, title]) as Record<string, string>;
 
   return (
-    <HtmlForm<FormNodeUpdaterSchema>
-      className='relative block h-full overflow-y-auto'
-      id='form-node-form'
-      key={id}
-      schema={formNodeFormSchema}
-      defaultValue={defaultValue}
-      shouldValidate='onInput'
-      shouldRevalidate='onInput'
-      onSuccess={(updatedProperties) => {
-        executeUpdateForm({ updatedProperties });
-      }}
-    >
-      <FadeIn fadeInDirection={'UP'} viewport={{ once: true }}>
+    <div className='relative block h-full overflow-y-auto'>
+      <HtmlForm<FormNodeUpdaterSchema>
+        id='form-node-form'
+        key={id}
+        schema={formNodeFormSchema}
+        defaultValue={defaultValue}
+        shouldValidate='onInput'
+        shouldRevalidate='onInput'
+        onSuccess={(updatedProperties) => {
+          executeUpdateForm({ updatedProperties });
+        }}
+      >
         <TextField name='id' disabled />
-      </FadeIn>
-      <FadeIn fadeInDirection={'UP'} viewport={{ once: true }}>
         <TextField name='title' label='Title' />
-      </FadeIn>
-      <FadeIn fadeInDirection={'UP'} viewport={{ once: true }}>
         <TextField name='description' label='Description' />
-      </FadeIn>
-      <FadeIn fadeInDirection={'UP'} viewport={{ once: true }}>
-        <Card>
-          <Card.Body>
-            <JsonView className='overflow-y-auto text-xs' src={payload} />
-          </Card.Body>
-        </Card>
-      </FadeIn>
-    </HtmlForm>
+      </HtmlForm>
+      <JsonView className='overflow-y-auto text-xs' src={payload} />
+    </div>
   );
 }
