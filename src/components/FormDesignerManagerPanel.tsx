@@ -17,6 +17,7 @@ function CardPanel(properties: React.PropsWithChildren): React.ReactNode {
   return (
     <FadeIn
       viewport={{ once: true }}
+      staggerOrder={2}
       fadeInDirection={'RIGHT_TO_LEFT'}
       tag={Card}
       className='z-20 hidden h-full overflow-y-auto md:col-span-4 md:w-full lg:block'

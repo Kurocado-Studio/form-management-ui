@@ -45,35 +45,29 @@ export function TextFieldNodeForm(): React.ReactNode {
   }, [id, question]) as Record<string, string>;
 
   return (
-    <div className='relative block h-screen'>
-      <HtmlForm<TextFieldNodeUpdaterSchema>
-        id='text-field-node-form'
-        key={get(variants, [variant as string, 'id'])}
-        schema={textFieldNodeFormSchema}
-        defaultValue={defaultValue}
-        shouldValidate='onInput'
-        shouldRevalidate='onInput'
-        onSuccess={(updatedQuestion) => {
-          executeUpdateQuestion({ updatedQuestionProperties: updatedQuestion });
-        }}
-      >
-        <FadeIn fadeInDirection={'UP'} viewport={{ once: true }}>
-          <TextField name='id' disabled />
-        </FadeIn>
-        <FadeIn fadeInDirection={'UP'} iewport={{ once: true }}>
-          <TextField name='question' label='Question' />
-        </FadeIn>
-        <FadeIn fadeInDirection={'UP'} viewport={{ once: true }}>
-          <Card>
-            <Card.Body>
-              <JsonView
-                className='overflow-y-auto text-xs'
-                src={{ question, id, variant, variants, ...rest }}
-              />
-            </Card.Body>
-          </Card>
-        </FadeIn>
-      </HtmlForm>
-    </div>
+    <HtmlForm<TextFieldNodeUpdaterSchema>
+      id='text-field-node-form'
+      key={get(variants, [variant as string, 'id'])}
+      schema={textFieldNodeFormSchema}
+      defaultValue={defaultValue}
+      shouldValidate='onInput'
+      shouldRevalidate='onInput'
+      onSuccess={(updatedQuestion) => {
+        executeUpdateQuestion({ updatedQuestionProperties: updatedQuestion });
+      }}
+    >
+      <FadeIn viewport={{ once: true }}>
+        <TextField name='id' disabled />
+        <TextField name='question' label='Question' />
+        <Card>
+          <Card.Body>
+            <JsonView
+              className='overflow-y-auto text-xs'
+              src={{ question, id, variant, variants, ...rest }}
+            />
+          </Card.Body>
+        </Card>
+      </FadeIn>
+    </HtmlForm>
   );
 }

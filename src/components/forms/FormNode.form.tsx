@@ -33,7 +33,7 @@ export function FormNodeEditor(): React.ReactNode {
 
   return (
     <HtmlForm<FormNodeUpdaterSchema>
-      className='relative block h-full overflow-y-auto'
+      className='relative block h-full w-full overflow-y-auto'
       id='form-node-form'
       key={id}
       schema={formNodeFormSchema}
@@ -44,16 +44,10 @@ export function FormNodeEditor(): React.ReactNode {
         executeUpdateForm({ updatedProperties });
       }}
     >
-      <FadeIn fadeInDirection={'UP'} viewport={{ once: true }}>
+      <FadeIn viewport={{ once: true }}>
         <TextField name='id' disabled />
-      </FadeIn>
-      <FadeIn fadeInDirection={'UP'} viewport={{ once: true }}>
         <TextField name='title' label='Title' />
-      </FadeIn>
-      <FadeIn fadeInDirection={'UP'} viewport={{ once: true }}>
         <TextField name='description' label='Description' />
-      </FadeIn>
-      <FadeIn fadeInDirection={'UP'} viewport={{ once: true }}>
         <Card>
           <Card.Body>
             <JsonView className='overflow-y-auto text-xs' src={payload} />

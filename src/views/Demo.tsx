@@ -97,11 +97,18 @@ export function Demo(): React.ReactNode {
         {...GRID_LAYOUT}
         className={twMerge('flex-1 p-1', CONTAINER_MAX_WIDTH)}
       >
-        <Card className='z-20 hidden h-full md:col-span-3 md:w-full lg:block xl:md:col-span-2'>
+        <FadeIn
+          tag={Card}
+          fadeInDirection={'LEFT_TO_RIGHT'}
+          viewport={{ once: true }}
+          staggerOrder={2}
+          Card
+          className='z-20 hidden h-full md:col-span-3 md:w-full lg:block xl:md:col-span-2'
+        >
           <Card.Header>
             <QuestionCreator />
           </Card.Header>
-        </Card>
+        </FadeIn>
         <section className='z-10 col-span-12 w-full overflow-y-auto lg:col-span-5 xl:col-span-6'>
           <Grid
             {...GRID_LAYOUT}
