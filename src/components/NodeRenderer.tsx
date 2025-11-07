@@ -8,28 +8,24 @@ import { get } from 'lodash-es';
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import { TextFieldNode } from './questions/TextFieldNode';
+import { TextFieldNode } from './nodes/TextFieldNode';
 
 export interface QuestionNodeTypeRendererProperties {
   questionBeingEdited: Question;
 }
 
-const questionTypeComponentMap = {
+const nodeComponentMap = {
   [VariantEnum.TEXT]: TextFieldNode,
 };
 
-export function QuestionRenderer(
+export function NodeRenderer(
   properties: QuestionNodeTypeRendererProperties,
 ): React.ReactNode {
   const { questionBeingEdited } = properties;
   const variant = get(properties, ['questionBeingEdited', 'variant']);
   const hidden = get(properties, ['questionBeingEdited', 'hidden']);
 
-  const MappedQuestionType = get(
-    questionTypeComponentMap,
-    [variant],
-    () => null,
-  );
+  const MappedQuestionType = get(nodeComponentMap, [variant], () => null);
 
   return (
     <div className={twMerge(hidden && 'z-30 bg-amber-200/20')}>

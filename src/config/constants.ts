@@ -4,7 +4,7 @@ import {
   type Section,
   VariantEnum,
 } from '@kurocado-studio/html-form-service-ui-config';
-import type { GridProps } from '@kurocado-studio/ui-react-research-and-development';
+import type { GridProperties } from '@kurocado-studio/ui-react-research-and-development';
 
 import { composeFormsNodeTree } from '../application/store/composeFormsNodeTree';
 import type { ApiState } from '../types';
@@ -23,7 +23,7 @@ export const DEFAULT_API_STATE: ApiState = {
 
 export const VIEWPORT_WIDTH_TO_TRIGGER_MOBILE_PANEL = 1024;
 
-export const GRID_LAYOUT: GridProps = {
+export const GRID_LAYOUT: GridProperties = {
   gap: '1',
   columns: {
     base: '12',

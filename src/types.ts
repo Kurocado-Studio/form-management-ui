@@ -7,12 +7,14 @@ import type {
   Section,
   VariantCreatorDto,
 } from '@kurocado-studio/html-form-service-ui-config';
+import type { PolymorphicMotionProperties } from '@kurocado-studio/react-design-system';
 import type React from 'react';
+import { type ZodTypeAny, z } from 'zod';
 import type { StoreApi } from 'zustand';
 
-import type { FormNodeFormSchema } from './components/forms/FormNode.schema';
-import type { TextFieldNodeUpdaterSchema } from './components/questions/TextFieldNode.schema';
 import type { FormDesignerPanelsEnum, ModalsAndPanelsViewsEnum } from './enums';
+import type { FormNodeFormSchema } from './schemas/formNode.schema.ts';
+import { textFieldNodeFormSchema } from './schemas/textFieldNode.schema.ts';
 
 export type StoreCreator<T> = (
   set: StoreApi<T>['setState'],
@@ -153,3 +155,17 @@ export type PanelsAndModalsMap = {
 export type FormDesignerContextState = {
   [k in FormDesignerPanelsEnum]: boolean;
 };
+
+export interface JSONViewerProperties extends PolymorphicMotionProperties {
+  payload?: unknown;
+}
+
+export interface TextFieldNodeUpdaterSchema extends Record<string, unknown> {
+  question: string;
+}
+
+export type TextFieldNodeUpdaterSchemaShape = {
+  [K in keyof TextFieldNodeUpdaterSchema]: ZodTypeAny;
+};
+
+export type TextFieldNodeSchema = z.infer<typeof textFieldNodeFormSchema>;

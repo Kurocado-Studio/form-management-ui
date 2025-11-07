@@ -1,26 +1,37 @@
 // TODO: update styleguide to disable this rule on files ending with (.tsx)
 /* eslint-disable unicorn/no-null */
 import type { Question } from '@kurocado-studio/html-form-service-ui-config';
-import { Card } from '@kurocado-studio/react-design-system';
+import {
+  Card,
+  type CardProperties,
+} from '@kurocado-studio/react-design-system';
+import { useFadeAnimations } from '@kurocado-studio/react-design-system';
 import { useWindowSize } from '@kurocado-studio/react-utils';
 import { Button } from '@kurocado-studio/ui-react-research-and-development';
 import type React from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import { useFormKitService } from '../application/useFormKitService';
+import { useFormKitStore } from '../application/useFormikStore';
 
-export interface QuestionControls {
+export interface QuestionControls extends CardProperties {
   className?: string;
   id?: string;
   question: Question;
 }
 
-export function QuestionControls(
+export function NodeDesignerControls(
   properties: React.PropsWithChildren<QuestionControls>,
 ): React.ReactNode {
-  const { size } = useWindowSize();
-  const { question } = properties;
   const { executeReadQuestion } = useFormKitService();
+  const { size } = useWindowSize();
+
+  const { questionIdBeingEdited } = useFormKitStore((store) => store);
+
+  const { fadeInDefault } = useFadeAnimations();
+
+  const { question, className, ...restProperties } = properties;
+
   const shouldTriggerMobilePanel = size.innerWidth < 1024;
 
   const handleFocus = (): void => {
@@ -29,10 +40,13 @@ export function QuestionControls(
 
   return (
     <Card
+      {...fadeInDefault.initial}
+      {...restProperties}
       id={question.id}
       className={twMerge(
-        properties.className,
-        'focus:ring-2 focus:ring-purple-600 focus:outline-none',
+        className,
+        question.id === questionIdBeingEdited &&
+          'ring-2 ring-blue-300 outline-none',
       )}
       onFocus={shouldTriggerMobilePanel ? undefined : handleFocus}
       role='button'
