@@ -2,7 +2,6 @@ import type { Form } from '@kurocado-studio/html-form-service-ui-config';
 import {
   AnimateMotionPresence,
   Card,
-  PolymorphicMotionElement,
   useFadeAnimations,
 } from '@kurocado-studio/react-design-system';
 import { HtmlForm } from '@kurocado-studio/web-forms-react';
@@ -20,7 +19,6 @@ import { TextField } from '../controls/TextField';
 
 export function FormNodeEditor(): React.ReactNode {
   const { formsNodeTree, composePaths } = useFormKitStore((state) => state);
-  const { fadeInDefault } = useFadeAnimations();
   const { toCurrentForm } = composePaths();
 
   const { executeUpdateForm } = useFormKitService();
@@ -49,23 +47,21 @@ export function FormNodeEditor(): React.ReactNode {
       className='relative block h-full overflow-y-auto'
     >
       <Card.Body>
+        <HtmlForm<FormNodeUpdaterSchema>
+          key={id}
+          schema={formNodeFormSchema}
+          defaultValue={defaultValue}
+          shouldValidate='onInput'
+          shouldRevalidate='onInput'
+          onSuccess={(updatedProperties) => {
+            executeUpdateForm({ updatedProperties });
+          }}
+        >
+          <TextField name='id' disabled />
+          <TextField name='title' label='Title' />
+          <TextField name='description' label='Description' />
+        </HtmlForm>
         <AnimateMotionPresence isVisible>
-          <PolymorphicMotionElement {...fadeInDefault.initial}>
-            <HtmlForm<FormNodeUpdaterSchema>
-              key={id}
-              schema={formNodeFormSchema}
-              defaultValue={defaultValue}
-              shouldValidate='onInput'
-              shouldRevalidate='onInput'
-              onSuccess={(updatedProperties) => {
-                executeUpdateForm({ updatedProperties });
-              }}
-            >
-              <TextField name='id' disabled />
-              <TextField name='title' label='Title' />
-              <TextField name='description' label='Description' />
-            </HtmlForm>
-          </PolymorphicMotionElement>
           <JsonViewer key={id} payload={payload} />
         </AnimateMotionPresence>
       </Card.Body>

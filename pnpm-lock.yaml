@@ -30,8 +30,8 @@ importers:
         specifier: 1.0.0-develop.3
         version: 1.0.0-develop.3
       '@kurocado-studio/react-design-system':
-        specifier: 1.0.0-develop.21
-        version: 1.0.0-develop.21(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(typescript@5.9.3)
+        specifier: 1.0.0-develop.22
+        version: 1.0.0-develop.22(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(typescript@5.9.3)
       '@kurocado-studio/react-utils':
         specifier: 1.0.0-develop.1
         version: 1.0.0-develop.1
@@ -833,8 +833,8 @@ packages:
     peerDependencies:
       vitest-axe: ^0.1.0
 
-  '@kurocado-studio/react-design-system@1.0.0-develop.21':
-    resolution: {integrity: sha512-y3Sag1K6htQOeFixppldI33R7vKmjLprjZl612a8CNzDeFh6THH6g3kve9Yu40FkoiRPOxWSm/vnwMsbZ7EV0w==}
+  '@kurocado-studio/react-design-system@1.0.0-develop.22':
+    resolution: {integrity: sha512-Y3EBhlJgiE+v/1fGvapU0zKlM9Ue7etjWGza8QNcQDVdOC+ibfYkHwk+BiJmRPYMP62aVoBH7UBQIpjXOrY2DA==}
 
   '@kurocado-studio/react-utils@1.0.0-develop.1':
     resolution: {integrity: sha512-9bCZt9DmQ4hJ5nxdd8WUaXJeoV/ePQCM8DZyz4tAe9NLwr37mfZHLY1dxtZ+uMppoh8JSgjz0qpPcap5sJAj1g==}
@@ -8012,7 +8012,7 @@ snapshots:
       - vue-tsc
       - yaml
 
-  '@kurocado-studio/react-design-system@1.0.0-develop.21(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(typescript@5.9.3)':
+  '@kurocado-studio/react-design-system@1.0.0-develop.22(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(typescript@5.9.3)':
     dependencies:
       '@emotion/is-prop-valid': 1.4.0
       '@headlessui/react': 2.2.9(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

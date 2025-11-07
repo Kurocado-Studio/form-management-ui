@@ -1,7 +1,7 @@
+import { type Question } from '@kurocado-studio/html-form-service-ui-config';
 import {
   AnimateMotionPresence,
   Card,
-  PolymorphicMotionElement,
   useFadeAnimations,
 } from '@kurocado-studio/react-design-system';
 import { HtmlForm } from '@kurocado-studio/web-forms-react';
@@ -22,7 +22,11 @@ export function TextFieldNodeForm(): React.ReactNode {
 
   const { toCurrentQuestion, toQuestions } = composePaths();
 
-  const questionBeingEdited = get(formsNodeTree, toCurrentQuestion, {});
+  const questionBeingEdited: Question = get(
+    formsNodeTree,
+    toCurrentQuestion,
+    {},
+  );
   const questionMap = get(formsNodeTree, toQuestions, {});
 
   const [isAnimationReady, setIsAnimationReady] = React.useState(false);
@@ -41,7 +45,7 @@ export function TextFieldNodeForm(): React.ReactNode {
         question: questionBeingEdited.question,
       });
       setIsAnimationReady(true);
-    }, 400);
+    }, 190);
     return () => clearTimeout(timeout);
   }, [questionBeingEdited.id]);
 
@@ -50,31 +54,29 @@ export function TextFieldNodeForm(): React.ReactNode {
       {...fadeInBottom.initial}
       className='relative block h-screen overflow-y-auto'
     >
-      <Card.Body>
-        <AnimateMotionPresence isVisible={isAnimationReady}>
-          <PolymorphicMotionElement {...fadeInDefault.initial}>
-            <HtmlForm<TextFieldNodeUpdaterSchema>
-              schema={textFieldNodeFormSchema}
-              id={defaultValue.id}
-              key={defaultValue.id}
-              defaultValue={defaultValue}
-              shouldValidate='onInput'
-              shouldRevalidate='onInput'
-              onSuccess={(updatedQuestion) => {
-                executeUpdateQuestion({
-                  updatedQuestionProperties: updatedQuestion,
-                });
-              }}
-            >
-              <TextField name='id' disabled />
-              <TextField name='question' label='Question' />
-            </HtmlForm>
-          </PolymorphicMotionElement>
-          <JsonViewer
-            payload={isAnimationReady ? questionMap[defaultValue.id] : {}}
-          />
-        </AnimateMotionPresence>
-      </Card.Body>
+      <AnimateMotionPresence mode={'sync'} isVisible={isAnimationReady}>
+        <Card.Body {...fadeInDefault.initial}>
+          <HtmlForm<TextFieldNodeUpdaterSchema>
+            schema={textFieldNodeFormSchema}
+            id={defaultValue.id}
+            key={defaultValue.id}
+            defaultValue={isAnimationReady ? defaultValue : questionBeingEdited}
+            shouldValidate='onInput'
+            shouldRevalidate='onInput'
+            onSuccess={(updatedQuestion) => {
+              executeUpdateQuestion({
+                updatedQuestionProperties: updatedQuestion,
+              });
+            }}
+          >
+            <TextField name='id' disabled />
+            <TextField name='question' label='Question' />
+          </HtmlForm>
+          <AnimateMotionPresence isVisible={isAnimationReady}>
+            <JsonViewer payload={questionMap[defaultValue.id]} />
+          </AnimateMotionPresence>
+        </Card.Body>
+      </AnimateMotionPresence>
     </Card>
   );
 }
