@@ -64,7 +64,7 @@ export function FormNodeEditor(): React.ReactNode {
           <TextField name='title' label='Title' />
           <TextField name='description' label='Description' />
         </HtmlForm>
-        <AnimateMotionPresence>
+        <AnimateMotionPresence isVisible>
           <JsonViewer key={id} payload={payload} />
         </AnimateMotionPresence>
       </Card.Body>
