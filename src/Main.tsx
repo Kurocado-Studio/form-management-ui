@@ -17,15 +17,7 @@ if (rootElement) {
 
   root.render(
     <React.StrictMode>
-      <KurocadoStudioThemeProvider
-        LoaderComponent={({ progress, isLoading }) => {
-          return (
-            <div className={'z-50'} style={{ zIndex: 9999 }}>
-              <FullScreenLoader progress={progress} isLoading={isLoading} />
-            </div>
-          );
-        }}
-      >
+      <KurocadoStudioThemeProvider LoaderComponent={FullScreenLoader}>
         <PanelsAndModalsProvider>
           <FormDesignerProvider>
             <Demo />
