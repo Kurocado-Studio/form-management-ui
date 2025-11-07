@@ -36,7 +36,11 @@
   },
   "lint-staged": {
     "*": ["pnpm run prettier-fix"],
-    "**/*.{ts,tsx}": ["pnpm run eslint-fix", "pnpm run lint"]
+    "**/*.{ts,tsx}": [
+      "pnpm run prettier-fix",
+      "pnpm run eslint-fix",
+      "pnpm run lint"
+    ]
   },
   "dependencies": {
     "@conform-to/dom": "^1.10.1",
