@@ -48,7 +48,7 @@
     "@conform-to/zod": "^1.9.0",
     "@kurocado-studio/axios-react": "^1.0.0",
     "@kurocado-studio/html-form-service-ui-config": "1.0.0-develop.3",
-    "@kurocado-studio/react-design-system": "1.0.0-develop.20",
+    "@kurocado-studio/react-design-system": "1.0.0-develop.21",
     "@kurocado-studio/react-utils": "1.0.0-develop.1",
     "@kurocado-studio/ui-react-research-and-development": "1.0.0-develop.11",
     "@kurocado-studio/web-forms-react": "^1.0.0",
@@ -105,6 +105,10 @@
       "react": "19.0.0",
       "react-dom": "19.0.0"
     }
+  },
+  "resolutions": {
+    "esbuild": "0.25.12",
+    "rollup": "4.52.0"
   },
   "eslintConfig": {
     "extends": ["plugin:storybook/recommended"]
