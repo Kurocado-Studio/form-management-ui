@@ -1,8 +1,7 @@
 import { type Question } from '@kurocado-studio/html-form-service-ui-config';
 import { get, set } from 'lodash-es';
 
-import type { TextFieldNodeUpdaterSchema } from '@/src/schemas/textFieldNode.schema.ts';
-
+import type { TextFieldNodeUpdaterSchema } from '../../../types';
 import { useFormKitStore } from '../../useFormikStore';
 
 export type UseUpdateQuestionUseCase = () => {

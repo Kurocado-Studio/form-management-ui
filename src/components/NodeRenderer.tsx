@@ -8,7 +8,7 @@ import { get } from 'lodash-es';
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import { TextFieldNode } from '@/src/components/nodes/TextFieldNode';
+import { TextFieldNode } from './nodes/TextFieldNode';
 
 export interface QuestionNodeTypeRendererProperties {
   questionBeingEdited: Question;

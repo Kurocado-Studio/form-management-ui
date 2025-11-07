@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { TextFieldNodeUpdaterSchemaShape } from '@/src/types.ts';
+import { TextFieldNodeUpdaterSchemaShape } from '../types.ts';
 
 export const textFieldNodeFormSchema =
   z.object<TextFieldNodeUpdaterSchemaShape>({

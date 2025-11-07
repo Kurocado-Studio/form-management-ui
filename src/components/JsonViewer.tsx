@@ -6,7 +6,7 @@ import React from 'react';
 import JsonView from 'react18-json-view';
 import { twMerge } from 'tailwind-merge';
 
-import { JSONViewerProperties } from '@/src/types.ts';
+import { JSONViewerProperties } from '../types';
 
 export function JsonViewer(properties: JSONViewerProperties): React.ReactNode {
   const { payload, ...rest } = properties;

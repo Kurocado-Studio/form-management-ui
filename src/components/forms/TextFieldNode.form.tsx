@@ -10,13 +10,11 @@ import React from 'react';
 
 import { useFormKitService } from '../../application/useFormKitService.ts';
 import { useFormKitStore } from '../../application/useFormikStore.ts';
+import { textFieldNodeFormSchema } from '../../schemas/textFieldNode.schema';
 import type { TextFieldQuestionUpdaterDto } from '../../types.ts';
 import { JsonViewer } from '../JsonViewer.tsx';
 import { TextField } from '../controls/TextField.tsx';
-import {
-  type TextFieldNodeUpdaterSchema,
-  textFieldNodeFormSchema,
-} from '../nodes/TextFieldNode';
+import { type TextFieldNodeUpdaterSchema } from '../nodes/TextFieldNode';
 
 export type TextFieldQuestionUpdaterHandler = (
   payload: TextFieldQuestionUpdaterDto,
