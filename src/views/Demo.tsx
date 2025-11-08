@@ -86,7 +86,7 @@ export function Demo(): React.ReactNode {
       <Header />
       <Grid
         {...GRID_LAYOUT}
-        className={twMerge('flex-1 p-1', CONTAINER_MAX_WIDTH)}
+        className={twMerge('flex-1 overflow-hidden p-1', CONTAINER_MAX_WIDTH)}
       >
         <motion.div
           {...fadeInLeft.initial}
