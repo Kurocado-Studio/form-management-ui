@@ -82,7 +82,7 @@ export function Demo(): React.ReactNode {
   ]);
 
   return (
-    <main className='flex h-screen flex-col overflow-hidden bg-gray-100'>
+    <main className='absolute inset-0 flex h-screen flex-col overflow-hidden bg-gray-100'>
       <Header />
       <Grid
         {...GRID_LAYOUT}
