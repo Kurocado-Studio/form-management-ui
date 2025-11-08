@@ -30,7 +30,7 @@ export function Header(): React.ReactNode {
         {...GRID_LAYOUT}
         {...fadeInBottom.initial}
         className={twMerge(
-          'z-20 rounded-full bg-white p-1',
+          'fixed inset-x-0 z-20 rounded-full bg-white p-1 md:relative',
           CONTAINER_MAX_WIDTH,
         )}
       >

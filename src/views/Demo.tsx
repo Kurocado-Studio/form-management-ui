@@ -94,7 +94,7 @@ export function Demo(): React.ReactNode {
         >
           <QuestionCreator />
         </motion.div>
-        <section className='relative z-10 col-span-12 w-full overflow-y-auto lg:col-span-5 xl:col-span-6'>
+        <section className='relative z-10 col-span-12 w-full overflow-y-auto pt-24 md:pt-12 lg:col-span-5 xl:col-span-6'>
           <HtmlForm id='form-designer-preview'>
             <Grid
               {...GRID_LAYOUT}
