@@ -82,7 +82,7 @@ export function Demo(): React.ReactNode {
   ]);
 
   return (
-    <main className='flex h-screen flex-col bg-gray-100'>
+    <main className='flex h-screen flex-col overflow-hidden bg-gray-100'>
       <Header />
       <Grid
         {...GRID_LAYOUT}
@@ -100,8 +100,8 @@ export function Demo(): React.ReactNode {
               {...GRID_LAYOUT}
               {...fadeInDefault.initial}
               className={twMerge(
-                'subgrid relative overflow-hidden pb-24',
-                'col-span-12 w-full overflow-y-auto px-2',
+                'subgrid relative pb-24',
+                'col-span-12 w-full px-2',
               )}
             >
               <header
