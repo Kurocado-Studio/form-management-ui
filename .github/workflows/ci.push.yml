@@ -16,12 +16,14 @@ jobs:
   lint:
     uses: kurocado-studio/platform/.github/workflows/workflow.lint.yml@main
     secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test:
     needs: lint
     uses: kurocado-studio/platform/.github/workflows/workflow.test.yml@main
     secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   release:
