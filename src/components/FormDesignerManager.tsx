@@ -29,7 +29,8 @@ export function FormDesignerManager(): React.ReactNode {
     <Component>
       <AnimateMotionPresence
         mode='wait'
-        isVisible={!!formIdBeingEdited || !!questionIdBeingEdited}
+        key={`${formIdBeingEdited}_${questionIdBeingEdited}`}
+        isVisible
       >
         {formDesignerState === FormDesignerPanelsEnum.FORM && (
           <FormNodeEditor key='form-panel' />
