@@ -9,6 +9,11 @@ import type { GridProperties } from '@kurocado-studio/ui-react-research-and-deve
 import { composeFormsNodeTree } from '../application/store/composeFormsNodeTree';
 import type { ApiState } from '../types';
 
+export {
+  KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT,
+  KUROCADO_STUDIO_DEMO_FORM_ID,
+} from '@kurocado-studio/html-form-service-ui-config';
+
 export const CONTAINER_MAX_WIDTH = 'w-full mx-auto max-w-[2440px]';
 
 const createdAt = new Date().toISOString();

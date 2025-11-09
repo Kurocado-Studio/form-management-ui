@@ -23,6 +23,7 @@ import {
   CONTAINER_MAX_WIDTH,
   EMPTY_FORM_NODE,
   GRID_LAYOUT,
+  KUROCADO_STUDIO_DEMO_FORM_ID,
 } from '../config/constants';
 import { useFormDesignerContext } from '../context/FormDesignerContext';
 import { FormDesignerPanelsEnum } from '../enums';
@@ -72,7 +73,9 @@ export function Demo(): React.ReactNode {
       formIdBeingEdited === undefined &&
       !hasGetFormByIdApiError
     ) {
-      executeGetFormById({ id: 'demo' }).then();
+      executeGetFormById({
+        id: KUROCADO_STUDIO_DEMO_FORM_ID,
+      }).then();
     }
   }, [
     executeGetFormById,
@@ -82,11 +85,11 @@ export function Demo(): React.ReactNode {
   ]);
 
   return (
-    <main className='flex h-screen flex-col bg-gray-100'>
+    <main className='absolute inset-0 flex h-screen flex-col overflow-hidden bg-gray-100'>
       <Header />
       <Grid
         {...GRID_LAYOUT}
-        className={twMerge('flex-1 p-1', CONTAINER_MAX_WIDTH)}
+        className={twMerge('flex-1 overflow-hidden p-1', CONTAINER_MAX_WIDTH)}
       >
         <motion.div
           {...fadeInLeft.initial}
@@ -94,14 +97,14 @@ export function Demo(): React.ReactNode {
         >
           <QuestionCreator />
         </motion.div>
-        <section className='relative z-10 col-span-12 w-full overflow-y-auto lg:col-span-5 xl:col-span-6'>
+        <section className='relative z-10 col-span-12 w-full overflow-y-auto pt-24 md:pt-12 lg:col-span-5 xl:col-span-6'>
           <HtmlForm id='form-designer-preview'>
             <Grid
               {...GRID_LAYOUT}
               {...fadeInDefault.initial}
               className={twMerge(
-                'subgrid relative overflow-hidden pb-24',
-                'col-span-12 w-full overflow-y-auto px-2',
+                'subgrid relative pb-24',
+                'col-span-12 w-full px-2',
               )}
             >
               <header
