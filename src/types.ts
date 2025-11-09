@@ -6,7 +6,7 @@ import type {
   QuestionCreatorDto,
   Section,
   VariantCreatorDto,
-} from '@kurocado-studio/html-form-service-ui-config';
+} from '@kurocado-studio/formkit-ui-models';
 import type { PolymorphicMotionProperties } from '@kurocado-studio/react-design-system';
 import type React from 'react';
 import { type ZodTypeAny, z } from 'zod';

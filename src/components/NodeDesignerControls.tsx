@@ -1,6 +1,6 @@
 // TODO: update styleguide to disable this rule on files ending with (.tsx)
 /* eslint-disable unicorn/no-null */
-import type { Question } from '@kurocado-studio/html-form-service-ui-config';
+import type { Question } from '@kurocado-studio/formkit-ui-models';
 import {
   Card,
   type CardProperties,

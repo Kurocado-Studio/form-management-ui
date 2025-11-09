@@ -1,4 +1,4 @@
-import { type Question } from '@kurocado-studio/html-form-service-ui-config';
+import { type Question } from '@kurocado-studio/formkit-ui-models';
 import { useWindowSize } from '@kurocado-studio/react-utils';
 import { get } from 'lodash-es';
 

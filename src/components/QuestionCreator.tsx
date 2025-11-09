@@ -1,4 +1,4 @@
-import { VariantEnum } from '@kurocado-studio/html-form-service-ui-config';
+import { VariantEnum } from '@kurocado-studio/formkit-ui-models';
 import { Card } from '@kurocado-studio/react-design-system';
 import { Button } from '@kurocado-studio/ui-react-research-and-development';
 import { get } from 'lodash-es';

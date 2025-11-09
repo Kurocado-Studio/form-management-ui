@@ -1,7 +1,4 @@
-import type {
-  Form,
-  Section,
-} from '@kurocado-studio/html-form-service-ui-config';
+import type { Form, Section } from '@kurocado-studio/formkit-ui-models';
 import { get, keyBy } from 'lodash-es';
 
 import type { FormsNodeTree } from '../../types';

@@ -1,9 +1,6 @@
 // TODO: update styleguide to disable this rule on files ending with (.tsx)
 /* eslint-disable unicorn/no-null */
-import type {
-  Form,
-  Question,
-} from '@kurocado-studio/html-form-service-ui-config';
+import type { Form, Question } from '@kurocado-studio/formkit-ui-models';
 import { useFadeAnimations } from '@kurocado-studio/react-design-system';
 import { Grid, Text } from '@kurocado-studio/ui-react-research-and-development';
 import { HtmlForm } from '@kurocado-studio/web-forms-react';

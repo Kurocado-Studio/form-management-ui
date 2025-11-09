@@ -1,6 +1,6 @@
 // TODO: update styleguide to disable this rule on files ending with (.tsx)
 /* eslint-disable unicorn/no-null */
-import { VariantEnum } from '@kurocado-studio/html-form-service-ui-config';
+import { VariantEnum } from '@kurocado-studio/formkit-ui-models';
 import { get } from 'lodash-es';
 import React from 'react';
 

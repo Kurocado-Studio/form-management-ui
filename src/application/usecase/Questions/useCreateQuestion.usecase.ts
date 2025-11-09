@@ -1,8 +1,5 @@
 import { useAxios } from '@kurocado-studio/axios-react';
-import {
-  type Question,
-  VariantEnum,
-} from '@kurocado-studio/html-form-service-ui-config';
+import { type Question, VariantEnum } from '@kurocado-studio/formkit-ui-models';
 import React from 'react';
 
 import { axiosFormKitInstance } from '../../../config/axiosFormKitInstance';
