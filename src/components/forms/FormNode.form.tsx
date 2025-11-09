@@ -43,12 +43,13 @@ export function FormNodeEditor(): React.ReactNode {
 
   return (
     <Card
+      key={id}
       {...fadeInRight.initial}
       className='relative block h-full overflow-y-auto'
     >
       <Card.Body>
         <HtmlForm<FormNodeUpdaterSchema>
-          key={id}
+          key={`html-form-${id}`}
           schema={formNodeFormSchema}
           defaultValue={defaultValue}
           shouldValidate='onInput'
