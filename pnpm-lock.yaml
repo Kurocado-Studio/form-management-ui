@@ -27,8 +27,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.2(typescript@5.9.3)
       '@kurocado-studio/html-form-service-ui-config':
-        specifier: 1.0.0-develop.4
-        version: 1.0.0-develop.4
+        specifier: 1.0.0-develop.3
+        version: 1.0.0-develop.3
       '@kurocado-studio/react-design-system':
         specifier: 1.0.0-develop.22
         version: 1.0.0-develop.22(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(typescript@5.9.3)
@@ -818,8 +818,8 @@ packages:
   '@kurocado-studio/axios-react@1.1.2-develop.1':
     resolution: {integrity: sha512-ihhsCdowFwzc+Xkjr5wPZ52RR8Uln+lnsBMYUk7rQa8Rp90/t4M4nO8vPv5wWouElmyqQoBsiDZAdQqnwbQsqQ==}
 
-  '@kurocado-studio/html-form-service-ui-config@1.0.0-develop.4':
-    resolution: {integrity: sha512-wGxZONNm9pr4DLhkX2EfIah9jQXy1gyBwMT8YcE+AnGE0yqE7ZAdZ17W+LfkvuKRfeeCIncPTaBUw8TdKj2NPg==}
+  '@kurocado-studio/html-form-service-ui-config@1.0.0-develop.3':
+    resolution: {integrity: sha512-2P9ZagRnfCqzOi/324ePBcyo8/O45e8g1opHCc76dxUll9azDSaNY2lSz3ykNtB7nzK8WF4Jj8bqROsk07aHqg==}
 
   '@kurocado-studio/html-forms@1.0.0':
     resolution: {integrity: sha512-gDOT43sblcpGunK56cQ4dqRDZYFlSp7tFgBw5Oozq+vwgReoqReK31biNAdwfwaXzfD2/hi8vrPJLsHRPk4gjA==}
@@ -6771,10 +6771,6 @@ packages:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
 
-  uuid@13.0.0:
-    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
-    hasBin: true
-
   uvu@0.5.6:
     resolution: {integrity: sha512-+g8ENReyr8YsOc6fv/NVJs2vFdHBnBNdfE49rshrTzDWOlUx4Gq7KOS2GD8eqhy2j+Ejq29+SbKH8yjkAqXqoA==}
     engines: {node: '>=8'}
@@ -7926,9 +7922,7 @@ snapshots:
       - debug
       - typescript
 
-  '@kurocado-studio/html-form-service-ui-config@1.0.0-develop.4':
-    dependencies:
-      uuid: 13.0.0
+  '@kurocado-studio/html-form-service-ui-config@1.0.0-develop.3': {}
 
   '@kurocado-studio/html-forms@1.0.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
@@ -15176,8 +15170,6 @@ snapshots:
       which-typed-array: 1.1.19
 
   utils-merge@1.0.1: {}
-
-  uuid@13.0.0: {}
 
   uvu@0.5.6:
     dependencies:

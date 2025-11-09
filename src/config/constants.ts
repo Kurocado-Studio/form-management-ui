@@ -9,10 +9,11 @@ import type { GridProperties } from '@kurocado-studio/ui-react-research-and-deve
 import { composeFormsNodeTree } from '../application/store/composeFormsNodeTree';
 import type { ApiState } from '../types';
 
-export {
-  KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT,
-  KUROCADO_STUDIO_DEMO_FORM_ID,
-} from '@kurocado-studio/html-form-service-ui-config';
+export const KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT =
+  '05bc858a-f333-4dab-9e24-fb41b1b7468e';
+
+export const KUROCADO_STUDIO_DEMO_FORM_ID =
+  '2305e7ed-b583-4ef7-9a4c-2bc094b34894';
 
 export const CONTAINER_MAX_WIDTH = 'w-full mx-auto max-w-[2440px]';
 
