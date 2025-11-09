@@ -24,7 +24,6 @@ import {
   EMPTY_FORM_NODE,
   GRID_LAYOUT,
   KUROCADO_STUDIO_DEMO_FORM_ID,
-  KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT,
 } from '../config/constants';
 import { useFormDesignerContext } from '../context/FormDesignerContext';
 import { FormDesignerPanelsEnum } from '../enums';
@@ -76,7 +75,6 @@ export function Demo(): React.ReactNode {
     ) {
       executeGetFormById({
         id: KUROCADO_STUDIO_DEMO_FORM_ID,
-        organizationId: KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT,
       }).then();
     }
   }, [
