@@ -4,6 +4,7 @@ import { get } from 'lodash-es';
 import React from 'react';
 
 import { axiosFormKitInstance } from '../../../config/axiosFormKitInstance';
+import { KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT } from '../../../config/constants';
 import { useFormDesignerContext } from '../../../context/FormDesignerContext';
 import { FormDesignerPanelsEnum } from '../../../enums';
 import type { FormsNodeTree } from '../../../types';
@@ -47,7 +48,7 @@ export const useGetFormByIdUseCase: UseGetFormByIdUseCase = () => {
       resetState();
 
       const formById = await getSingleFormHandler({
-        url: `/forms/${id}`,
+        url: `/api/v1/organizations/${KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT}/forms/${id}`,
         method: 'GET',
       });
 

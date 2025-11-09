@@ -1,7 +1,7 @@
 import { get } from 'lodash-es';
 import React, { createContext, useContext, useState } from 'react';
 
-import { QuestionCreatorPanel } from '../components/panels/QuestionCreatorPanel';
+import { QuestionCreatorPanel } from '../components/QuestionCreatorPanel.tsx';
 import { ModalsAndPanelsViewsEnum } from '../enums';
 import type { FormViewContextType, PanelsAndModalsMap } from '../types';
 

@@ -6,6 +6,7 @@ import {
 import React from 'react';
 
 import { axiosFormKitInstance } from '../../../config/axiosFormKitInstance';
+import { KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT } from '../../../config/constants';
 import { useFormDesignerContext } from '../../../context/FormDesignerContext';
 import { usePanelsAndModalsContext } from '../../../context/PanelsAndModalsContext';
 import {
@@ -66,7 +67,7 @@ export const useCreateTextFieldQuestionUseCase: UseCreateQuestionUseCase =
       try {
         resetState();
         const question: Question | undefined = await createQuestionHandler({
-          url: `/forms/${formIdBeingEdited}/sections/${sectionIdBeingEdited}/questions`,
+          url: `/api/v1/organizations/${KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT}/forms/${formIdBeingEdited}/sections/${sectionIdBeingEdited}/questions`,
           method: 'POST',
           //   @ts-expect-error while we sync typings
           data,
