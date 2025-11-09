@@ -17,7 +17,9 @@ export function FormDesignerManager(): React.ReactNode {
   const {
     size: { innerWidth },
   } = useWindowSize();
-  const { questionIdBeingEdited } = useFormKitStore((state) => state);
+  const { questionIdBeingEdited, formIdBeingEdited } = useFormKitStore(
+    (state) => state,
+  );
   const { formDesignerState } = useFormDesignerContext();
 
   const Component =
@@ -25,7 +27,10 @@ export function FormDesignerManager(): React.ReactNode {
 
   return (
     <Component>
-      <AnimateMotionPresence mode='wait' isVisible>
+      <AnimateMotionPresence
+        mode='wait'
+        isVisible={!!formIdBeingEdited || !!questionIdBeingEdited}
+      >
         {formDesignerState === FormDesignerPanelsEnum.FORM && (
           <FormNodeEditor key='form-panel' />
         )}
