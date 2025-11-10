@@ -36,8 +36,8 @@ importers:
         specifier: 1.0.0-develop.1
         version: 1.0.0-develop.1
       '@kurocado-studio/ui-react-research-and-development':
-        specifier: 1.0.0-develop.12
-        version: 1.0.0-develop.12(@vueuse/core@14.0.0(vue@3.5.24(typescript@5.9.3)))(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(vue@3.5.24(typescript@5.9.3))
+        specifier: 1.0.0-develop.13
+        version: 1.0.0-develop.13(@vueuse/core@14.0.0(vue@3.5.24(typescript@5.9.3)))(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(vue@3.5.24(typescript@5.9.3))
       '@kurocado-studio/web-forms-react':
         specifier: ^1.0.0
         version: 1.0.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -898,8 +898,8 @@ packages:
   '@kurocado-studio/ui-domain@1.0.0-develop.1':
     resolution: {integrity: sha512-Q6KEiWIh7Idr/WQr2t0lHk/XxM3RCIHqKg98k6BB/4u3k/CjEM8Z3+gErc+czYPh6nu6VP2dVA9hrwVqV7PDIw==}
 
-  '@kurocado-studio/ui-react-research-and-development@1.0.0-develop.12':
-    resolution: {integrity: sha512-mlNx3GpBSL1pMlPMW0hvl1XvkNH02qwsLpubfO4ZXTkibvdnaSRLhMVrbGWw7EliP0mw8jjmRZ7KMSy+jx8B5w==}
+  '@kurocado-studio/ui-react-research-and-development@1.0.0-develop.13':
+    resolution: {integrity: sha512-f2wAZJE1/xUylPU6YyBPpjkMKDTtg4x4K86rkJs6rHnD5Jxc+S3XZ2ewm4etd7tfAdYjKGSv1ct7SC0MAUksCQ==}
 
   '@kurocado-studio/web-forms-react@1.0.0':
     resolution: {integrity: sha512-Cx/WksxMP9o8ZkYoer5z6e0n/Ewe4TRF390mLMQ5SjOctDxLqVmgTWfkh4NQjSFTdDnt6ccXAY1RLn7dhunxmA==}
@@ -8154,7 +8154,7 @@ snapshots:
       - tailwindcss
       - vue
 
-  '@kurocado-studio/ui-react-research-and-development@1.0.0-develop.12(@vueuse/core@14.0.0(vue@3.5.24(typescript@5.9.3)))(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(vue@3.5.24(typescript@5.9.3))':
+  '@kurocado-studio/ui-react-research-and-development@1.0.0-develop.13(@vueuse/core@14.0.0(vue@3.5.24(typescript@5.9.3)))(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(vue@3.5.24(typescript@5.9.3))':
     dependencies:
       '@emotion/is-prop-valid': 1.4.0
       '@headlessui/react': 2.2.9(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -10228,7 +10228,7 @@ snapshots:
   '@typescript-eslint/project-service@8.46.3(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/tsconfig-utils': 8.46.3(typescript@5.9.3)
-      '@typescript-eslint/types': 8.46.4
+      '@typescript-eslint/types': 8.46.3
       debug: 4.4.3
       typescript: 5.9.3
     transitivePeerDependencies:

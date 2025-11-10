@@ -146,7 +146,7 @@ export function Demo(): React.ReactNode {
               'border border-transparent',
               'transition-colors duration-150',
               'hover:border-1 hover:border-blue-400 hover:bg-gray-400/15',
-              'rounded-card-root-radius-default fixed inset-x-0 inset-y-0 z-0',
+              'fixed inset-x-0 inset-y-0 z-0',
             )}
             role='button'
             onClick={handleReadCurrentFormById}
