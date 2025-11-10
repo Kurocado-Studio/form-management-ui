@@ -8,7 +8,8 @@ import type { UseReadFormUseCase } from '../../../types';
 import { useFormKitStore } from '../../useFormikStore';
 
 export const useReadFormUseCase: UseReadFormUseCase = () => {
-  const { handleSetFormBeingEdited } = useFormKitStore();
+  const { handleSetFormBeingEdited, handleSetQuestionToBeEdited } =
+    useFormKitStore();
 
   const { handlePanelsAndModalsState } = usePanelsAndModalsContext();
   const { handleFormDesignerState } = useFormDesignerContext();
@@ -22,6 +23,7 @@ export const useReadFormUseCase: UseReadFormUseCase = () => {
   }) => {
     if (id === undefined) return;
 
+    handleSetQuestionToBeEdited({ id: undefined });
     handleSetFormBeingEdited({ id });
     handleFormDesignerState(FORM);
 
