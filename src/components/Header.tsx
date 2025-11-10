@@ -24,6 +24,11 @@ export function Header(): React.ReactNode {
 
   const { fadeInBottom, fadeInDefault } = useFadeAnimations();
 
+  const handleReadCurrentForm = () => {
+    if (!formIdBeingEdited) return;
+    executeReadForm({ id: formIdBeingEdited });
+  };
+
   return (
     <>
       <Grid
@@ -56,7 +61,7 @@ export function Header(): React.ReactNode {
         <div className='col-span-5 col-start-8 flex w-full justify-end'>
           <Button
             disabled={getFormByIdState.isLoading}
-            onClick={() => executeReadForm({ id: formIdBeingEdited })}
+            onClick={handleReadCurrentForm}
           >
             Form Settings
           </Button>
