@@ -1,7 +1,6 @@
 import { useAxios } from '@kurocado-studio/axios-react';
 import type { Form } from '@kurocado-studio/formkit-ui-models';
 import { ReactTestingLibrary } from '@kurocado-studio/qa';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { useFormKitStore } from '../../useFormikStore';
 import { useGetFormByIdUseCase } from './useGetFormById.usecase';
@@ -30,7 +29,6 @@ describe('useGetFormByIdUseCase', () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
-    // Mock the store
     (useFormKitStore as unknown as ReturnType<typeof vi.fn>).mockImplementation(
       (selector) =>
         selector({
@@ -90,7 +88,6 @@ describe('useGetFormByIdUseCase', () => {
         id: 'section1',
       });
 
-      // Returns current formsNodeTree from store
       expect(returnedTree).toBe(formsNodeTreeMock);
     });
   });
