@@ -1,4 +1,3 @@
-import { type Question } from '@kurocado-studio/formkit-ui-models';
 import { useWindowSize } from '@kurocado-studio/react-utils';
 import { get } from 'lodash-es';
 
@@ -24,17 +23,18 @@ export const useReadQuestionUseCase: UseReadQuestionUseCase = () => {
   const shouldTriggerMobilePanel =
     size.innerWidth < VIEWPORT_WIDTH_TO_TRIGGER_MOBILE_PANEL;
 
-  const executeReadQuestion = (payload: { question: Question }): void => {
-    const id = get(payload, ['question', 'id']);
+  const executeReadQuestion: ReturnType<UseReadQuestionUseCase>['executeReadQuestion'] =
+    (payload) => {
+      const id = get(payload, ['question', 'id']);
 
-    handleSetQuestionToBeEdited({ id });
-    handleFormDesignerState(QUESTION);
-    scrollToElement(id);
+      handleSetQuestionToBeEdited({ id });
+      handleFormDesignerState(QUESTION);
+      scrollToElement(id);
 
-    if (shouldTriggerMobilePanel) {
-      handlePanelsAndModalsState(FORM_DESIGNER_PANEL);
-    }
-  };
+      if (shouldTriggerMobilePanel) {
+        handlePanelsAndModalsState(FORM_DESIGNER_PANEL);
+      }
+    };
 
   return { executeReadQuestion };
 };

@@ -14,29 +14,28 @@ export const useUpdateQuestionUseCase: UseUpdateQuestionUseCase = () => {
   const { formsNodeTree, handleUpdateFormsNodeTree, composePaths } =
     useFormKitStore((state) => state);
 
-  const executeUpdateQuestion = (payload: {
-    updatedQuestionProperties: TextFieldNodeUpdaterSchema;
-  }): void => {
-    const { toCurrentQuestion } = composePaths();
-    const { updatedQuestionProperties } = payload;
+  const executeUpdateQuestion: ReturnType<UseUpdateQuestionUseCase>['executeUpdateQuestion'] =
+    (payload) => {
+      const { toCurrentQuestion } = composePaths();
+      const { updatedQuestionProperties } = payload;
 
-    const nodeTree = { ...formsNodeTree };
+      const nodeTree = { ...formsNodeTree };
 
-    const currentQuestion: Question | undefined = get(
-      nodeTree,
-      toCurrentQuestion,
-    );
+      const currentQuestion: Question | undefined = get(
+        nodeTree,
+        toCurrentQuestion,
+      );
 
-    if (currentQuestion === undefined) return;
+      if (currentQuestion === undefined) return;
 
-    for (const [key, value] of Object.entries(updatedQuestionProperties)) {
-      set(currentQuestion, [key], value);
-    }
+      for (const [key, value] of Object.entries(updatedQuestionProperties)) {
+        set(currentQuestion, [key], value);
+      }
 
-    set(nodeTree, toCurrentQuestion, currentQuestion);
+      set(nodeTree, toCurrentQuestion, currentQuestion);
 
-    handleUpdateFormsNodeTree(nodeTree);
-  };
+      handleUpdateFormsNodeTree(nodeTree);
+    };
 
   return { executeUpdateQuestion };
 };

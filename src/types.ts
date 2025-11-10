@@ -137,7 +137,14 @@ export interface QuestionsStore {
 }
 
 export type UseReadFormUseCase = () => {
-  executeReadForm: (payload: { id: string }) => void;
+  executeReadForm: (payload: {
+    id?: string;
+    shouldOpenFormDesignerPanel?: boolean;
+  }) => void;
+};
+
+export type UseUpdateFormUseCase = () => {
+  executeUpdateForm: (payload: FormUpdaterDto) => void;
 };
 
 export type UseGetFormByIdUseCase = () => {
@@ -149,20 +156,12 @@ export interface SectionsStore {
   handleUpdateSectionBeingEdited: (payload: { id: string }) => void;
 }
 
-export type FormDesignerComponentMap = {
-  [k in FormDesignerPanelsEnum]: React.FC;
-};
-
 export type PanelsAndModalsMapComponentMap = {
   [k in ModalsAndPanelsViewsEnum]: React.FC;
 };
 
 export type PanelsAndModalsMap = {
   [k in ModalsAndPanelsViewsEnum]: boolean;
-};
-
-export type FormDesignerContextState = {
-  [k in FormDesignerPanelsEnum]: boolean;
 };
 
 export interface JSONViewerProperties extends PolymorphicMotionProperties {

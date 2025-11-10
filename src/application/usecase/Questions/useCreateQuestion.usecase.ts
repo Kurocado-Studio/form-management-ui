@@ -15,7 +15,6 @@ import {
 } from '../../../enums';
 import type {
   QuestionCreatorPayload,
-  TextFieldQuestionCreatorDto,
   UseCreateQuestionUseCase,
 } from '../../../types';
 import { scrollToElement } from '../../../utils/scrollToElement';
@@ -88,19 +87,18 @@ export const useCreateTextFieldQuestionUseCase: UseCreateQuestionUseCase =
       }
     };
 
-    const executeCreateTextFieldQuestion = async (
-      payload: TextFieldQuestionCreatorDto,
-    ): Promise<Question> => {
-      const { question, variant } = payload;
+    const executeCreateTextFieldQuestion: ReturnType<UseCreateQuestionUseCase>['executeCreateTextFieldQuestion'] =
+      async (payload) => {
+        const { question, variant } = payload;
 
-      return handleCreateQuestion({
-        question,
-        variant: {
-          ...variant,
-          variantType: VariantEnum.TEXT,
-        },
-      });
-    };
+        return handleCreateQuestion({
+          question,
+          variant: {
+            ...variant,
+            variantType: VariantEnum.TEXT,
+          },
+        });
+      };
 
     return { executeCreateTextFieldQuestion };
   };
