@@ -1,6 +1,6 @@
 import {
-  Label,
   TextArea as BaseTextArea,
+  Label,
 } from '@kurocado-studio/ui-react-research-and-development';
 import { useAriaTextField } from '@kurocado-studio/web-forms-react';
 import React from 'react';

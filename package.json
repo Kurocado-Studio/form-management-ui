@@ -35,9 +35,7 @@
     "ui:sync:dev": "pnpm clean && pnpm ui:local:sync && pnpm use:build-local-html-package && pnpm use:sync-local-html-package && pnpm i && pnpm dev"
   },
   "lint-staged": {
-    "*": [
-      "pnpm run prettier-fix"
-    ],
+    "*": ["pnpm run prettier-fix"],
     "**/*.{ts,tsx}": [
       "pnpm run prettier-fix",
       "pnpm run eslint-fix",
@@ -113,8 +111,6 @@
     "rollup": "4.52.0"
   },
   "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
+    "extends": ["plugin:storybook/recommended"]
   }
 }

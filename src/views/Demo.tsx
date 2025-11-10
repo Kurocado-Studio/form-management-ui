@@ -95,7 +95,7 @@ export function Demo(): React.ReactNode {
         >
           <QuestionCreator />
         </motion.div>
-        <section className='overflow-y-auto relative z-10 col-span-12 w-full pt-24 md:pt-12 lg:col-span-5 xl:col-span-6'>
+        <section className='relative z-10 col-span-12 w-full overflow-y-auto pt-24 md:pt-12 lg:col-span-5 xl:col-span-6'>
           <HtmlForm id='form-designer-preview'>
             <Grid
               {...GRID_LAYOUT}
@@ -146,7 +146,7 @@ export function Demo(): React.ReactNode {
               'border border-transparent',
               'transition-colors duration-150',
               'hover:border-1 hover:border-blue-400 hover:bg-gray-400/15',
-              'rounded-card-root-radius-default fixed inset-y-0 inset-x-0 z-0',
+              'rounded-card-root-radius-default fixed inset-x-0 inset-y-0 z-0',
             )}
             role='button'
             onClick={handleReadCurrentFormById}
