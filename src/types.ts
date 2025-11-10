@@ -110,12 +110,10 @@ export interface QuestionCreatorPayload extends Record<string, unknown> {
   variant: VariantCreatorDto;
 }
 
-export type QuestionCreatorReturnType = Question | undefined;
-
 export type UseCreateQuestionUseCase = () => {
   executeCreateTextFieldQuestion: (
     payload: TextFieldQuestionCreatorDto,
-  ) => Promise<QuestionCreatorReturnType>;
+  ) => Promise<Question>;
 };
 
 export interface FormViewContextType {
