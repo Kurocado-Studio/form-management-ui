@@ -11,8 +11,7 @@ import type { UseReadFormUseCase } from '../../../types';
 import { useFormKitStore } from '../../useFormikStore';
 
 export const useReadFormUseCase: UseReadFormUseCase = () => {
-  const { handleSetFormBeingEdited, handleSetQuestionToBeEdited } =
-    useFormKitStore();
+  const { handleSetFormBeingEdited } = useFormKitStore();
 
   const { handlePanelsAndModalsState } = usePanelsAndModalsContext();
   const { handleFormDesignerState } = useFormDesignerContext();
@@ -27,7 +26,8 @@ export const useReadFormUseCase: UseReadFormUseCase = () => {
   const executeReadForm = (payload: { id: string | undefined }): void => {
     const { id } = payload;
 
-    handleSetQuestionToBeEdited({ id: undefined });
+    if (id === undefined) return;
+
     handleSetFormBeingEdited({ id });
     handleFormDesignerState(FORM);
 

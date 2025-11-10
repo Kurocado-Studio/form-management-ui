@@ -34,13 +34,8 @@ const questionControlClassNames = [
 export function Demo(): React.ReactNode {
   const { executeGetFormById } = useFormKitService();
   const { handleFormDesignerState } = useFormDesignerContext();
-  const {
-    getFormByIdState,
-    formsNodeTree,
-    handleSetQuestionToBeEdited,
-    formIdBeingEdited,
-    composePaths,
-  } = useFormKitStore();
+  const { getFormByIdState, formsNodeTree, formIdBeingEdited, composePaths } =
+    useFormKitStore();
 
   const { toQuestions, toCurrentForm } = composePaths();
 
@@ -53,7 +48,6 @@ export function Demo(): React.ReactNode {
   );
 
   const handleClickOnFormBackground = (): void => {
-    handleSetQuestionToBeEdited({ id: undefined });
     handleFormDesignerState(FormDesignerPanelsEnum.FORM);
   };
 
