@@ -1,4 +1,5 @@
 import { useFadeAnimations } from '@kurocado-studio/react-design-system';
+import { useWindowSize } from '@kurocado-studio/react-utils';
 import {
   Avatar,
   Button,
@@ -9,7 +10,11 @@ import { twMerge } from 'tailwind-merge';
 
 import { useFormKitService } from '../application/useFormKitService';
 import { useFormKitStore } from '../application/useFormikStore';
-import { CONTAINER_MAX_WIDTH, GRID_LAYOUT } from '../config/constants';
+import {
+  CONTAINER_MAX_WIDTH,
+  GRID_LAYOUT,
+  VIEWPORT_WIDTH_TO_TRIGGER_MOBILE_PANEL,
+} from '../config/constants';
 import { usePanelsAndModalsContext } from '../context/PanelsAndModalsContext';
 import { ModalsAndPanelsViewsEnum } from '../enums';
 
@@ -17,12 +22,23 @@ const { QUESTION_SELECTOR_PANEL } = ModalsAndPanelsViewsEnum;
 
 export function Header(): React.ReactNode {
   const { getFormByIdState, formIdBeingEdited } = useFormKitStore();
+  const { size } = useWindowSize();
+
+  const shouldOpenFormDesignerPanel =
+    size.innerWidth < VIEWPORT_WIDTH_TO_TRIGGER_MOBILE_PANEL;
 
   const { executeReadForm } = useFormKitService();
 
   const { handlePanelsAndModalsState } = usePanelsAndModalsContext();
 
   const { fadeInBottom, fadeInDefault } = useFadeAnimations();
+
+  const handleReadCurrentForm = () => {
+    executeReadForm({
+      id: formIdBeingEdited,
+      shouldOpenFormDesignerPanel,
+    });
+  };
 
   return (
     <>
@@ -56,7 +72,7 @@ export function Header(): React.ReactNode {
         <div className='col-span-5 col-start-8 flex w-full justify-end'>
           <Button
             disabled={getFormByIdState.isLoading}
-            onClick={() => executeReadForm({ id: formIdBeingEdited })}
+            onClick={handleReadCurrentForm}
           >
             Form Settings
           </Button>
