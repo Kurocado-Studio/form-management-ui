@@ -23,10 +23,8 @@ export const useReadFormUseCase: UseReadFormUseCase = () => {
   const shouldTriggerMobilePanel =
     size.innerWidth < VIEWPORT_WIDTH_TO_TRIGGER_MOBILE_PANEL;
 
-  const executeReadForm = (payload: { id: string | undefined }): void => {
+  const executeReadForm = (payload: { id: string }): void => {
     const { id } = payload;
-
-    if (id === undefined) return;
 
     handleSetFormBeingEdited({ id });
     handleFormDesignerState(FORM);

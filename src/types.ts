@@ -53,7 +53,14 @@ export type UseGetFormById = () => {
   getFormById: (id: string) => Promise<Form>;
 };
 
-export type FormsNodeTree = {
+export type FormsNodeTree = Record<
+  string,
+  Omit<Form, 'sections'> & {
+    sections: Record<string, SectionNodeTree>;
+  }
+>;
+
+export type FormsNodeTreeFallback = {
   [formId: string]: Omit<Form, 'sections'> & {
     sections: {
       [sectionId: string]: SectionNodeTree;
