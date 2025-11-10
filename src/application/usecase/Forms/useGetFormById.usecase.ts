@@ -5,8 +5,6 @@ import React from 'react';
 
 import { axiosFormKitInstance } from '../../../config/axiosFormKitInstance';
 import { KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT } from '../../../config/constants';
-import { useFormDesignerContext } from '../../../context/FormDesignerContext';
-import { FormDesignerPanelsEnum } from '../../../enums';
 import type { FormsNodeTree, UseGetFormByIdUseCase } from '../../../types';
 import { useFormKitStore } from '../../useFormikStore';
 
@@ -18,10 +16,6 @@ export const useGetFormByIdUseCase: UseGetFormByIdUseCase = () => {
     handleComposeFormsNodeTree,
     handleUpdateSectionBeingEdited,
   } = useFormKitStore((state) => state);
-
-  const { FORM } = FormDesignerPanelsEnum;
-
-  const { handleFormDesignerState } = useFormDesignerContext();
 
   const [{ resetState, isLoading, error }, getSingleFormHandler] =
     useAxios<Form>({
@@ -50,7 +44,6 @@ export const useGetFormByIdUseCase: UseGetFormByIdUseCase = () => {
       handleUpdateSectionBeingEdited({
         id: get(formById, ['sections', 0, 'id']),
       });
-      handleFormDesignerState(FORM);
       return formsNodeTree;
     } catch {
       return formsNodeTree;
