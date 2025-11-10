@@ -15,6 +15,7 @@ import {
   formNodeFormSchema,
 } from '../../schemas/formNode.schema';
 import { JsonViewer } from '../JsonViewer';
+import { TextArea } from '../controls/TextArea';
 import { TextField } from '../controls/TextField';
 
 export function FormNodeEditor(): React.ReactNode {
@@ -60,7 +61,7 @@ export function FormNodeEditor(): React.ReactNode {
         >
           <TextField name='id' disabled />
           <TextField name='title' label='Title' />
-          <TextField name='description' label='Description' />
+          <TextArea name='description' label='Description' />
         </HtmlForm>
         <AnimateMotionPresence isVisible>
           <JsonViewer key={id} payload={payload} />

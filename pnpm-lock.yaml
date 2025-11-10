@@ -36,8 +36,8 @@ importers:
         specifier: 1.0.0-develop.1
         version: 1.0.0-develop.1
       '@kurocado-studio/ui-react-research-and-development':
-        specifier: 1.0.0-develop.11
-        version: 1.0.0-develop.11(@vueuse/core@14.0.0(vue@3.5.24(typescript@5.9.3)))(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(vue@3.5.24(typescript@5.9.3))
+        specifier: 1.0.0-develop.13
+        version: 1.0.0-develop.13(@vueuse/core@14.0.0(vue@3.5.24(typescript@5.9.3)))(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(vue@3.5.24(typescript@5.9.3))
       '@kurocado-studio/web-forms-react':
         specifier: ^1.0.0
         version: 1.0.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -898,8 +898,8 @@ packages:
   '@kurocado-studio/ui-domain@1.0.0-develop.1':
     resolution: {integrity: sha512-Q6KEiWIh7Idr/WQr2t0lHk/XxM3RCIHqKg98k6BB/4u3k/CjEM8Z3+gErc+czYPh6nu6VP2dVA9hrwVqV7PDIw==}
 
-  '@kurocado-studio/ui-react-research-and-development@1.0.0-develop.11':
-    resolution: {integrity: sha512-sQrJQKkMgW4bgyiP4ddrNfpd9bDnEjC5aBYoclT6Z0z/oX7ZnovE3q2ZK4gJlbC4JTj8v8tpbmb5yKqtsq7Mbg==}
+  '@kurocado-studio/ui-react-research-and-development@1.0.0-develop.13':
+    resolution: {integrity: sha512-f2wAZJE1/xUylPU6YyBPpjkMKDTtg4x4K86rkJs6rHnD5Jxc+S3XZ2ewm4etd7tfAdYjKGSv1ct7SC0MAUksCQ==}
 
   '@kurocado-studio/web-forms-react@1.0.0':
     resolution: {integrity: sha512-Cx/WksxMP9o8ZkYoer5z6e0n/Ewe4TRF390mLMQ5SjOctDxLqVmgTWfkh4NQjSFTdDnt6ccXAY1RLn7dhunxmA==}
@@ -2310,6 +2310,10 @@ packages:
     resolution: {integrity: sha512-FCi7Y1zgrmxp3DfWfr+3m9ansUUFoy8dkEdeQSgA9gbm8DaHYvZCdkFRQrtKiedFf3Ha6VmoqoAaP68+i+22kg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@typescript-eslint/scope-manager@8.46.4':
+    resolution: {integrity: sha512-tMDbLGXb1wC+McN1M6QeDx7P7c0UWO5z9CXqp7J8E+xGcJuUuevWKxuG8j41FoweS3+L41SkyKKkia16jpX7CA==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
   '@typescript-eslint/tsconfig-utils@8.46.3':
     resolution: {integrity: sha512-GLupljMniHNIROP0zE7nCcybptolcH8QZfXOpCfhQDAdwJ/ZTlcaBOYebSOZotpti/3HrHSw7D3PZm75gYFsOA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -2329,6 +2333,10 @@ packages:
 
   '@typescript-eslint/types@8.46.3':
     resolution: {integrity: sha512-G7Ok9WN/ggW7e/tOf8TQYMaxgID3Iujn231hfi0Pc7ZheztIJVpO44ekY00b7akqc6nZcvregk0Jpah3kep6hA==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@typescript-eslint/types@8.46.4':
+    resolution: {integrity: sha512-USjyxm3gQEePdUwJBFjjGNG18xY9A2grDVGuk7/9AkjIF1L+ZrVnwR5VAU5JXtUnBL/Nwt3H31KlRDaksnM7/w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@typescript-eslint/typescript-estree@7.18.0':
@@ -2365,6 +2373,10 @@ packages:
 
   '@typescript-eslint/visitor-keys@8.46.3':
     resolution: {integrity: sha512-uk574k8IU0rOF/AjniX8qbLSGURJVUCeM5e4MIMKBFFi8weeiLrG1fyQejyLXQpRZbU/1BuQasleV/RfHC3hHg==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@typescript-eslint/visitor-keys@8.46.4':
+    resolution: {integrity: sha512-/++5CYLQqsO9HFGLI7APrxBJYo+5OCMpViuhV8q5/Qa3o5mMrF//eQHks+PXcsAVaLdn817fMuS7zqoXNNZGaw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@unrs/resolver-binding-android-arm-eabi@1.11.1':
@@ -8142,7 +8154,7 @@ snapshots:
       - tailwindcss
       - vue
 
-  '@kurocado-studio/ui-react-research-and-development@1.0.0-develop.11(@vueuse/core@14.0.0(vue@3.5.24(typescript@5.9.3)))(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(vue@3.5.24(typescript@5.9.3))':
+  '@kurocado-studio/ui-react-research-and-development@1.0.0-develop.13(@vueuse/core@14.0.0(vue@3.5.24(typescript@5.9.3)))(react-dom@19.0.0(react@19.0.0))(tailwindcss@4.1.17)(vue@3.5.24(typescript@5.9.3))':
     dependencies:
       '@emotion/is-prop-valid': 1.4.0
       '@headlessui/react': 2.2.9(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -10232,6 +10244,11 @@ snapshots:
       '@typescript-eslint/types': 8.46.3
       '@typescript-eslint/visitor-keys': 8.46.3
 
+  '@typescript-eslint/scope-manager@8.46.4':
+    dependencies:
+      '@typescript-eslint/types': 8.46.4
+      '@typescript-eslint/visitor-keys': 8.46.4
+
   '@typescript-eslint/tsconfig-utils@8.46.3(typescript@5.9.3)':
     dependencies:
       typescript: 5.9.3
@@ -10251,6 +10268,8 @@ snapshots:
   '@typescript-eslint/types@7.18.0': {}
 
   '@typescript-eslint/types@8.46.3': {}
+
+  '@typescript-eslint/types@8.46.4': {}
 
   '@typescript-eslint/typescript-estree@7.18.0(typescript@5.9.3)':
     dependencies:
@@ -10313,6 +10332,11 @@ snapshots:
   '@typescript-eslint/visitor-keys@8.46.3':
     dependencies:
       '@typescript-eslint/types': 8.46.3
+      eslint-visitor-keys: 4.2.1
+
+  '@typescript-eslint/visitor-keys@8.46.4':
+    dependencies:
+      '@typescript-eslint/types': 8.46.4
       eslint-visitor-keys: 4.2.1
 
   '@unrs/resolver-binding-android-arm-eabi@1.11.1':
@@ -11708,7 +11732,7 @@ snapshots:
 
   eslint-plugin-testing-library@7.13.3(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3):
     dependencies:
-      '@typescript-eslint/scope-manager': 8.46.3
+      '@typescript-eslint/scope-manager': 8.46.4
       '@typescript-eslint/utils': 8.46.3(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       eslint: 9.39.1(jiti@2.6.1)
     transitivePeerDependencies:

@@ -129,7 +129,7 @@ export interface FormDesignerContext {
 export interface QuestionsStore {
   createQuestionState: ApiState;
   questionIdBeingEdited: string | undefined;
-  handleSetQuestionToBeEdited: (payload: { id: string }) => void;
+  handleSetQuestionToBeEdited: (payload: { id?: string }) => void;
   handleUpdateQuestionsStoreApiState: (
     apiState: ApiState,
     name: QuestionStoreApiNames,
