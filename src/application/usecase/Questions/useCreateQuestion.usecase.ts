@@ -3,7 +3,10 @@ import { type Question, VariantEnum } from '@kurocado-studio/formkit-ui-models';
 import React from 'react';
 
 import { axiosFormKitInstance } from '../../../config/axiosFormKitInstance';
-import { KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT } from '../../../config/constants';
+import {
+  EMPTY_QUESTION_NODE,
+  KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT,
+} from '../../../config/constants';
 import { useFormDesignerContext } from '../../../context/FormDesignerContext';
 import { usePanelsAndModalsContext } from '../../../context/PanelsAndModalsContext';
 import {
@@ -12,7 +15,6 @@ import {
 } from '../../../enums';
 import type {
   QuestionCreatorPayload,
-  QuestionCreatorReturnType,
   TextFieldQuestionCreatorDto,
   UseCreateQuestionUseCase,
 } from '../../../types';
@@ -53,7 +55,7 @@ export const useCreateTextFieldQuestionUseCase: UseCreateQuestionUseCase =
 
     const handleCreateQuestion = async (
       payload: QuestionCreatorPayload,
-    ): Promise<QuestionCreatorReturnType> => {
+    ): Promise<Question> => {
       const { question, variant } = payload;
 
       const data = {
@@ -63,14 +65,12 @@ export const useCreateTextFieldQuestionUseCase: UseCreateQuestionUseCase =
 
       try {
         resetState();
-        const question: Question | undefined = await createQuestionHandler({
+        const question: Question = await createQuestionHandler({
           url: `/api/v1/organizations/${KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT}/forms/${formIdBeingEdited}/sections/${sectionIdBeingEdited}/questions`,
           method: 'POST',
           //   @ts-expect-error while we sync typings
           data,
         });
-
-        if (question === undefined) return;
 
         const { id } = question;
 
@@ -84,13 +84,13 @@ export const useCreateTextFieldQuestionUseCase: UseCreateQuestionUseCase =
         }
         return question;
       } catch {
-        return undefined;
+        return EMPTY_QUESTION_NODE;
       }
     };
 
     const executeCreateTextFieldQuestion = async (
       payload: TextFieldQuestionCreatorDto,
-    ): Promise<QuestionCreatorReturnType> => {
+    ): Promise<Question> => {
       const { question, variant } = payload;
 
       return handleCreateQuestion({

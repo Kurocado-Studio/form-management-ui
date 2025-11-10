@@ -28,8 +28,8 @@ export const useReadQuestionUseCase: UseReadQuestionUseCase = () => {
     const id = get(payload, ['question', 'id']);
 
     handleSetQuestionToBeEdited({ id });
-    scrollToElement(id);
     handleFormDesignerState(QUESTION);
+    scrollToElement(id);
 
     if (shouldTriggerMobilePanel) {
       handlePanelsAndModalsState(FORM_DESIGNER_PANEL);

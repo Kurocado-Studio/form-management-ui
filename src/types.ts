@@ -53,7 +53,14 @@ export type UseGetFormById = () => {
   getFormById: (id: string) => Promise<Form>;
 };
 
-export type FormsNodeTree = {
+export type FormsNodeTree = Record<
+  string,
+  Omit<Form, 'sections'> & {
+    sections: Record<string, SectionNodeTree>;
+  }
+>;
+
+export type FormsNodeTreeFallback = {
   [formId: string]: Omit<Form, 'sections'> & {
     sections: {
       [sectionId: string]: SectionNodeTree;
@@ -103,12 +110,10 @@ export interface QuestionCreatorPayload extends Record<string, unknown> {
   variant: VariantCreatorDto;
 }
 
-export type QuestionCreatorReturnType = Question | undefined;
-
 export type UseCreateQuestionUseCase = () => {
   executeCreateTextFieldQuestion: (
     payload: TextFieldQuestionCreatorDto,
-  ) => Promise<QuestionCreatorReturnType>;
+  ) => Promise<Question>;
 };
 
 export interface FormViewContextType {
@@ -124,7 +129,7 @@ export interface FormDesignerContext {
 export interface QuestionsStore {
   createQuestionState: ApiState;
   questionIdBeingEdited: string | undefined;
-  handleSetQuestionToBeEdited: (payload: { id: string | undefined }) => void;
+  handleSetQuestionToBeEdited: (payload: { id: string }) => void;
   handleUpdateQuestionsStoreApiState: (
     apiState: ApiState,
     name: QuestionStoreApiNames,
@@ -132,12 +137,16 @@ export interface QuestionsStore {
 }
 
 export type UseReadFormUseCase = () => {
-  executeReadForm: (payload: { id: string | undefined }) => void;
+  executeReadForm: (payload: { id: string }) => void;
+};
+
+export type UseGetFormByIdUseCase = () => {
+  executeGetFormById: (payload: { id: string }) => Promise<FormsNodeTree>;
 };
 
 export interface SectionsStore {
   sectionIdBeingEdited: string | undefined;
-  handleUpdateSectionBeingEdited: (payload: { id: string | undefined }) => void;
+  handleUpdateSectionBeingEdited: (payload: { id: string }) => void;
 }
 
 export type FormDesignerComponentMap = {

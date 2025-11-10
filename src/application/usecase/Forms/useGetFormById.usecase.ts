@@ -5,30 +5,17 @@ import React from 'react';
 
 import { axiosFormKitInstance } from '../../../config/axiosFormKitInstance';
 import { KUROCADO_STUDIO_ORGANIZATION_ID_FORMKIT } from '../../../config/constants';
-import { useFormDesignerContext } from '../../../context/FormDesignerContext';
-import { FormDesignerPanelsEnum } from '../../../enums';
-import type { FormsNodeTree } from '../../../types';
+import type { FormsNodeTree, UseGetFormByIdUseCase } from '../../../types';
 import { useFormKitStore } from '../../useFormikStore';
-
-export type UseGetFormByIdUseCase = () => {
-  executeGetFormById: (payload: {
-    id: string;
-  }) => Promise<FormsNodeTree | undefined>;
-};
-
-const { FORM } = FormDesignerPanelsEnum;
 
 export const useGetFormByIdUseCase: UseGetFormByIdUseCase = () => {
   const {
     formsNodeTree,
-    handleSetQuestionToBeEdited,
     handleUpdateFormsStoreApiState,
     handleSetFormBeingEdited,
     handleComposeFormsNodeTree,
     handleUpdateSectionBeingEdited,
   } = useFormKitStore((state) => state);
-
-  const { handleFormDesignerState } = useFormDesignerContext();
 
   const [{ resetState, isLoading, error }, getSingleFormHandler] =
     useAxios<Form>({
@@ -41,7 +28,7 @@ export const useGetFormByIdUseCase: UseGetFormByIdUseCase = () => {
 
   const executeGetFormById = async (payload: {
     id: string;
-  }): Promise<FormsNodeTree | undefined> => {
+  }): Promise<FormsNodeTree> => {
     const { id } = payload;
 
     try {
@@ -52,18 +39,14 @@ export const useGetFormByIdUseCase: UseGetFormByIdUseCase = () => {
         method: 'GET',
       });
 
-      if (formById === undefined) return;
-
       handleComposeFormsNodeTree({ forms: [formById] });
-      handleSetQuestionToBeEdited({ id: undefined });
       handleSetFormBeingEdited({ id: formById.id });
       handleUpdateSectionBeingEdited({
         id: get(formById, ['sections', 0, 'id']),
       });
-      handleFormDesignerState(FORM);
       return formsNodeTree;
     } catch {
-      return undefined;
+      return formsNodeTree;
     }
   };
 

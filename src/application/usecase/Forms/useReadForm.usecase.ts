@@ -11,8 +11,7 @@ import type { UseReadFormUseCase } from '../../../types';
 import { useFormKitStore } from '../../useFormikStore';
 
 export const useReadFormUseCase: UseReadFormUseCase = () => {
-  const { handleSetFormBeingEdited, handleSetQuestionToBeEdited } =
-    useFormKitStore();
+  const { handleSetFormBeingEdited } = useFormKitStore();
 
   const { handlePanelsAndModalsState } = usePanelsAndModalsContext();
   const { handleFormDesignerState } = useFormDesignerContext();
@@ -24,10 +23,9 @@ export const useReadFormUseCase: UseReadFormUseCase = () => {
   const shouldTriggerMobilePanel =
     size.innerWidth < VIEWPORT_WIDTH_TO_TRIGGER_MOBILE_PANEL;
 
-  const executeReadForm = (payload: { id: string | undefined }): void => {
+  const executeReadForm = (payload: { id: string }): void => {
     const { id } = payload;
 
-    handleSetQuestionToBeEdited({ id: undefined });
     handleSetFormBeingEdited({ id });
     handleFormDesignerState(FORM);
 

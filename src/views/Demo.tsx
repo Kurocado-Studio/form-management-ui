@@ -11,6 +11,7 @@ import { twMerge } from 'tailwind-merge';
 
 import { useFormKitService } from '../application/useFormKitService';
 import { useFormKitStore } from '../application/useFormikStore';
+import { useReadFormUseCase } from '../application/usecase/Forms/useReadForm.usecase';
 import { FormDesignerManager } from '../components/FormDesignerManager.tsx';
 import { Header } from '../components/Header';
 import { NodeDesignerControls } from '../components/NodeDesignerControls.tsx';
@@ -22,8 +23,6 @@ import {
   GRID_LAYOUT,
   KUROCADO_STUDIO_DEMO_FORM_ID,
 } from '../config/constants';
-import { useFormDesignerContext } from '../context/FormDesignerContext';
-import { FormDesignerPanelsEnum } from '../enums';
 
 const questionControlClassNames = [
   'z-20 col-span-12 mb-2 w-full',
@@ -33,14 +32,11 @@ const questionControlClassNames = [
 
 export function Demo(): React.ReactNode {
   const { executeGetFormById } = useFormKitService();
-  const { handleFormDesignerState } = useFormDesignerContext();
-  const {
-    getFormByIdState,
-    formsNodeTree,
-    handleSetQuestionToBeEdited,
-    formIdBeingEdited,
-    composePaths,
-  } = useFormKitStore();
+
+  const { getFormByIdState, formsNodeTree, formIdBeingEdited, composePaths } =
+    useFormKitStore();
+
+  const { executeReadForm } = useReadFormUseCase();
 
   const { toQuestions, toCurrentForm } = composePaths();
 
@@ -52,10 +48,10 @@ export function Demo(): React.ReactNode {
     EMPTY_FORM_NODE,
   );
 
-  const handleClickOnFormBackground = (): void => {
-    handleSetQuestionToBeEdited({ id: undefined });
-    handleFormDesignerState(FormDesignerPanelsEnum.FORM);
-  };
+  const handleReadCurrentFormById = React.useCallback((): void => {
+    if (!formIdBeingEdited) return;
+    executeReadForm({ id: formIdBeingEdited });
+  }, [formIdBeingEdited]);
 
   const questionsBeingEdited: Array<Question> = Object.values(questionsMap);
 
@@ -80,6 +76,12 @@ export function Demo(): React.ReactNode {
     isLoadingGetFormByIdApi,
     formIdBeingEdited,
   ]);
+
+  React.useEffect(() => {
+    if (formIdBeingEdited) {
+      handleReadCurrentFormById();
+    }
+  }, [formIdBeingEdited, handleReadCurrentFormById]);
 
   return (
     <main className='absolute inset-0 flex h-screen flex-col overflow-hidden bg-gray-100'>
@@ -140,7 +142,7 @@ export function Demo(): React.ReactNode {
           <div
             className='absolute inset-0 z-0'
             role='button'
-            onClick={handleClickOnFormBackground}
+            onClick={handleReadCurrentFormById}
           />
         </section>
         <div className='z-20 hidden h-full overflow-y-auto md:col-span-4 md:w-full lg:block'>
