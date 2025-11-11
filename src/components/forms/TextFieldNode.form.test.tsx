@@ -23,6 +23,9 @@ vi.mock('../../application/useFormikStore', () => ({
   useFormKitStore: vi.fn(),
 }));
 
+// eslint-disable-next-line unicorn/no-null
+userEvent.setup({ delay: null });
+
 describe('TextFieldNodeEditor', () => {
   let questionIdField: HTMLElement;
   let questionField: HTMLElement;
