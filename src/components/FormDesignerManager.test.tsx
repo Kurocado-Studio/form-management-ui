@@ -97,7 +97,6 @@ describe('FormDesignerManager', () => {
     render(<FormDesignerManager />);
 
     await waitFor(() => {
-      screen.debug();
       expect(screen.getByTestId('form-node-editor-panel')).toBeVisible();
     });
   });
