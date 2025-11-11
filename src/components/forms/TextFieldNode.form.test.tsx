@@ -14,7 +14,7 @@ import {
 } from '../../utils/mocks';
 import { TextFieldNodeEditor } from './TextFieldNode.form';
 
-const { render, screen } = ReactTestingLibrary;
+const { render, screen, waitFor } = ReactTestingLibrary;
 
 vi.mock('../../application/useFormKitService', () => ({
   useFormKitService: vi.fn(),
@@ -70,6 +70,8 @@ describe('TextFieldNodeEditor', () => {
     await userEvent.clear(questionField);
     await userEvent.type(questionField, mockedQuestion2.question);
 
-    expect(questionField).toHaveValue(mockedQuestion2.question);
+    await waitFor(() =>
+      expect(questionField).toHaveValue(mockedQuestion2.question),
+    );
   });
 });
