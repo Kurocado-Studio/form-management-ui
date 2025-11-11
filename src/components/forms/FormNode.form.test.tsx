@@ -81,4 +81,16 @@ describe('FormNodeEditor', () => {
     expect(errorElement).toBeInTheDocument();
     expect(mockExecuteUpdateForm).not.toHaveBeenCalled();
   });
+
+  it(`displays 'required' when description is empty`, async () => {
+    const errorElement = document.querySelector('[id$="-description-error"]'); // ends with -title-error
+
+    expect(descriptionLabel).toHaveValue('A test form');
+
+    await userEvent.clear(descriptionLabel);
+    await userEvent.tab();
+
+    expect(errorElement).toBeInTheDocument();
+    expect(mockExecuteUpdateForm).not.toHaveBeenCalled();
+  });
 });

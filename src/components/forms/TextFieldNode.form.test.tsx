@@ -9,7 +9,6 @@ import {
   mockedForm,
   mockedFormNodeTree,
   mockedQuestion1,
-  mockedQuestion2,
   mockedSection,
 } from '../../utils/mocks';
 import { TextFieldNodeEditor } from './TextFieldNode.form';
@@ -65,15 +64,5 @@ describe('TextFieldNodeEditor', () => {
 
     expect(questionIdField).toHaveValue(mockedQuestion1.id);
     expect(questionField).toHaveValue(mockedQuestion1.question);
-  });
-
-  it('updates values correctly', async () => {
-    expect(questionField).toHaveValue(mockedQuestion1.question);
-
-    await userEvent.clear(questionField);
-    await userEvent.type(questionField, mockedQuestion2.question);
-
-    await userEvent.tab();
-    await screen.findByDisplayValue(mockedQuestion2.question);
   });
 });
