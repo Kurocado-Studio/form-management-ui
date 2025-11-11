@@ -14,7 +14,7 @@ import { textFieldNodeFormSchema } from '../../schemas/textFieldNode.schema';
 import type { TextFieldNodeUpdaterSchema } from '../../types';
 import { JsonViewer } from '../JsonViewer';
 
-export function TextFieldNodeForm(): React.ReactNode {
+export function TextFieldNodeEditor(): React.ReactNode {
   const { formsNodeTree, composePaths } = useFormKitStore((state) => state);
   const { executeUpdateQuestion } = useFormKitService();
   const { fadeInBottom, fadeInDefault } = useFadeAnimations();
@@ -69,7 +69,7 @@ export function TextFieldNodeForm(): React.ReactNode {
               });
             }}
           >
-            <Controls.InputTextField name='id' disabled  label='Questio Id'/>
+            <Controls.InputTextField name='id' disabled label='Question Id' />
             <Controls.InputTextField name='question' label='Question' />
           </Controls.HtmlForm>
           <AnimateMotionPresence isVisible={isAnimationReady}>
