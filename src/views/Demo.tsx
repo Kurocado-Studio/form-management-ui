@@ -2,8 +2,11 @@
 /* eslint-disable unicorn/no-null */
 import type { Form, Question } from '@kurocado-studio/formkit-ui-models';
 import { useFadeAnimations } from '@kurocado-studio/react-design-system';
-import { Grid, Text } from '@kurocado-studio/ui-react-research-and-development';
-import { HtmlForm } from '@kurocado-studio/web-forms-react';
+import {
+  Controls,
+  Grid,
+  Text,
+} from '@kurocado-studio/ui-react-research-and-development';
 import { motion } from 'framer-motion';
 import { get } from 'lodash-es';
 import * as React from 'react';
@@ -24,7 +27,7 @@ import {
   KUROCADO_STUDIO_DEMO_FORM_ID,
 } from '../config/constants';
 
-const questionControlClassNames = [
+const questionControlWithinGridClassNamesOverwrites = [
   'z-20 col-span-12 mb-2 w-full',
   'md:col-span-12',
   'xl:col-span-10 xl:col-start-2',
@@ -91,12 +94,12 @@ export function Demo(): React.ReactNode {
       >
         <motion.div
           {...fadeInLeft.initial}
-          className='hidden h-full md:col-span-3 md:w-full lg:block xl:md:col-span-2'
+          className='z-20 hidden h-full md:col-span-3 md:w-full lg:block xl:md:col-span-2'
         >
           <QuestionCreator />
         </motion.div>
         <section className='relative z-10 col-span-12 w-full overflow-y-auto pt-24 md:pt-12 lg:col-span-5 xl:col-span-6'>
-          <HtmlForm id='form-designer-preview'>
+          <Controls.HtmlForm id='form-designer-preview'>
             <Grid
               {...GRID_LAYOUT}
               {...fadeInDefault.initial}
@@ -129,7 +132,9 @@ export function Demo(): React.ReactNode {
                     <NodeDesignerControls
                       key={question.id}
                       question={question}
-                      className={twMerge(questionControlClassNames)}
+                      className={twMerge(
+                        questionControlWithinGridClassNamesOverwrites,
+                      )}
                     >
                       <NodeRenderer questionBeingEdited={question} />
                     </NodeDesignerControls>
@@ -137,9 +142,15 @@ export function Demo(): React.ReactNode {
                 },
               )}
             </Grid>
-          </HtmlForm>
+          </Controls.HtmlForm>
           <div
-            className='absolute inset-0 z-0'
+            className={twMerge(
+              'cursor-pointer',
+              'border border-transparent',
+              'transition-colors duration-150',
+              'hover:border-1 hover:border-blue-400 hover:bg-gray-400/15',
+              'fixed inset-x-0 inset-y-0 z-0',
+            )}
             role='button'
             onClick={handleReadCurrentFormById}
           />

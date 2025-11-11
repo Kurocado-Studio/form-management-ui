@@ -44,9 +44,14 @@ export function NodeDesignerControls(
       {...restProperties}
       id={question.id}
       className={twMerge(
+        'cursor-pointer',
         className,
         question.id === questionIdBeingEdited &&
-          'ring-2 ring-blue-300 outline-none',
+          'ring-2 ring-blue-600 outline-none',
+        'outline-none hover:bg-gray-50',
+        question.id === questionIdBeingEdited
+          ? 'hover:ring-2 hover:ring-blue-600'
+          : 'hover:ring-1 hover:ring-blue-400',
       )}
       onFocus={shouldTriggerMobilePanel ? undefined : handleFocus}
       role='button'

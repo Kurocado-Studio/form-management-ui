@@ -43,6 +43,7 @@ export function Header(): React.ReactNode {
   return (
     <>
       <Grid
+        as='header'
         {...GRID_LAYOUT}
         {...fadeInBottom.initial}
         className={twMerge(
@@ -61,14 +62,14 @@ export function Header(): React.ReactNode {
         {...fadeInDefault.secondary}
         className='fixed inset-x-0 top-14 z-20 p-1 lg:hidden'
       >
-        <header className='col-span-5 w-full'>
+        <div className='col-span-5 w-full'>
           <Button
             disabled={getFormByIdState.isLoading}
             onClick={() => handlePanelsAndModalsState(QUESTION_SELECTOR_PANEL)}
           >
             Add Question
           </Button>
-        </header>
+        </div>
         <div className='col-span-5 col-start-8 flex w-full justify-end'>
           <Button
             disabled={getFormByIdState.isLoading}

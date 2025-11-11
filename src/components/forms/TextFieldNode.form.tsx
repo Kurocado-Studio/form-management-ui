@@ -4,7 +4,7 @@ import {
   Card,
   useFadeAnimations,
 } from '@kurocado-studio/react-design-system';
-import { HtmlForm } from '@kurocado-studio/web-forms-react';
+import { Controls } from '@kurocado-studio/ui-react-research-and-development';
 import { get } from 'lodash-es';
 import React from 'react';
 
@@ -13,9 +13,8 @@ import { useFormKitStore } from '../../application/useFormikStore';
 import { textFieldNodeFormSchema } from '../../schemas/textFieldNode.schema';
 import type { TextFieldNodeUpdaterSchema } from '../../types';
 import { JsonViewer } from '../JsonViewer';
-import { TextField } from '../controls/TextField';
 
-export function TextFieldNodeForm(): React.ReactNode {
+export function TextFieldNodeEditor(): React.ReactNode {
   const { formsNodeTree, composePaths } = useFormKitStore((state) => state);
   const { executeUpdateQuestion } = useFormKitService();
   const { fadeInBottom, fadeInDefault } = useFadeAnimations();
@@ -38,7 +37,6 @@ export function TextFieldNodeForm(): React.ReactNode {
 
   React.useEffect(() => {
     setIsAnimationReady(false);
-
     const timeout = setTimeout(() => {
       setDefaultValue({
         id: questionBeingEdited.id,
@@ -52,26 +50,28 @@ export function TextFieldNodeForm(): React.ReactNode {
   return (
     <Card
       {...fadeInBottom.initial}
+      data-testid='text-field-node-editor'
       className='relative block h-screen overflow-y-auto'
     >
       <AnimateMotionPresence mode={'sync'} isVisible={isAnimationReady}>
         <Card.Body {...fadeInDefault.initial}>
-          <HtmlForm<TextFieldNodeUpdaterSchema>
+          <Controls.HtmlForm<TextFieldNodeUpdaterSchema>
             schema={textFieldNodeFormSchema}
             id={defaultValue.id}
             key={defaultValue.id}
+            className={'space-y-4'}
             defaultValue={isAnimationReady ? defaultValue : questionBeingEdited}
             shouldValidate='onInput'
             shouldRevalidate='onInput'
-            onSuccess={(updatedQuestion) => {
+            onSuccess={(updatedQuestion: TextFieldNodeUpdaterSchema) => {
               executeUpdateQuestion({
                 updatedQuestionProperties: updatedQuestion,
               });
             }}
           >
-            <TextField name='id' disabled />
-            <TextField name='question' label='Question' />
-          </HtmlForm>
+            <Controls.InputTextField name='id' disabled label='Question Id' />
+            <Controls.InputTextField name='question' label='Question' />
+          </Controls.HtmlForm>
           <AnimateMotionPresence isVisible={isAnimationReady}>
             <JsonViewer payload={questionMap[defaultValue.id]} />
           </AnimateMotionPresence>
