@@ -2,8 +2,11 @@
 /* eslint-disable unicorn/no-null */
 import type { Form, Question } from '@kurocado-studio/formkit-ui-models';
 import { useFadeAnimations } from '@kurocado-studio/react-design-system';
-import { Grid, Text } from '@kurocado-studio/ui-react-research-and-development';
-import { HtmlForm } from '@kurocado-studio/web-forms-react';
+import {
+  Controls,
+  Grid,
+  Text,
+} from '@kurocado-studio/ui-react-research-and-development';
 import { motion } from 'framer-motion';
 import { get } from 'lodash-es';
 import * as React from 'react';
@@ -96,7 +99,7 @@ export function Demo(): React.ReactNode {
           <QuestionCreator />
         </motion.div>
         <section className='relative z-10 col-span-12 w-full overflow-y-auto pt-24 md:pt-12 lg:col-span-5 xl:col-span-6'>
-          <HtmlForm id='form-designer-preview'>
+          <Controls.HtmlForm id='form-designer-preview'>
             <Grid
               {...GRID_LAYOUT}
               {...fadeInDefault.initial}
@@ -139,7 +142,7 @@ export function Demo(): React.ReactNode {
                 },
               )}
             </Grid>
-          </HtmlForm>
+          </Controls.HtmlForm>
           <div
             className={twMerge(
               'cursor-pointer',
