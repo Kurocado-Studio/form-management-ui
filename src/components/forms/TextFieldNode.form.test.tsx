@@ -9,6 +9,7 @@ import {
   mockedForm,
   mockedFormNodeTree,
   mockedQuestion1,
+  mockedQuestion2,
   mockedSection,
 } from '../../utils/mocks';
 import { TextFieldNodeEditor } from './TextFieldNode.form';
@@ -70,9 +71,9 @@ describe('TextFieldNodeEditor', () => {
     expect(questionField).toHaveValue(mockedQuestion1.question);
 
     await userEvent.clear(questionField);
-    await userEvent.type(questionField, 'New question about this form');
+    await userEvent.type(questionField, mockedQuestion2.question);
 
     await userEvent.tab();
-    expect(questionField).toHaveValue('New question about this form');
+    await screen.findByDisplayValue(mockedQuestion2.question);
   });
 });
