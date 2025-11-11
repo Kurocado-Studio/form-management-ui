@@ -4,7 +4,7 @@ import {
   Card,
   useFadeAnimations,
 } from '@kurocado-studio/react-design-system';
-import { HtmlForm } from '@kurocado-studio/web-forms-react';
+import { Controls } from '@kurocado-studio/ui-react-research-and-development';
 import { get } from 'lodash-es';
 import React from 'react';
 
@@ -15,8 +15,6 @@ import {
   formNodeFormSchema,
 } from '../../schemas/formNode.schema';
 import { JsonViewer } from '../JsonViewer';
-import { TextArea } from '../controls/TextArea';
-import { TextField } from '../controls/TextField';
 
 export function FormNodeEditor(): React.ReactNode {
   const { formsNodeTree, composePaths } = useFormKitStore((state) => state);
@@ -49,8 +47,9 @@ export function FormNodeEditor(): React.ReactNode {
       className='relative block h-full overflow-y-auto'
     >
       <Card.Body>
-        <HtmlForm<FormNodeUpdaterSchema>
+        <Controls.HtmlForm<FormNodeUpdaterSchema>
           key={`html-form-${id}`}
+          className={'space-y-4'}
           schema={formNodeFormSchema}
           defaultValue={defaultValue}
           shouldValidate='onInput'
@@ -59,10 +58,10 @@ export function FormNodeEditor(): React.ReactNode {
             executeUpdateForm({ updatedProperties });
           }}
         >
-          <TextField name='id' disabled />
-          <TextField name='title' label='Title' />
-          <TextArea name='description' label='Description' />
-        </HtmlForm>
+          <Controls.InputTextField name='id' label='Form Id' disabled />
+          <Controls.InputTextField name='title' label='Title' />
+          <Controls.InputTextArea name='description' label='Description' />
+        </Controls.HtmlForm>
         <AnimateMotionPresence isVisible>
           <JsonViewer key={id} payload={payload} />
         </AnimateMotionPresence>
