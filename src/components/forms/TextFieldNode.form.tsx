@@ -37,7 +37,6 @@ export function TextFieldNodeEditor(): React.ReactNode {
 
   React.useEffect(() => {
     setIsAnimationReady(false);
-
     const timeout = setTimeout(() => {
       setDefaultValue({
         id: questionBeingEdited.id,
@@ -64,6 +63,9 @@ export function TextFieldNodeEditor(): React.ReactNode {
             shouldValidate='onInput'
             shouldRevalidate='onInput'
             onSuccess={(updatedQuestion) => {
+              console.log({
+                updatedQuestionProperties: updatedQuestion,
+              });
               executeUpdateQuestion({
                 updatedQuestionProperties: updatedQuestion,
               });
