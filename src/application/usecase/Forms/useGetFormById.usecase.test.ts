@@ -2,7 +2,7 @@ import { useAxios } from '@kurocado-studio/axios-react';
 import type { Form } from '@kurocado-studio/formkit-ui-models';
 import { ReactTestingLibrary } from '@kurocado-studio/qa';
 
-import { useFormKitStore } from '../../useFormikStore';
+import { FormKitStore, useFormKitStore } from '../../useFormikStore';
 import { useGetFormByIdUseCase } from './useGetFormById.usecase';
 
 const { act, renderHook } = ReactTestingLibrary;
@@ -30,7 +30,7 @@ describe('useGetFormByIdUseCase', () => {
     vi.clearAllMocks();
 
     (useFormKitStore as unknown as ReturnType<typeof vi.fn>).mockImplementation(
-      (selector) =>
+      (selector: (payload: Partial<FormKitStore>) => FormKitStore) =>
         selector({
           formsNodeTree: formsNodeTreeMock,
           handleUpdateFormsStoreApiState,

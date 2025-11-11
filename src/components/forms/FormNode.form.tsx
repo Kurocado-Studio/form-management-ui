@@ -54,7 +54,7 @@ export function FormNodeEditor(): React.ReactNode {
           defaultValue={defaultValue}
           shouldValidate='onInput'
           shouldRevalidate='onInput'
-          onSuccess={(updatedProperties) => {
+          onSuccess={(updatedProperties: FormNodeUpdaterSchema) => {
             executeUpdateForm({ updatedProperties });
           }}
         >

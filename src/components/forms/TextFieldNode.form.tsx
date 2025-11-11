@@ -63,7 +63,7 @@ export function TextFieldNodeEditor(): React.ReactNode {
             defaultValue={isAnimationReady ? defaultValue : questionBeingEdited}
             shouldValidate='onInput'
             shouldRevalidate='onInput'
-            onSuccess={(updatedQuestion) => {
+            onSuccess={(updatedQuestion: TextFieldNodeUpdaterSchema) => {
               executeUpdateQuestion({
                 updatedQuestionProperties: updatedQuestion,
               });
