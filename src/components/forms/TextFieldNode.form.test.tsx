@@ -8,7 +8,8 @@ import { useFormKitStore } from '../../application/useFormikStore';
 import {
   mockedForm,
   mockedFormNodeTree,
-  mockedQuestion1, mockedQuestion2,
+  mockedQuestion1,
+  mockedQuestion2,
   mockedSection,
 } from '../../utils/mocks';
 import { TextFieldNodeEditor } from './TextFieldNode.form';
