@@ -6,7 +6,7 @@ import { vi } from 'vitest';
 import { useFormKitStore } from '../application/useFormikStore';
 import { useFormDesignerContext } from '../context/FormDesignerContext';
 import { usePanelsAndModalsContext } from '../context/PanelsAndModalsContext';
-import {FormDesignerPanelsEnum, ModalsAndPanelsViewsEnum} from '../enums';
+import { FormDesignerPanelsEnum, ModalsAndPanelsViewsEnum } from '../enums';
 import {
   mockedForm,
   mockedFormNodeTree,
@@ -91,8 +91,8 @@ describe('FormDesignerManager', () => {
         [ModalsAndPanelsViewsEnum.QUESTION_SELECTOR_PANEL]: false,
         [ModalsAndPanelsViewsEnum.FORM_DESIGNER_PANEL]: true,
         [ModalsAndPanelsViewsEnum.UNKNOWN]: false,
-      }
-    })
+      },
+    });
 
     render(<FormDesignerManager />);
 
