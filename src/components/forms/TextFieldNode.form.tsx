@@ -50,6 +50,7 @@ export function TextFieldNodeEditor(): React.ReactNode {
   return (
     <Card
       {...fadeInBottom.initial}
+      data-testid='text-field-node-editor'
       className='relative block h-screen overflow-y-auto'
     >
       <AnimateMotionPresence mode={'sync'} isVisible={isAnimationReady}>
@@ -63,9 +64,6 @@ export function TextFieldNodeEditor(): React.ReactNode {
             shouldValidate='onInput'
             shouldRevalidate='onInput'
             onSuccess={(updatedQuestion) => {
-              console.log({
-                updatedQuestionProperties: updatedQuestion,
-              });
               executeUpdateQuestion({
                 updatedQuestionProperties: updatedQuestion,
               });

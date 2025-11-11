@@ -55,7 +55,10 @@ function FormDesignerPanel(
       isOpen={panelsAndModalsState[FORM_DESIGNER_PANEL]}
     >
       {children}
-      <div className='absolute right-8 bottom-8 left-8'>
+      <div
+        data-testid='form-node-editor-panel'
+        className='absolute right-8 bottom-8 left-8'
+      >
         <Button fullWidth onClick={handleQuestionSelectorPanel}>
           Close Panel
         </Button>
@@ -65,5 +68,5 @@ function FormDesignerPanel(
 }
 
 function FormDesigner(properties: React.PropsWithChildren): React.ReactNode {
-  return properties.children;
+  return <div data-testid='form-node-editor'>{properties.children};</div>;
 }
