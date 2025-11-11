@@ -8,7 +8,7 @@ import { useFormKitStore } from '../../application/useFormikStore';
 import {
   mockedForm,
   mockedFormNodeTree,
-  mockedQuestion1,
+  mockedQuestion1, mockedQuestion2,
   mockedSection,
 } from '../../utils/mocks';
 import { TextFieldNodeEditor } from './TextFieldNode.form';
@@ -67,8 +67,8 @@ describe('TextFieldNodeEditor', () => {
     expect(questionField).toHaveValue(mockedQuestion1.question);
 
     await userEvent.clear(questionField);
-    await userEvent.type(questionField, mockedQuestion1.id);
+    await userEvent.type(questionField, mockedQuestion2.question);
 
-    expect(questionField).toHaveValue(mockedQuestion1.id);
+    expect(questionField).toHaveValue(mockedQuestion2.question);
   });
 });
