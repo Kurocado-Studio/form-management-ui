@@ -136,7 +136,7 @@ export function Demo(): React.ReactNode {
                         questionControlWithinGridClassNamesOverwrites,
                       )}
                     >
-                      <NodeRenderer questionBeingEdited={question} />
+                      <NodeRenderer questionNode={question} />
                     </NodeDesignerControls>
                   );
                 },
@@ -144,6 +144,7 @@ export function Demo(): React.ReactNode {
             </Grid>
           </Controls.HtmlForm>
           <div
+            aria-label='Click to see the form'
             className={twMerge(
               'cursor-pointer',
               'border border-transparent',
