@@ -1,32 +1,13 @@
-// TODO: update styleguide to disable this rule on files ending with (.tsx)
-/* eslint-disable unicorn/no-null */
-import { type Question, VariantEnum } from '@kurocado-studio/formkit-ui-models';
-import { get } from 'lodash-es';
-import React from 'react';
-import { twMerge } from 'tailwind-merge';
+import {
+  type FormKitNodeVariantMap,
+  VariantEnum,
+  formRendererComposer,
+} from '@kurocado-studio/formkit-ui-react-renderer';
 
 import { TextFieldNode } from './nodes/TextFieldNode';
 
-export interface QuestionNodeTypeRendererProperties {
-  questionBeingEdited: Question;
-}
-
-const nodeComponentMap = {
+const nodeComponentMap: FormKitNodeVariantMap = {
   [VariantEnum.TEXT]: TextFieldNode,
 };
 
-export function NodeRenderer(
-  properties: QuestionNodeTypeRendererProperties,
-): React.ReactNode {
-  const { questionBeingEdited } = properties;
-  const variant = get(properties, ['questionBeingEdited', 'variant']);
-  const hidden = get(properties, ['questionBeingEdited', 'hidden']);
-
-  const MappedQuestionType = get(nodeComponentMap, [variant], () => null);
-
-  return (
-    <div className={twMerge(hidden && 'z-30 bg-amber-200/20')}>
-      <MappedQuestionType question={questionBeingEdited} />
-    </div>
-  );
-}
+export const NodeRenderer = formRendererComposer(nodeComponentMap);

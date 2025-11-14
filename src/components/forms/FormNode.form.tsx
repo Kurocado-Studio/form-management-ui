@@ -60,11 +60,7 @@ export function FormNodeEditor(): React.ReactNode {
         >
           <Controls.InputTextField name='id' label='Form Id' disabled />
           <Controls.InputTextField name='title' label='Title' />
-          <Controls.InputTextArea
-            data-testid={'ddffdfd'}
-            name='description'
-            label='Description'
-          />
+          <Controls.InputTextArea name='description' label='Description' />
         </Controls.HtmlForm>
         <AnimateMotionPresence isVisible>
           <JsonViewer key={id} payload={payload} />

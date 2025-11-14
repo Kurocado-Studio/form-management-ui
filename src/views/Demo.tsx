@@ -15,10 +15,10 @@ import { twMerge } from 'tailwind-merge';
 import { useFormKitService } from '../application/useFormKitService';
 import { useFormKitStore } from '../application/useFormikStore';
 import { useReadFormUseCase } from '../application/usecase/Forms/useReadForm.usecase';
-import { FormDesignerManager } from '../components/FormDesignerManager.tsx';
+import { FormDesignerManager } from '../components/FormDesignerManager';
 import { Header } from '../components/Header';
-import { NodeDesignerControls } from '../components/NodeDesignerControls.tsx';
-import { NodeRenderer } from '../components/NodeRenderer.tsx';
+import { NodeDesignerControls } from '../components/NodeDesignerControls';
+import { NodeRenderer } from '../components/NodeRenderer';
 import { QuestionCreator } from '../components/QuestionCreator';
 import {
   CONTAINER_MAX_WIDTH,
@@ -136,7 +136,7 @@ export function Demo(): React.ReactNode {
                         questionControlWithinGridClassNamesOverwrites,
                       )}
                     >
-                      <NodeRenderer questionBeingEdited={question} />
+                      <NodeRenderer questionNode={question} />
                     </NodeDesignerControls>
                   );
                 },
@@ -144,6 +144,7 @@ export function Demo(): React.ReactNode {
             </Grid>
           </Controls.HtmlForm>
           <div
+            aria-label='Click to see the form'
             className={twMerge(
               'cursor-pointer',
               'border border-transparent',

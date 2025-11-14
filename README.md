@@ -1,63 +1,40 @@
-# Kurocado Studio Tailwind React Template
+# FormKit — Builder
 
-[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/Kurocado-Studio/styleguide-react-template)
+This repository contains the form schema builder used to create, edit, and manage structured form
+definitions for the FormKit ecosystem. It generates the JSON schemas that the Consumer package
+renders.
 
-This template is already configured with the
-[engineering styleguide](https://kurocado-studio.github.io/styleguide) & is designed to help you go
-from "0 to Hello World" in five minutes or less—delivering both speed and quality without
-compromise.
+## What is FormKit?
 
-### Prerequisites
+FormKit is a framework for designing, managing, and rendering dynamic forms. It separates form
+creation from form consumption, allowing teams to define structured form schemas using the Builder
+and render them using the Consumer runtime. The goal is to standardize how forms are produced across
+projects while enabling consistency, reusability, and rapid iteration.
 
-Before setting up the project, ensure you have the following tools installed:
+FormKit provides:
 
-- If you don't have one, open an account with [Vercel](https://vercel.com)
+- A schema-based approach for defining form structure and behavior
+- A visual builder for authoring and maintaining those schemas
+- A React runtime that renders forms based on the generated schema
+- A clean separation between product-facing configuration and developer-facing implementation
 
-## Quick Start by deploying to Vercel
+FormKit evolved from the earlier codename “HTML Forms Factory,” which served as its initial
+architectural prototype.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FKurocado-Studio%2Fstyleguide-react-template&project-name=react-template&repository-name=react-template)
+This repository contains the form rendering runtime, which consumes JSON form definitions produced
+by the Builder. It includes the components, validation logic, and runtime behavior for rendering
+forms within React applications.
 
-## Have a JetBrains IDE?
+### Overview
 
-Use the [Documentation](https://kurocado-studio.github.io/dev-ops/document.html) pipeline via
-[GitHub Pages](https://pages.github.com) using
-[Writerside Jetbrains Plugin](https://plugins.jetbrains.com/plugin/20158-writerside)
+- Purpose: Centralized interface for building, validating, and maintaining form schemas
+- Output: JSON schema objects used by the Consumer package
+- Audience: Internal developers, demos, and R&D
 
-- Go to Repository Settings
-  - Navigate to your GitHub repository.
-  - Click on the **Settings** tab.
-- **Enable GitHub Pages**
-  - Scroll down to the **Pages** section in the left sidebar.
-  - Under **Build and deployment**, select **GitHub Actions** as the source.
-- Add the workflow to the main `ci.yaml` file, here is an example:
+### Documentation
 
-  ```yaml
-  name: CI/CD Pipeline
+- Project Overview: https://kurocado-studio.github.io/html-forms-service/landing.html
 
-  permissions:
-    contents: write
-    id-token: write
-    pages: write
-    pull-requests: write
+### Related Repositories
 
-  jobs:
-    document:
-      needs: lint
-      uses: kurocado-studio/platform/.github/workflows/workflow.document.yml@main
-      secrets:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        instance_id: dcs
-  ```
-
-- This will enable the [Documentation](https://kurocado-studio.github.io/dev-ops/document.html)
-  pipeline
-
-## What's next?
-
-- Need a back-end template? See the
-  [NestJS template](https://github.com/Kurocado-Studio/styleguide-nests-template)
-- Keep an eye out on
-  [@kurocado-studio/auth-zero](https://kurocado-studio.github.io/iam/auth0-by-okta.html), for more
-  information, see [the Identity and Access Management page](https://kurocado-studio.github.io/iam).
-  It will integrate your app in five minutes or less with [Auth0 by Okta](https://auth0.com/)
+- Consumer Renderer: https://github.com/Kurocado-Studio/format-consumer-demo
